@@ -82,9 +82,15 @@ WSGI_APPLICATION = 'booksweb.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 import dj_database_url
+import dj_database_url
+import os
+
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
+    )
 }
+
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
