@@ -90,6 +90,9 @@ DATABASES = {
         default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')
     )
 }
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3'))
+}
 
 
 STATIC_URL = '/static/'
