@@ -99,8 +99,10 @@ DATABASES = {
     )
 }
 
-import os
+
 STATIC_URL = '/static/'
+
+# For production, set STATIC_ROOT to a directory where you want to store collected static files.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Use WhiteNoise for static files
