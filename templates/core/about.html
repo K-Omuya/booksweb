@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - Books for All{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section */
+.about-hero {
+    padding: 80px 0;
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/api/placeholder/1200/500');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+}
+
+.about-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.about-hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+/* Our Story Section */
+.story-section {
+    padding: 60px 0;
+    background-color: var(--light-gray);
+}
+
+.story-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+}
+
+.story-image {
+    flex: 1;
+    min-width: 300px;
+}
+
+.story-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.story-content {
+    flex: 2;
+    min-width: 300px;
+}
+
+.timeline {
+    margin-top: 30px;
+    padding-left: 20px;
+    border-left: 3px solid var(--deep-blue);
+}
+
+.timeline-item {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--deep-blue);
+    left: -28px;
+    top: 6px;
+}
+
+/* Our Team Section */
+.team-section {
+    padding: 60px 0;
+    background-color: var(--light-gray);
+    text-align: center;
+}
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--deep-blue);
+}
+
+.team-member h3 {
+    margin-top: 15px;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.team-member p {
+    color: #777;
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 60px 0;
+    background-color: var(--deep-blue);
+    color: var(--white);
+    text-align: center;
+}
+
+.cta-buttons a {
+    margin: 10px;
+    display: inline-block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .story-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .team-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">About Us</li>
+        </ol>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="about-hero">
+    <div class="container">
+        <div class="about-hero-content">
+            <h1 class="about-hero-title">About Books for All</h1>
+            <p class="about-hero-subtitle">
+                We are dedicated to bridging educational inequality by ensuring every student has access to books through donations and exchanges, fostering a culture of learning and knowledge sharing.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Our Team Section -->
+<section class="team-section">
+    <div class="container">
+        <h2 class="section-title">Meet Our Team</h2>
+        <div class="team-container">
+
+            <!-- Founder -->
+            <div class="team-member">
+                <img src="{% static 'images/about.png' %}" alt="Children reading books">
+                <h3>Derrick Onsarigo</h3>
+                <p>Founder & CEO</p>
+                <p>"Empowering education through books."</p>
+            </div>
+
+            <!-- Co-Founder -->
+            <div class="team-member">
+                <img src="{% static 'images/about.png' %}" alt="Children reading books">
+                <h3>Jane Smith</h3>
+                <p>Co-Founder & CTO</p>
+                <p>"Driving innovation for accessible learning."</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Our Story Section -->
+<section class="story-section">
+    <div class="container">
+        <h2 class="section-title">Our Story</h2>
+        <div class="story-container">
+            <div class="story-image">
+                <img src="{% static 'images/about.png' %}" alt="Children reading books">
+            </div>
+            <div class="story-content">
+                <p>Books for All was founded in 2020 by Derrick Onsarigo, who witnessed firsthand the challenges many students face in accessing educational materials. Inspired by his own experiences and the needs he saw in communities across Kenya, Derrick envisioned a platform that would connect those who have books with those who need them.</p>
+                <p>What started as a small community initiative has grown into a nationwide movement, with book clubs established in schools across Kenya and thousands of books exchanged and donated to students in need.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2020</div>
+                        <div class="timeline-content">
+                            <p>Books for All was founded with the first book exchange program launched in Nairobi.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2021</div>
+                        <div class="timeline-content">
+                            <p>Expanded to 5 counties and established the first 10 school book clubs.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2022</div>
+                        <div class="timeline-content">
+                            <p>Reached 1,000+ book donations and launched the digital platform for wider accessibility.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023</div>
+                        <div class="timeline-content">
+                            <p>Partnered with national organizations to expand book clubs to 20+ counties.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024</div>
+                        <div class="timeline-content">
+                            <p>Celebrating our impact on over 5,000 students and planning expanded services nationwide.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Join Our Mission -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Join Our Mission</h2>
+            <p>Together, we can make education accessible to all children through the power of books.</p>
+            <div class="cta-buttons">
+                <a href="{% url 'donate_book' %}" class="btn">Donate Books</a>
+                <a href="{% url 'donate_money' %}" class="btn btn-outline">Support Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

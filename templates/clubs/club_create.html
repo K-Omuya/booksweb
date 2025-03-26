@@ -1,0 +1,498 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Book Club - Books for All{% endblock %}
+
+{% block extra_css %}
+<style>
+    .create-club-section {
+        padding: 60px 0;
+        background-color: var(--light-gray);
+    }
+    
+    .create-club-header {
+        margin-bottom: 40px;
+    }
+    
+    .create-club-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    
+    .club-info {
+        flex: 1;
+        min-width: 300px;
+        order: 1;
+    }
+    
+    .create-club-form-container {
+        flex: 2;
+        min-width: 300px;
+        order: 2;
+    }
+    
+    .club-form {
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+    }
+    
+    .form-title {
+        color: var(--deep-blue);
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    
+    .club-form .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .club-form label {
+        display: block;
+        color: var(--deep-blue);
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+    
+    .required-asterisk {
+        color: #dc3545;
+        margin-left: 3px;
+    }
+    
+    .club-form .form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+    }
+    
+    .club-form .form-control:focus {
+        border-color: var(--deep-blue);
+        outline: none;
+    }
+    
+    .info-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .info-title {
+        color: var(--deep-blue);
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    
+    .benefits-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+    
+    .benefit-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .benefit-icon {
+        width: 40px;
+        height: 40px;
+        background-color: var(--light-gray);
+        color: var(--deep-blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .requirements-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .requirement-item {
+        margin-bottom: 10px;
+        padding-left: 20px;
+        position: relative;
+    }
+    
+    .requirement-item::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: var(--deep-blue);
+    }
+    
+    .faq-item {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+    }
+    
+    .faq-item:last-child {
+        border-bottom: none;
+    }
+    
+    .faq-question {
+        font-weight: bold;
+        color: var(--deep-blue);
+        margin-bottom: 5px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+        color: var(--bright-orange);
+    }
+    
+    .faq-question::after {
+        content: '+';
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .faq-question.active::after {
+        transform: rotate(45deg);
+    }
+    
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding-left: 5px;
+    }
+    
+    .faq-answer.show {
+        max-height: 200px;
+    }
+    
+    .btn-container {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    @media (max-width: 992px) {
+        .club-info {
+            order: 2;
+        }
+        
+        .create-club-form-container {
+            order: 1;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'club_list' %}">Book Clubs</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create Book Club</li>
+        </ol>
+    </div>
+</nav>
+
+<section class="create-club-section">
+    <div class="container">
+        <div class="create-club-header">
+            <h1 class="section-title">Create a Book Club</h1>
+            <p class="text-center">Start a book club at your school to promote reading and serve as a collection point for book donations.</p>
+        </div>
+        
+        <div class="create-club-container">
+            <div class="club-info">
+                <div class="info-card">
+                    <h3 class="info-title">Benefits of Book Clubs</h3>
+                    
+                    <ul class="benefits-list">
+                        <li class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div>
+                                <h4>Access to Books</h4>
+                                <p>Receive book donations and serve as a distribution point for educational materials.</p>
+                            </div>
+                        </li>
+                        
+                        <li class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <h4>Promote Reading Culture</h4>
+                                <p>Encourage students to develop a love for reading and lifelong learning.</p>
+                            </div>
+                        </li>
+                        
+                        <li class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h4>Build Community</h4>
+                                <p>Create a space for students to discuss books and share ideas.</p>
+                            </div>
+                        </li>
+                        
+                        <li class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <h4>Recognition</h4>
+                                <p>Become part of a national network of school book clubs recognized for promoting literacy.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="info-title">Frequently Asked Questions</h3>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">How many students do we need to start a book club?</div>
+                        <div class="faq-answer">There is no minimum requirement, but we recommend at least 10 students to create an engaging environment for discussions and activities.</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Are there any costs involved?</div>
+                        <div class="faq-answer">No, registering a book club is completely free. Books for All provides resources and support at no cost to schools.</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">How soon will we receive books after registering?</div>
+                        <div class="faq-answer">After your club is approved, you can expect to receive an initial donation within 2-4 weeks, depending on your location.</div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Can primary and secondary schools both participate?</div>
+                        <div class="faq-answer">Yes, we welcome book clubs from both primary and secondary schools across Kenya.</div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="info-title">Requirements</h3>
+                    
+                    <ul class="requirements-list">
+                        <li class="requirement-item">A dedicated teacher or staff member to serve as the club patron</li>
+                        <li class="requirement-item">A secure space to store and manage books</li>
+                        <li class="requirement-item">Regular meetings (at least twice a month)</li>
+                        <li class="requirement-item">Commitment to maintaining records of book distributions</li>
+                        <li class="requirement-item">Participation in occasional Books for All events and initiatives</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="create-club-form-container">
+                <form class="club-form" method="post">
+                    {% csrf_token %}
+                    <h2 class="form-title">Book Club Details</h2>
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Club Name<span class="required-asterisk">*</span></label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.name.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.school_name.id_for_label }}">School Name<span class="required-asterisk">*</span></label>
+                                {{ form.school_name }}
+                                {% if form.school_name.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.school_name.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.county.id_for_label }}">County<span class="required-asterisk">*</span></label>
+                                {{ form.county }}
+                                {% if form.county.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.county.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.student_count.id_for_label }}">Number of Students<span class="required-asterisk">*</span></label>
+                                {{ form.student_count }}
+                                {% if form.student_count.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.student_count.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="form-title mt-4">Patron Information</h3>
+                    <p class="text-muted mb-3">The patron should be a teacher or staff member at the school who will oversee the book club.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.patron_name.id_for_label }}">Patron Name<span class="required-asterisk">*</span></label>
+                                {{ form.patron_name }}
+                                {% if form.patron_name.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.patron_name.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.patron_contact.id_for_label }}">Patron Contact Number<span class="required-asterisk">*</span></label>
+                                {{ form.patron_contact }}
+                                {% if form.patron_contact.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.patron_contact.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.patron_email.id_for_label }}">Patron Email<span class="required-asterisk">*</span></label>
+                        {{ form.patron_email }}
+                        {% if form.patron_email.errors %}
+                            <div class="text-danger">
+                                {% for error in form.patron_email.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div><div class="form-group">
+                        <label for="{{ form.description.id_for_label }}">Club Description</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="text-danger">
+                                {% for error in form.description.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <small class="text-muted">Provide a brief description of your book club, its goals, and any specific needs.</small>
+                    </div>
+                    
+                    <div class="btn-container">
+                        <a href="{% url 'club_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn">Create Book Club</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // FAQ accordion functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                // Toggle active class on question
+                this.classList.toggle('active');
+                
+                // Get the answer element
+                const answer = this.nextElementSibling;
+                
+                // Toggle show class on answer
+                if (answer.classList.contains('show')) {
+                    answer.classList.remove('show');
+                } else {
+                    // Optional: Close other answers
+                    document.querySelectorAll('.faq-answer.show').forEach(item => {
+                        if (item !== answer) {
+                            item.classList.remove('show');
+                            item.previousElementSibling.classList.remove('active');
+                        }
+                    });
+                    
+                    answer.classList.add('show');
+                }
+            });
+        });
+        
+        // Initialize form validation if needed
+        const clubForm = document.querySelector('.club-form');
+        if (clubForm) {
+            clubForm.addEventListener('submit', function(event) {
+                if (!this.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                
+                this.classList.add('was-validated');
+            });
+        }
+    });
+</script>
+{% endblock %}

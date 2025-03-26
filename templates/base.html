@@ -1,0 +1,988 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Books for All - Share a Book, Share a Dream{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Global Styles */
+:root {
+    --deep-blue: #004080;
+    --bright-orange: #FF8200;
+    --soft-green: #3CB371;
+    --dark-gray: #333333;
+    --light-gray: #F5F5F5;
+    --white: #FFFFFF;
+    --header-blue: #3f51b5;
+    --navy-blue: #10214e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--white);
+    color: var(--dark-gray);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: var(--bright-orange);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #e67300;
+    transform: translateY(-2px);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--deep-blue);
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* Header Styles */
+.top-bar {
+    background-color: var(--header-blue);
+    color: var(--white);
+    padding: 5px 0;
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-bar-contact {
+    display: flex;
+    gap: 20px;
+}
+
+.top-bar-contact a {
+    color: var(--white);
+}
+
+.top-bar-contact i {
+    margin-right: 5px;
+}
+
+/* Main Header */
+header {
+    background-color: var(--header-blue);
+    position: relative;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.8rem;
+    padding: 15px 0;
+}
+
+.logo i {
+    font-size: 2rem;
+    margin-right: 10px;
+    color: #FF0000;
+}
+
+.logo a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.login-btn, .register-btn {
+    background-color: transparent;
+    border: 1px solid var(--white);
+}
+
+.profile-btn {
+    background-color: transparent;
+    border: 1px solid var(--white);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Navigation */
+.main-nav {
+    background-color: var(--white);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: block;
+    padding: 20px 15px;
+    color: var(--deep-blue);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--bright-orange);
+}
+
+.dropdown-toggle::after {
+    content: '▼';
+    font-size: 0.7rem;
+    margin-left: 5px;
+}
+
+.dropdown-menu {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-item:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 15px;
+    color: var(--deep-blue);
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: var(--light-gray);
+    color: var(--bright-orange);
+}
+
+/* Message Container */
+.message-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* Forms */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--deep-blue);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--deep-blue);
+}
+
+.errorlist {
+    color: #dc3545;
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    font-size: 0.85rem;
+}
+
+.helptext {
+    color: #777;
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('../images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero::before {
+    content: "";
+    background: rgba(0, 64, 128, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--bright-orange);
+    color: white;
+}
+
+.btn-outline:hover {
+    background-color: var(--bright-orange);
+    color: white;
+}
+
+/* Footer */
+footer {
+    background-color: var(--navy-blue);
+    color: var(--white);
+    padding: 60px 0 30px;
+    flex-shrink: 0;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.footer-tagline {
+    margin-bottom: 20px;
+}
+
+.footer-title {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: var(--bright-orange);
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: var(--white);
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--bright-orange);
+    padding-left: 5px;
+}
+
+.contact-info li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.contact-info i {
+    color: var(--bright-orange);
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background-color: var(--bright-orange);
+    transform: translateY(-5px);
+}
+
+.copyright {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--bright-orange);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+}
+
+.back-to-top:hover {
+    background-color: var(--deep-blue);
+    transform: translateY(-5px);
+}
+
+.back-to-top.show {
+    opacity: 1;
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 25px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .nav-list {
+        flex-wrap: wrap;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .top-bar-contact {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-contact">
+                <a href="mailto:Bookforall@prc.cx"><i class="fas fa-envelope"></i> Bookforall@prc.cx</a>
+                <span><i class="fas fa-clock"></i> Mon - Sat: 8.00 am - 5.00 pm</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="{% url 'home' %}">
+                        <i class="fas fa-book-open"></i> Books_for_All
+                    </a>
+                </div>
+                <div class="header-actions">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="btn profile-btn">
+                            <i class="fas fa-user"></i> Profile <i class="fas fa-chevron-down"></i>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn login-btn">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="{% url 'register' %}" class="btn register-btn">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Navigation -->
+<nav class="main-nav navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'about' %}" class="dropdown-item">Our Team</a></li>
+                        <li><a href="{% url 'features' %}" class="dropdown-item">Our Features</a></li>
+                        <li><a href="{% url 'about'%}"class="dropdown-item">Testimonials</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Exchange</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'book_upload' %}" class="dropdown-item">Upload Book</a></li>
+                        <li><a href="{% url 'book_list' %}" class="dropdown-item">Book Catalogue</a></li>
+                        <li><a href="{% url 'book_list' %}" class="dropdown-item">Donated Books</a></li>
+                        <li><a href="{% url 'my_books' %}" class="dropdown-item">My Books</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Donate</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'donate_money' %}" class="dropdown-item">Donate Money</a></li>
+                        <li><a href="{% url 'pledge_donation' %}" class="dropdown-item">Pledge Book</a></li>
+                        <li><a href="{% url 'donate_book' %}" class="dropdown-item">Donate Book</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Clubs</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'club_create' %}" class="dropdown-item">Create Book Club</a></li>
+                        <li><a href="{% url 'club_list' %}" class="dropdown-item">Book Clubs</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'blog_list' %}" class="nav-link">Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'contact' %}" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    
+    <!-- Message Alerts -->
+    {% if messages %}
+    <div class="message-container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <i class="fas fa-book-open"></i> Books for All
+                    </div>
+                    <div class="footer-tagline">SHARE A BOOK, SHARE A DREAM.</div>
+                    <p>Bridging the educational inequality by ensuring every student has access to books.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'blog_list' %}">Blogs</a></li>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="{% url 'book_list' %}">Books Catalogue</a></li>
+                        <li><a href="{% url 'about' %}#features">Our Features</a></li>
+                        <li><a href="{% url 'club_list' %}">Book Clubs</a></li>
+                        <li><a href="{% url 'about' %}#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Address: 753-10101, Westlands, Nairobi</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>Mail Us: <a href="mailto:Bookforall@prc.cx">Bookforall@prc.cx</a></span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>Telephone: +254 703 128 764</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Social Media Links</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; {% now "Y" %} Books for All. All Rights Reserved.
+            </div>
+        </div>
+        
+        <!-- Back to Top Button -->
+        <a href="#" class="back-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </footer>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery (for custom functionality) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+
+    <script>
+    
+    // Back to top button
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (backToTopBtn) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    
+    // Initialize Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    if (tooltipTriggerList.length > 0) {
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
+    
+    // Form validation styling
+    const forms = document.querySelectorAll('.needs-validation');
+    
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            form.classList.add('was-validated');
+        }, false);
+    });
+    
+    // Image preview for file uploads
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    
+    fileInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const preview = this.parentElement.querySelector('.preview-image');
+            if (preview && this.files && this.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+    
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navList = document.querySelector('.nav-list');
+    
+    if (mobileMenuToggle && navList) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navList.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    }
+    
+    // Testimonials slider (simple version)
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    if (testimonialCards.length > 1) {
+        let currentTestimonial = 0;
+        
+        // Show only the first testimonial on mobile
+        // Show only the first testimonial on mobile
+        function updateTestimonialDisplay() {
+            if (window.innerWidth < 768) {
+                testimonialCards.forEach((card, index) => {
+                    if (index === currentTestimonial) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            } else {
+                testimonialCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+        }
+        
+        // Initialize testimonial display
+        updateTestimonialDisplay();
+        
+        // Listen for window resize
+        window.addEventListener('resize', updateTestimonialDisplay);
+        
+        // Create navigation buttons for mobile
+        if (testimonialCards.length > 1) {
+            const testimonialSection = document.querySelector('.testimonials-slider');
+            
+            if (testimonialSection) {
+                const navContainer = document.createElement('div');
+                navContainer.className = 'testimonial-nav';
+                navContainer.style.textAlign = 'center';
+                navContainer.style.marginTop = '20px';
+                
+                const prevBtn = document.createElement('button');
+                prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                prevBtn.className = 'btn btn-sm';
+                prevBtn.style.marginRight = '10px';
+                
+                const nextBtn = document.createElement('button');
+                nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                nextBtn.className = 'btn btn-sm';
+                
+                prevBtn.addEventListener('click', function() {
+                    currentTestimonial = (currentTestimonial - 1 + testimonialCards.length) % testimonialCards.length;
+                    updateTestimonialDisplay();
+                });
+                
+                nextBtn.addEventListener('click', function() {
+                    currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+                    updateTestimonialDisplay();
+                });
+                
+                navContainer.appendChild(prevBtn);
+                navContainer.appendChild(nextBtn);
+                
+                testimonialSection.appendChild(navContainer);
+            }
+        }
+    }
+    
+    // Payment processing simulation
+    const paymentForm = document.querySelector('.payment-form');
+    
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                // Replace with actual form submission or API call
+                window.location.href = this.dataset.successUrl || '/donations/success/';
+            }, 2000);
+        });
+    }
+    
+    // Book filter functionality
+    const filterForms = document.querySelectorAll('.filter-form');
+    
+    filterForms.forEach(form => {
+        const filterInputs = form.querySelectorAll('input, select');
+        
+        filterInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                form.submit();
+            });
+        });
+    });
+    
+    // Password strength meter
+    const passwordInputs = document.querySelectorAll('input[type="password"]');
+    
+    passwordInputs.forEach(input => {
+        if (input.id === 'id_password1' || input.id.includes('password1')) {
+            const strengthMeter = document.createElement('div');
+            strengthMeter.className = 'password-strength';
+            strengthMeter.innerHTML = `
+                <div class="strength-meter">
+                    <div class="strength-meter-fill"></div>
+                </div>
+                <div class="strength-text"></div>
+            `;
+            
+            input.parentNode.insertBefore(strengthMeter, input.nextSibling);
+            
+            const strengthMeterFill = strengthMeter.querySelector('.strength-meter-fill');
+            const strengthText = strengthMeter.querySelector('.strength-text');
+            
+            input.addEventListener('input', function() {
+                const value = this.value;
+                let strength = 0;
+                
+                // Check password length
+                if (value.length >= 8) {
+                    strength += 25;
+                }
+                
+                // Check for uppercase letters
+                if (/[A-Z]/.test(value)) {
+                    strength += 25;
+                }
+                
+                // Check for numbers
+                if (/[0-9]/.test(value)) {
+                    strength += 25;
+                }
+                
+                // Check for special characters
+                if (/[^A-Za-z0-9]/.test(value)) {
+                    strength += 25;
+                }
+                
+                // Update meter
+                strengthMeterFill.style.width = `${strength}%`;
+                
+                // Update text
+                if (strength <= 25) {
+                    strengthText.textContent = 'Weak';
+                    strengthText.style.color = '#dc3545';
+                    strengthMeterFill.style.backgroundColor = '#dc3545';
+                } else if (strength <= 50) {
+                    strengthText.textContent = 'Fair';
+                    strengthText.style.color = '#ffc107';
+                    strengthMeterFill.style.backgroundColor = '#ffc107';
+                } else if (strength <= 75) {
+                    strengthText.textContent = 'Good';
+                    strengthText.style.color = '#6c757d';
+                    strengthMeterFill.style.backgroundColor = '#6c757d';
+                } else {
+                    strengthText.textContent = 'Strong';
+                    strengthText.style.color = '#28a745';
+                    strengthMeterFill.style.backgroundColor = '#28a745';
+                }
+            });
+        }
+    });
+    
+    // Handle mobile navigation
+    if (window.innerWidth < 992) {
+        const dropdownToggles = document.querySelectorAll('.nav-link.dropdown-toggle');
+        
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.parentNode.classList.toggle('active');
+            });
+        });
+    }
+});
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener("click", function (event) {
+                event.preventDefault();
+                let dropdownMenu = this.nextElementSibling;
+                dropdownMenu.classList.toggle("show");
+
+                // Close other open dropdowns
+                document.querySelectorAll(".dropdown-menu").forEach(menu => {
+                    if (menu !== dropdownMenu) {
+                        menu.classList.remove("show");
+                    }
+                });
+            });
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", function (event) {
+            if (!event.target.closest(".nav-item")) {
+                document.querySelectorAll(".dropdown-menu").forEach(menu => {
+                    menu.classList.remove("show");
+                });
+            }
+        });
+    });
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- Bootstrap JS Bundle with Popper -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- Custom JS -->
+ <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

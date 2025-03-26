@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Processing Payment - Books for All{% endblock %}
+
+{% block extra_css %}
+<style>
+    .payment-processing-section {
+        padding: 80px 0;
+        background-color: var(--light-gray);
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+    }
+    
+    .processing-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        text-align: center;
+    }
+    
+    .processing-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: var(--light-gray);
+        color: var(--deep-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 30px;
+    }
+    
+    .processing-spinner {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 30px;
+    }
+    
+    .processing-spinner:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid var(--deep-blue);
+        border-color: var(--deep-blue) transparent var(--deep-blue) transparent;
+        animation: spinner 1.2s linear infinite;
+    }
+    
+    @keyframes spinner {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    .processing-title {
+        color: var(--deep-blue);
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    .processing-message {
+        color: var(--dark-gray);
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+    }
+    
+    .processing-details {
+        background-color: var(--light-gray);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        text-align: left;
+    }
+    
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    
+    .detail-label {
+        font-weight: bold;
+        color: var(--dark-gray);
+    }
+    
+    .processing-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    
+    .step {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .step-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--light-gray);
+        color: var(--dark-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+    
+    .step.active .step-icon {
+        background-color: var(--deep-blue);
+        color: var(--white);
+    }
+    
+    .step.completed .step-icon {
+        background-color: var(--soft-green);
+        color: var(--white);
+    }
+    
+    .step-content {
+        text-align: left;
+    }
+    
+    .step-title {
+        font-weight: bold;
+        color: var(--dark-gray);
+    }
+    
+    .step.active .step-title {
+        color: var(--deep-blue);
+    }
+    
+    .step.completed .step-title {
+        color: var(--soft-green);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'donate_money' %}">Donate</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Processing Payment</li>
+        </ol>
+    </div>
+</nav>
+
+<section class="payment-processing-section">
+    <div class="container">
+        <div class="processing-container">
+            <div class="processing-spinner"></div>
+            
+            <h1 class="processing-title">Processing Your Donation</h1>
+            
+            <p class="processing-message">
+                Please wait while we process your donation. This may take a few moments.
+            </p>
+            
+            {% if donation %}
+            <div class="processing-details">
+                <div class="detail-row">
+                    <div class="detail-label">Amount:</div>
+                    <div>KSh {{ donation.amount|floatformat:2 }}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Payment Method:</div>
+                    <div>{{ donation.get_payment_method_display }}</div>
+                </div>
+                
+                {% if donation.payment_method == 'mpesa' %}
+                <div class="detail-row">
+                    <div class="detail-label">Phone Number:</div>
+                    <div>{{ donation.phone_number }}</div>
+                </div>
+                <div class="alert alert-info mt-3 mb-0">
+                    <small>Please check your phone for the M-Pesa payment prompt.</small>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            <div class="processing-steps">
+                <div class="step completed">
+                    <div class="step-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-title">Donation Submitted</div>
+                        <div class="step-description">Your donation information has been received.</div>
+                    </div>
+                </div>
+                
+                <div class="step active">
+                    <div class="step-icon">
+                        <i class="fas fa-sync-alt fa-spin"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-title">Processing Payment</div>
+                        <div class="step-description">Your payment is being processed.</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-title">Donation Complete</div>
+                        <div class="step-description">Your donation has been processed successfully.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-muted">
+                <small>Please do not close this page. You will be redirected automatically once the payment is processed.</small>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Simulate payment processing
+        setTimeout(function() {
+            // Update the processing steps
+            const steps = document.querySelectorAll('.step');
+            steps[1].classList.remove('active');
+            steps[1].classList.add('completed');
+            steps[2].classList.add('active');
+            
+            // Wait a moment more before redirecting
+            setTimeout(function() {
+                window.location.href = "{% url 'donation_success' %}";
+            }, 1500);
+        }, 3000);
+    });
+</script>
+{% endblock %}

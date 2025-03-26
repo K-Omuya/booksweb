@@ -1,0 +1,384 @@
+<style>
+    .book-detail-section {
+        padding: 60px 0;
+        background-color: var(--light-gray);
+    }
+    
+    .book-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    
+    .book-image-container {
+        flex: 1;
+        min-width: 300px;
+        max-width: 400px;
+    }
+    
+    .book-image {
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .book-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+    
+    .book-placeholder {
+        width: 100%;
+        height: 400px;
+        background-color: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: #aaa;
+    }
+    
+    .book-info {
+        flex: 2;
+        min-width: 300px;
+    }
+    
+    .book-title {
+        font-size: 2.5rem;
+        color: var(--deep-blue);
+        margin-bottom: 10px;
+    }
+    
+    .book-meta {
+        margin-bottom: 20px;
+    }
+    
+    .book-author {
+        font-size: 1.2rem;
+        color: var(--dark-gray);
+        margin-bottom: 5px;
+    }
+    
+    .book-genre {
+        display: inline-block;
+        padding: 5px 15px;
+        background-color: var(--light-gray);
+        color: var(--deep-blue);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .book-badge {
+        display: inline-block;
+        padding: 5px 15px;
+        color: var(--white);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        margin-right: 10px;
+    }
+    
+    .badge-exchange {
+        background-color: var(--bright-orange);
+    }
+    
+    .badge-donation {
+        background-color: var(--soft-green);
+    }
+    
+    .book-description {
+        margin-bottom: 30px;
+    }
+    
+    .info-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px;
+    }
+    
+    .info-item {
+        display: flex;
+        margin-bottom: 15px;
+    }
+    
+    .info-label {
+        width: 120px;
+        font-weight: bold;
+        color: var(--deep-blue);
+    }
+    
+    .info-value {
+        flex: 1;
+    }
+    
+    .book-actions {
+        margin-top: 30px;
+    }
+    
+    .action-btn {
+        display: inline-block;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        margin-right: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .donor-info {
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .donor-title {
+        color: var(--deep-blue);
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .donor-contact {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .donor-contact i {
+        color: var(--deep-blue);
+    }
+    
+    .exchange-form {
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .exchange-title {
+        color: var(--deep-blue);
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .similar-books {
+        margin-top: 60px;
+    }
+    
+    .similar-title {
+        color: var(--deep-blue);
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .book-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+    }
+    
+    .book-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-image {
+        height: 160px;
+        background-color: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .card-details {
+        padding: 15px;
+    }
+    
+    .card-title {
+        font-weight: bold;
+        color: var(--deep-blue);
+        margin-bottom: 5px;
+        font-size: 1rem;
+    }
+    
+    .card-author {
+        color: #777;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+    
+    .card-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        font-size: 0.8rem;
+        border-radius: 30px;
+        color: var(--white);
+    }
+</style>{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ book.title }} - Books for All{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'book_list' %}">Books</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ book.title }}</li>
+        </ol>
+    </div>
+</nav>
+
+<section class="book-detail-section">
+    <div class="container">
+        <div class="row">
+            <!-- Book Image Column -->
+            <div class="col-md-4">
+                <div class="book-image-container">
+                    {% if book.image %}
+                        <img src="{{ book.image.url }}" alt="{{ book.title }}" class="img-fluid rounded">
+                    {% else %}
+                        <div class="book-placeholder">
+                            <i class="fas fa-book fa-4x text-muted"></i>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Book Details Column -->
+            <div class="col-md-8">
+                <h1 class="book-title">{{ book.title }}</h1>
+                <h2 class="book-author">By {{ book.author }}</h2>
+                
+                <div class="book-meta">
+                    <span class="book-genre">
+                        <i class="fas fa-bookmark"></i> {% if book.genre %}{{ book.genre.name }}{% else %}No genre specified{% endif %}
+                    </span>
+                    <span class="book-location">
+                        <i class="fas fa-map-marker-alt"></i> {{ book.location }}
+                    </span>
+                    <span class="book-date">
+                        <i class="far fa-calendar-alt"></i> Added {{ book.created_at|date:"F j, Y" }}
+                    </span>
+                </div>
+                
+                <div class="book-status">
+                    {% if book.is_available %}
+                        {% if book.is_donation %}
+                            <span class="badge bg-success">Available for Donation</span>
+                        {% else %}
+                            <span class="badge bg-primary">Available for Exchange</span>
+                        {% endif %}
+                    {% else %}
+                        <span class="badge bg-secondary">Not Available</span>
+                    {% endif %}
+                </div>
+                
+                <div class="book-description">
+                    <h3>Description</h3>
+                    <p>{% if book.description %}{{ book.description }}{% else %}No description provided.{% endif %}</p>
+                </div>
+                
+                <div class="book-donor">
+                    <h3>Shared By</h3>
+                    <p>{{ book.donor_name }}</p>
+                    <p><i class="fas fa-envelope"></i> {{ book.contact_email }}</p>
+                    {% if book.contact_phone %}
+                        <p><i class="fas fa-phone"></i> {{ book.contact_phone }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="book-delivery">
+                    <h3>Delivery Option</h3>
+                    <p>{{ book.get_delivery_option_display }}</p>
+                </div>
+                
+                {% if book.is_available %}
+                    <div class="book-actions">
+                        {% if book.is_donation %}
+                            <p>This book has been generously donated and is available to those who need it.</p>
+                        {% else %}
+                            <p>This book is available for exchange. A small fee of 20 shillings will be charged to facilitate the exchange.</p>
+                        {% endif %}
+                        
+                        {% if user.is_authenticated %}
+                            {% if user != book.donor %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">
+                                        {% if book.is_donation %}Request Book{% else %}Exchange Book{% endif %}
+                                    </button>
+                                </form>
+                            {% else %}
+                                <p>This is your book. You cannot request your own book.</p>
+                            {% endif %}
+                        {% else %}
+                            <p>Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to request this book.</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="book-not-available">
+                        <p>This book is no longer available. But don't worry! Check out other books in our collection.</p>
+                        <a href="{% url 'book_list' %}" class="btn btn-primary">Browse Books</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Related Books -->
+        {% if related_books %}
+            <div class="related-books">
+                <h2>Similar Books You Might Like</h2>
+                <div class="row">
+                    {% for related_book in related_books %}
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-img-top">
+                                    {% if related_book.image %}
+                                        <img src="{{ related_book.image.url }}" alt="{{ related_book.title }}" class="img-fluid">
+                                    {% else %}
+                                        <div class="book-placeholder">
+                                            <i class="fas fa-book fa-3x text-muted"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ related_book.title }}</h5>
+                                    <p class="card-text">{{ related_book.author }}</p>
+                                    <a href="{% url 'book_detail' related_book.id %}" class="btn btn-outline-primary btn-sm">View Book</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

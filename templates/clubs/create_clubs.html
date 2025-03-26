@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Book Club - Books for All{% endblock %}
+
+{% block extra_css %}
+<style>
+    .create-club-section {
+        background-image: url("{% static 'images/backgrounds/kids-reading.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        padding: 60px 0;
+    }
+    
+    .create-club-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(16, 33, 78, 0.85);
+    }
+    
+    .create-club-content {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .create-club-title {
+        color: var(--white);
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    
+    .create-club-form {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 10px;
+        backdrop-filter: blur(5px);
+        max-width: 800px;
+        margin: 0 auto;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb-list">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'club_list' %}">Clubs</a></li>
+            <li class="breadcrumb-item active">Create Book Club</li>
+        </ul>
+    </div>
+</div>
+
+<section class="create-club-section">
+    <div class="container">
+        <div class="create-club-content">
+            <h1 class="create-club-title">Create Book Club</h1>
+            
+            <form class="create-club-form needs-validation" method="post" novalidate>
+                {% csrf_token %}
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="name">Club Name</label>
+                            {{ form.name }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="school_name">Name of School</label>
+                            {{ form.school_name }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="county">County</label>
+                            {{ form.county }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="student_count">Number of Students</label>
+                            {{ form.student_count }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="patron_name">Patron Name</label>
+                            {{ form.patron_name }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="patron_contact">Patron Contact</label>
+                            {{ form.patron_contact }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label for="patron_email">Patron Email</label>
+                    {{ form.patron_email }}
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label for="description">Club Description</label>
+                    {{ form.description }}
+                </div>
+                
+                <div class="form-group text-center mt-4">
+                    <button type="submit" class="btn btn-lg">Create Book Club</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

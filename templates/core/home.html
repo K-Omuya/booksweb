@@ -1,0 +1,792 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Books for All - Share a Book, Share a Dream{% endblock %}
+<style>
+    
+</style>
+{% block extra_css %}
+<style>
+    
+</style>
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<style>
+    /* Hero Section Styles */
+.hero {
+    background-image: url("{% static 'images/home.jpeg' %}");
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero::before {
+    content: "";
+    background: rgba(0, 64, 128, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--bright-orange);
+    color: white;
+}
+
+.btn-outline:hover {
+    background-color: var(--bright-orange);
+    color: white;
+}
+
+/* About Section Styles */
+.about-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.about-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-image {
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.mission-vision {
+    display: flex;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.mission, .vision {
+    flex: 1;
+    padding: 20px;
+    background-color: var(--light-gray);
+    border-radius: 10px;
+}
+
+.mission h3, .vision h3 {
+    color: var(--deep-blue);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+/* Services Section Styles */
+.services-section {
+    padding: 80px 0;
+    background-color: var(--light-gray);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    background-color: var(--deep-blue);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+}
+
+.service-card h3 {
+    color: var(--deep-blue);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.service-card p {
+    margin-bottom: 20px;
+    color: var(--dark-gray);
+}
+
+.btn-link {
+    color: var(--bright-orange);
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-link i {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.btn-link:hover i {
+    transform: translateX(5px);
+}
+
+/* Impact Section Styles */
+.impact-section {
+    padding: 80px 0;
+    background-color: var(--deep-blue);
+    color: var(--white);
+}
+
+.impact-section .section-title {
+    color: white;
+}
+
+.impact-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.impact-stat {
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    max-width: 250px;
+}
+
+.impact-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--bright-orange);
+    margin-bottom: 10px;
+}
+
+.impact-title {
+    font-size: 1.2rem;
+}
+
+/* Testimonials Section Styles */
+.testimonials-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.testimonials-slider {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.testimonial-card {
+    background-color: var(--light-gray);
+    padding: 30px;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 300px;
+}
+
+.testimonial-content {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.testimonial-content p {
+    font-style: italic;
+}
+
+.testimonial-content::before {
+    content: '"';
+    font-size: 4rem;
+    color: rgba(0, 64, 128, 0.1);
+    position: absolute;
+    top: -20px;
+    left: -15px;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.testimonial-author img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--deep-blue);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.author-info h4 {
+    margin-bottom: 5px;
+    color: var(--deep-blue);
+}
+
+.author-info p {
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+}
+
+/* Blog Section Styles */
+.blog-section {
+    padding: 80px 0;
+    background-color: var(--light-gray);
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.blog-card {
+    background-color: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-10px);
+}
+
+.blog-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.blog-card:hover .blog-image img {
+    transform: scale(1.1);
+}
+
+.blog-content {
+    padding: 20px;
+}
+
+.blog-title {
+    color: var(--deep-blue);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.blog-excerpt {
+    color: var(--dark-gray);
+    margin-bottom: 15px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 25px;
+}
+
+/* Call to Action Styles */
+.cta-section {
+    padding: 80px 0;
+    background-image: url('../images/cta-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    text-align: center;
+}
+
+.cta-section::before {
+    content: "";
+    background: rgba(0, 64, 128, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--white);
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .about-content,
+    .mission-vision {
+        flex-direction: column;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .cta-content h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-buttons,
+    .cta-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .impact-stat {
+        min-width: 150px;
+    }
+    
+    .testimonial-card {
+        min-width: 100%;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Books for All</h1>
+        <p class="hero-subtitle">SHARE A BOOK, SHARE A DREAM.</p>
+        <div class="hero-buttons">
+            <a href="{% url 'book_list' %}" class="btn">Browse Books</a>
+            <a href="{% url 'donate_book' %}" class="btn btn-outline">Donate Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Books for All is dedicated to bridging educational inequality by ensuring every student has access to books through donations and exchanges, fostering a culture of learning and knowledge sharing.</p>
+                <div class="mission-vision">
+                    <div class="mission">
+                        <h3>Our Mission</h3>
+                        <p>To bridge the educational inequality by ensuring every student has access to books through donations and exchanges, fostering a culture of learning and knowledge sharing.</p>
+                    </div>
+                    <div class="vision">
+                        <h3>Our Vision</h3>
+                        <p>A future where no child lacks books and education is accessible to all.</p>
+                    </div>
+                </div>
+                <a href="{% url 'about' %}" class="btn">Learn More</a>
+            </div>
+            <div class="about-image">
+                {% load static %}
+                <img src="{% static 'images/about.png' %}" alt="Children reading books">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section">
+    <div class="container">
+        <h2 class="section-title">What We Do</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Book Exchanges</h3>
+                <p>Exchange your books with others in the community. For a small fee of 20 shillings, facilitate the exchange of knowledge.</p>
+                <a href="{% url 'book_list' %}" class="btn-link">Exchange Books <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>Donations</h3>
+                <p>Donate books or make monetary contributions to help us provide books to students and schools in need.</p>
+                <a href="{% url 'donate_book' %}" class="btn-link">Donate Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Book Clubs</h3>
+                <p>Join or create book clubs in primary schools that help collect, catalog, and distribute books to those who need them.</p>
+                <a href="{% url 'club_list' %}" class="btn-link">Explore Clubs <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Section -->
+<section class="impact-section">
+    <div class="container">
+        <h2 class="section-title">Our Impact</h2>
+        <div class="impact-stats">
+            {% if metrics %}
+                {% for metric in metrics %}
+                    <div class="impact-stat">
+                        <div class="impact-number">{{ metric.value }}</div>
+                        <div class="impact-title">{{ metric.title }}</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="impact-stat">
+                    <div class="impact-number">500+</div>
+                    <div class="impact-title">Students Impacted</div>
+                </div>
+                <div class="impact-stat">
+                    <div class="impact-number">25+</div>
+                    <div class="impact-title">Schools Reached</div>
+                </div>
+                <div class="impact-stat">
+                    <div class="impact-number">300+</div>
+                    <div class="impact-title">Books Exchanged</div>
+                </div>
+                <div class="impact-stat">
+                    <div class="impact-number">500+</div>
+                    <div class="impact-title">Books Donated</div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <h2 class="section-title">What People Say</h2>
+        <div class="testimonials-slider">
+            {% if testimonials %}
+                {% for testimonial in testimonials %}
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"{{ testimonial.content }}"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            {% if testimonial.image %}
+                                <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}">
+                            {% else %}
+                                <div class="author-avatar">{{ testimonial.name|first }}</div>
+                            {% endif %}
+                            <div class="author-info">
+                                <h4>{{ testimonial.name }}</h4>
+                                <p>{{ testimonial.role }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Books for All has transformed our school library. Our students now have access to books they would never have been able to read before."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">J</div>
+                        <div class="author-info">
+                            <h4>Jane Mutiso</h4>
+                            <p>Teacher, Nairobi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The book exchange program is amazing! I've been able to read so many new books without spending a lot of money."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">D</div>
+                        <div class="author-info">
+                            <h4>David Kamau</h4>
+                            <p>Student, Kisumu</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section class="blog-section">
+    <div class="container">
+        <h2 class="section-title">Latest Blog Posts</h2>
+        <div class="blog-grid">
+            {% if latest_posts %}
+                {% for post in latest_posts %}
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            {% if post.featured_image %}
+                                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                            {% else %}
+                            {% load static %}
+                            <img src="{% static 'images/home.jpeg' %}" alt="Children reading books">
+                          
+                            {% endif %}
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">{{ post.title }}</h3>
+                            <p class="blog-excerpt">{{ post.content|truncatewords:20 }}</p>
+                            <a href="{% url 'blog_detail' post.slug %}" class="btn-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="{% static 'images/books.jpeg' %}" alt="Children reading books">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">The Importance of Reading</h3>
+                        <p class="blog-excerpt">Reading is fundamental to developing a child's language skills and imagination. Regular reading helps children build vocabulary, improve comprehension, and develop critical thinking skills.</p>
+                        
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="{% static 'images/home.jpeg' %}" alt="Children reading books">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">How Book Clubs Transform Schools</h3>
+                        <p class="blog-excerpt">Book clubs create a community of readers, fostering discussion and critical thinking. They also help students develop communication skills and empathy through shared reading experiences.</p>
+                       
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'blog_list' %}" class="btn">View All Posts</a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to make a difference?</h2>
+            <p>Join us in our mission to make books accessible to all students.</p>
+            <div class="cta-buttons">
+                <a href="{% url 'donate_book' %}" class="btn">Donate Books</a>
+                <a href="{% url 'donate_money' %}" class="btn btn-outline">Support Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Testimonials slider (for mobile)
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    if (testimonialCards.length > 1) {
+        let currentTestimonial = 0;
+        
+        // Show only the first testimonial on mobile
+        function updateTestimonialDisplay() {
+            if (window.innerWidth < 768) {
+                testimonialCards.forEach((card, index) => {
+                    if (index === currentTestimonial) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            } else {
+                testimonialCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+        }
+        
+        // Initialize testimonial display
+        updateTestimonialDisplay();
+        
+        // Listen for window resize
+        window.addEventListener('resize', updateTestimonialDisplay);
+        
+        // Create navigation buttons for mobile
+        const testimonialSection = document.querySelector('.testimonials-slider');
+        
+        if (testimonialSection && window.innerWidth < 768) {
+            const navContainer = document.createElement('div');
+            navContainer.className = 'testimonial-nav';
+            navContainer.style.textAlign = 'center';
+            navContainer.style.marginTop = '20px';
+            
+            const prevBtn = document.createElement('button');
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevBtn.className = 'btn btn-sm';
+            prevBtn.style.marginRight = '10px';
+            
+            const nextBtn = document.createElement('button');
+            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextBtn.className = 'btn btn-sm';
+            
+            prevBtn.addEventListener('click', function() {
+                currentTestimonial = (currentTestimonial - 1 + testimonialCards.length) % testimonialCards.length;
+                updateTestimonialDisplay();
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+                updateTestimonialDisplay();
+            });
+            
+            navContainer.appendChild(prevBtn);
+            navContainer.appendChild(nextBtn);
+            
+            testimonialSection.appendChild(navContainer);
+        }
+    }
+    
+    // Animate impact numbers on scroll
+    const impactSection = document.querySelector('.impact-section');
+    const impactNumbers = document.querySelectorAll('.impact-number');
+    let animated = false;
+    
+    function animateNumbers() {
+        if (animated) return;
+        
+        const sectionTop = impactSection.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (sectionTop < windowHeight * 0.75) {
+            impactNumbers.forEach(number => {
+                const target = parseInt(number.textContent.replace(/[^0-9]/g, ''));
+                let current = 0;
+                const increment = Math.ceil(target / 100);
+                const duration = 1500; // in milliseconds
+                const stepTime = Math.floor(duration / (target / increment));
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    number.textContent = current.toLocaleString() + (number.textContent.includes('+') ? '+' : '');
+                }, stepTime);
+            });
+            
+            animated = true;
+            window.removeEventListener('scroll', animateNumbers);
+        }
+    }
+    
+    window.addEventListener('scroll', animateNumbers);
+    animateNumbers(); // Check on page load as well
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId !== '#') {
+                e.preventDefault();
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
