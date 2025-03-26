@@ -519,39 +519,6 @@
     </div>
 </section>
 
-Impact Section
-<section class="impact-section">
-    <div class="container">
-        <h2 class="section-title">Our Impact</h2>
-        <div class="impact-stats">
-            {% if metrics %}
-                {% for metric in metrics %}
-                    <div class="impact-stat">
-                        <div class="impact-number">{{ metric.value }}</div>
-                        <div class="impact-title">{{ metric.title }}</div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="impact-stat">
-                    <div class="impact-number">500+</div>
-                    <div class="impact-title">Students Impacted</div>
-                </div>
-                <div class="impact-stat">
-                    <div class="impact-number">25+</div>
-                    <div class="impact-title">Schools Reached</div>
-                </div>
-                <div class="impact-stat">
-                    <div class="impact-number">300+</div>
-                    <div class="impact-title">Books Exchanged</div>
-                </div>
-                <div class="impact-stat">
-                    <div class="impact-number">500+</div>
-                    <div class="impact-title">Books Donated</div>
-                </div>
-            {% endif %}
-        </div>
-    </div>
-</section>
 
 <!-- Testimonials Section -->
 <section class="testimonials-section">
