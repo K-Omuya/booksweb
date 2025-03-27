@@ -484,6 +484,39 @@
     </div>
 </section>
 
+<section style="padding: 60px 0; background-color: #f9f9f9;">
+    <div class="container">
+        <h2 style="color: #003366; font-size: 1.8rem; text-align: center; margin-bottom: 30px;">Featured Posts</h2>
+        <div class="row">
+            {% for post in featured_posts %}
+                <div class="col-md-4">
+                    <div style="background-color: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); padding: 15px;">
+                        <div style="height: 250px; overflow: hidden;">
+                            {% if post.featured_image %}
+                                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'images/default.jpg' %}" alt="Featured Post" style="width: 100%; height: 100%; object-fit: cover;">
+                            {% endif %}
+                        </div>
+                        <div style="padding: 15px;">
+                            <span style="display: block; font-size: 0.85rem; color: #666;">{{ post.created_at|date:"F d, Y" }}</span>
+                            <h3 style="font-size: 1.3rem; color: #003366; margin-top: 10px;">
+                                <a href="{% url 'blog_detail' post.slug %}" style="text-decoration: none; color: inherit;">{{ post.title }}</a>
+                            </h3>
+                            <p style="color: #444; font-size: 1rem; margin-top: 10px;">{{ post.content|truncatewords:25 }}</p>
+                            <a href="{% url 'blog_detail' post.slug %}" style="color: #003366; text-decoration: none; font-weight: bold;">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p style="text-align: center; font-size: 1.2rem;">No featured posts available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
 <!-- Services Section -->
 <section class="services-section">
     <div class="container">

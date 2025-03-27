@@ -297,67 +297,17 @@
                 {% endfor %}
             </div>
         </div>
-        
-        {% if featured_posts %}
-        <div class="featured-posts">
-            <h2 class="featured-title">Featured Posts</h2>
-            <div class="row">
-                {% for post in featured_posts %}
-                <div class="col-lg-6 mb-4">
-                    <div class="featured-post">
-                        <div class="featured-image">
-                            {% if post.featured_image %}
-                                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
-                            {% else %}
-                                <img src="/api/placeholder/800/400" alt="Featured post">
-                            {% endif %}
-                        </div>
-                        <div class="featured-content">
-                            <div class="featured-meta">
-                                <span class="date"><i class="far fa-calendar-alt"></i> {{ post.created_at|date:"F d, Y" }}</span>
-                                {% if post.category %}
-                                    <span class="category">{{ post.category.name }}</span>
-                                {% endif %}
-                            </div>
-                            <h3 class="blog-title">{{ post.title }}</h3>
-                            <div class="featured-excerpt">
-                                <p>{{ post.content|truncatewords:30 }}</p>
-                            </div>
-                            <div class="featured-footer">
-                                <div class="featured-author">
-                                    <div class="featured-author-image">
-                                        {% if post.author.profile.profile_picture %}
-                                            <img src="{{ post.author.profile.profile_picture.url }}" alt="{{ post.author.username }}">
-                                        {% else %}
-                                            <img src="/api/placeholder/100/100" alt="Author">
-                                        {% endif %}
-                                    </div>
-                                    <div class="author-info">
-                                        <span>{{ post.author.get_full_name|default:post.author.username }}</span>
-                                    </div>
-                                </div>
-                                <a href="{% url 'blog_detail' post.slug %}" class="btn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+            <div class="text-center mt-4">
+            <a href="{% url 'blog_create' %}" class="btn btn-lg">Create New Post</a>
         </div>
-        {% endif %}
+    
         
         {% if posts %}
             <h2 class="featured-title">Latest Posts</h2>
             <div class="blog-grid">
                 {% for post in posts %}
                     <div class="blog-card">
-                        <div class="blog-image">
-                            {% if post.featured_image %}
-                                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
-                            {% else %}
-                                <img src="/api/placeholder/400/250" alt="Blog post">
-                            {% endif %}
-                        </div>
+                       
                         <div class="blog-content">
                             <div class="blog-meta">
                                 <span class="date"><i class="far fa-calendar-alt"></i> {{ post.created_at|date:"F d, Y" }}</span>
@@ -433,13 +383,7 @@
         {% endif %}
         
         {% if user.is_staff %}
-            <div class="text-center mt-4">
-                <a href="{% url 'blog_create' %}" class="btn btn-lg">Create New Post</a>
-            </div>
-        {% endif %}{% if user.is_staff %}
-        <div class="text-center mt-4">
-            <a href="{% url 'blog_create' %}" class="btn btn-lg">Create New Post</a>
-        </div>
+        
     {% endif %}
 </div>
 </section>

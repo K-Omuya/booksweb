@@ -11,20 +11,20 @@ class BlogListView(ListView):
     template_name = 'blogs/blog_list.html'
     context_object_name = 'posts'
     paginate_by = 6
-    
+
     def get_queryset(self):
-        queryset = BlogPost.objects.filter(is_published=True)
+        queryset = BlogPost.objects.filter(is_published=True, is_featured=False)  # Exclude featured posts
         category_slug = self.request.GET.get('category')
-        
+
         if category_slug:
             queryset = queryset.filter(category__slug=category_slug)
-            
+
         return queryset
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
-        context['featured_posts'] = BlogPost.objects.filter(is_featured=True, is_published=True)[:3]
+        context['featured_posts'] = BlogPost.objects.filter(is_featured=True, is_published=True)[:3]  # For home.html
         return context
 
 class BlogDetailView(DetailView):

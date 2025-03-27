@@ -6,14 +6,19 @@ from django.contrib import messages
 from .models import ContactMessage, ImpactMetric
 from .forms import ContactForm
 
+from django.views.generic import TemplateView
+from blogs.models import BlogPost  # Import BlogPost model
+from core.models import ImpactMetric  # Import ImpactMetric model
+
 class HomeView(TemplateView):
     template_name = 'core/home.html'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['testimonials'] = Testimonial.objects.filter(is_active=True)[:3]
-        context['metrics'] = ImpactMetric.objects.all()
+        context['metrics'] = ImpactMetric.objects.all()  # Fetch all impact metrics
+        context['featured_posts'] = BlogPost.objects.filter(is_featured=True, is_published=True).order_by('-created_at')[:3]  # Fetch latest 3 featured posts
         return context
+
 
 class AboutView(TemplateView):
     template_name = 'core/about.html'
