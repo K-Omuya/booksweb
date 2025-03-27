@@ -83,24 +83,24 @@ WSGI_APPLICATION = 'booksweb.wsgi.application'
 
 import dj_database_url
 import os
-
 import os
-
 import dj_database_url
-import os
+import environ  # ✅ Import environ
 
-import dj_database_url
-import os
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()  # ✅ Read from .env file if present
+
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres://localhost/books_for_all_db'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'books_for_all_db',
+        'USER': 'db_user',
+        'PASSWORD': '6PHCVGZRVmeH3oQid0qwjeebD97RmUPa',  # Use environment variables instead of hardcoding
+        'HOST': 'dpg-cvi5op3v2p9s738omv60-a.oregon-postgres.render.com',  # External database URL host
+        'PORT': '5432',
+    }
 }
-
-import os
-import django_environ
-
-env = django_environ.Env()
-django_environ.Env.read_env()
-
 
 
 STATIC_URL = '/static/'
