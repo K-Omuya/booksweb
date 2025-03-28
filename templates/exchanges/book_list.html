@@ -4,7 +4,7 @@
 {% block title %}Book Catalogue - Books for All{% endblock %}
 
 {% block extra_css %}
-<style>
+<!-- <style>
     .book-list-section {
         padding: 60px 0;
         background-color: var(--light-gray);
@@ -200,7 +200,7 @@
         display: inline-block;
         margin-bottom: 10px;
     }
-</style>
+</style> -->
 {% endblock %}
 
 {% block content %}
@@ -216,168 +216,385 @@
     </div>
 </nav>
     <a style="text-align: left; padding-left: 20px;" href="{% url 'home' %}" class="btn btn-lg">Back</a>
-
-
-<section class="book-list-section">
-    <div class="container">
-        <div class="book-list-header">
-            <h1 style="color: white;" class="section-title">Book Catalogue</h1>
-            <p class="text-center">Browse through our collection of available books for exchange or donation.</p>
-        </div>
-        
-        <div class="filters-container">
-            <h3 class="filter-title">Filter Books</h3>
-            
-            <form method="get" class="filter-form">
+    <!-- <section class="book-list-section">
+        <div class="container">
+            <div class="book-list-header">
+                <h1 class="section-title">Book Catalogue</h1>
+                <p class="text-center">Browse through our collection of available books for exchange or donation.</p>
+            </div>
+             -->
+            <div class="filters-container">
+                <h3 class="filter-title">Filter Books</h3>
                 
-                
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="filter-group">
-                            <label for="genre">Genre</label>
-                            <select name="genre" id="genre" class="form-control">
-                                <option value="">All Genres</option>
-                                {% for genre in genres %}
-                                    <option value="{{ genre.id }}" {% if request.GET.genre == genre.id|stringformat:"i" %}selected{% endif %}>{{ genre.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <div class="filter-group">
-                            <label for="location">Location</label>
-                            <select name="location" id="location" class="form-control">
-                                <option value="">All Locations</option>
-                                {% for location in locations %}
-                                    <option value="{{ location }}" {% if request.GET.location == location %}selected{% endif %}>{{ location }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <div class="filter-group">
-                            <label for="type">Type</label>
-                            <select name="type" id="type" class="form-control">
-                                <option value="">All Types</option>
-                                <option value="exchange" {% if request.GET.type == 'exchange' %}selected{% endif %}>Exchange</option>
-                                <option value="donation" {% if request.GET.type == 'donation' %}selected{% endif %}>Donation</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="search-box">
+                <form method="get" class="filter-form" id="book-filter-form">
+                    <div class="search-box mb-4">
                         <input type="text" name="q" class="form-control" placeholder="Search by title or author" value="{{ request.GET.q }}">
                         <button type="submit" class="btn"><i class="fas fa-search"></i></button>
                     </div>
-                </div>
-            </form>
-        </div>
-        <div style="display: flex; gap: 20px; " class="actions">
-            <div class="text-center mt-4">
-                <a href="{% url 'book_upload' %}" class="btn btn-lg">Upload a Book</a>
-            </div>
-            <div class="text-center mt-4">
-                <a href="{% url 'book_upload' %}" class="btn btn-lg">Donate a Book</a>
-            </div>
-
-        </div><br>
-        
-        <h1 style="text-align: center; color: rgb(92, 92, 199);"><strong>Book Library</strong></h1><br>
-        {% if books %}
-            <div class="books-grid">
-                {% for book in books %}
-                    <div class="book-card">
-                        <div class="book-image">
-                            {% if book.image %}
-                                <img src="{{ book.image.url }}" alt="{{ book.title }}">
-                            {% else %}
-                                <div class="book-placeholder">
-                                    <i class="fas fa-book"></i>
-                                </div>
-                            {% endif %}
-                            
-                        </div>
-                        {% if book.is_donation %}
-                                    <span class="badge bg-success">Donation</span>
-                                {% else %}
-                                    <span class="badge bg-primary">Exchange</span>
-                                {% endif %}
-                        <div class="book-details">
-                            <h3 class="book-title">{{ book.title }}</h3>
-                            <p class="book-author">By {{ book.author }}</p>
-                            
-                            {% if book.genre %}
-                                <div class="genre-badge">{{ book.genre.name }}</div>
-                            {% endif %}
-                            
-                            <div class="book-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>{{ book.location }}</span>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="filter-group">
+                                <label for="genre">Genre</label>
+                                <select name="genre" id="genre" class="form-control">
+                                    <option value="">All Genres</option>
+                                    {% for genre in genres %}
+                                        <option value="{{ genre.id }}" {% if request.GET.genre == genre.id|stringformat:"i" %}selected{% endif %}>{{ genre.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
-                            
-                            <div class="book-actions">
-                                <a href="{% url 'book_detail' book.id %}" class="btn">View Details</a>
-                                
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="filter-group">
+                                <label for="location">Location</label>
+                                <select name="location" id="location" class="form-control">
+                                    <option value="">All Locations</option>
+                                    {% for location in locations %}
+                                        <option value="{{ location }}" {% if request.GET.location == location %}selected{% endif %}>{{ location }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="filter-group">
+                                <label for="type">Type</label>
+                                <select name="type" id="type" class="form-control">
+                                    <option value="">All Types</option>
+                                    <option value="exchange" {% if request.GET.type == 'exchange' %}selected{% endif %}>Exchange</option>
+                                    <option value="donation" {% if request.GET.type == 'donation' %}selected{% endif %}>Donation</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div class="filter-group">
+                                <label for="sort">Sort By</label>
+                                <select name="sort" id="sort" class="form-control">
+                                    <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest First</option>
+                                    <option value="oldest" {% if request.GET.sort == 'oldest' %}selected{% endif %}>Oldest First</option>
+                                    <option value="title_asc" {% if request.GET.sort == 'title_asc' %}selected{% endif %}>Title A-Z</option>
+                                    <option value="title_desc" {% if request.GET.sort == 'title_desc' %}selected{% endif %}>Title Z-A</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                    
+                    <div class="filter-buttons mt-3 text-center">
+                        <button type="submit" class="btn">Apply Filters</button>
+                        <a href="{% url 'book_list' %}" class="btn btn-outline-secondary">Reset Filters</a>
+                    </div>
+                </form>
             </div>
             
-            <!-- Pagination -->
-            {% if is_paginated %}
-                <div class="pagination-container">
-                    <ul class="pagination">
-                        {% if page_obj.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}page=1" aria-label="First">
-                                    <span aria-hidden="true">&laquo;&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                        
-                        {% for num in paginator.page_range %}
-                            {% if page_obj.number == num %}
-                                <li class="page-item active">
-                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}page={{ num }}">{{ num }}</a>
-                                </li>
-                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <div class="book-type-tabs mt-4 mb-4">
+                <ul class="nav nav-tabs justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link {% if not request.GET.type %}active{% endif %}" href="{% url 'book_list' %}{% if request.GET.q or request.GET.genre or request.GET.location or request.GET.sort %}?{% if request.GET.q %}q={{ request.GET.q }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% endif %}">All Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.GET.type == 'exchange' %}active{% endif %}" href="{% url 'book_list' %}?type=exchange{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Exchange Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.GET.type == 'donation' %}active{% endif %}" href="{% url 'book_list' %}?type=donation{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Donated Books</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="actions d-flex justify-content-center gap-3 mb-4">
+                <a href="{% url 'book_upload' %}" class="btn">Upload a Book for Exchange</a>
+                <a href="{% url 'donate_book' %}" class="btn">Donate a Book</a>
+            </div>
+            
+            <h2 class="text-center mb-4">{% if request.GET.type == 'donation' %}Donated Books{% elif request.GET.type == 'exchange' %}Exchange Books{% else %}Book Library{% endif %}</h2>
+            
+            {% if books %}
+                <div class="books-grid">
+                    {% for book in books %}
+                        <div class="book-card">
+                            <div class="book-image">
+                                {% if book.image %}
+                                    <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                                {% else %}
+                                    <div class="book-placeholder">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="book-badge">
+                                    {% if book.is_donation %}
+                                        <span class="badge bg-success">Donation</span>
+                                    {% else %}
+                                        <span class="badge bg-primary">Exchange</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="book-details">
+                                <h3 class="book-title">{{ book.title }}</h3>
+                                <p class="book-author">By {{ book.author }}</p>
+                                
+                                {% if book.genre %}
+                                    <div class="genre-badge">{{ book.genre.name }}</div>
+                                {% endif %}
+                                
+                                <div class="book-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ book.location }}</span>
+                                </div>
+                                
+                                <div class="book-actions">
+                                    <a href="{% url 'book_detail' book.id %}" class="btn">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                {% if is_paginated %}
+                    <div class="pagination-container">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page=1" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
                                 </li>
                             {% endif %}
-                        {% endfor %}
-                        
-                        {% if page_obj.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}page={{ paginator.num_pages }}" aria-label="Last">
-                                    <span aria-hidden="true">&raquo;&raquo;</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                    </ul>
+                            
+                            {% for num in paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ paginator.num_pages }}" aria-label="Last">
+                                        <span aria-hidden="true">&raquo;&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="no-results">
+                    <i class="fas fa-book-open"></i>
+                    <h3>No books found</h3>
+                    <p>We couldn't find any books matching your criteria. Try adjusting your filters or <a href="{% url 'book_upload' %}">upload a book</a> yourself!</p>
                 </div>
             {% endif %}
-        {% else %}
-            <div class="no-results">
-                <i class="fas fa-book-open"></i>
-                <h3>No books found</h3>
-                <p>We couldn't find any books matching your criteria. Try adjusting your filters or <a href="{% url 'book_upload' %}">upload a book</a> yourself!</p>
-            </div>
-        {% endif %}
+        </div>
+    </section>
+    
+    <style>
+        .book-list-section {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
         
-       
-    </div>
-</section>
+        .book-list-header {
+            margin-bottom: 30px;
+        }
+        
+        .filters-container {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .filter-title {
+            color: var(--deep-blue);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .search-box {
+            display: flex;
+            width: 100%;
+        }
+        
+        .search-box input {
+            flex: 1;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            height: 45px;
+        }
+        
+        .search-box button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: var(--deep-blue);
+            color: white;
+        }
+        
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .book-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .book-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        
+        .book-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .book-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        
+        .book-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #ddd;
+            font-size: 3rem;
+        }
+        
+        .book-details {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .book-title {
+            font-size: 1.15rem;
+            color: var(--deep-blue);
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .book-author {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .genre-badge {
+            display: inline-block;
+            background-color: var(--light-gray);
+            color: var(--deep-blue);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .book-location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .book-actions {
+            margin-top: auto;
+        }
+        
+        .book-actions .btn {
+            width: 100%;
+        }
+        
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .book-type-tabs .nav-link {
+            color: var(--dark-gray);
+            font-weight: 500;
+            padding: 10px 20px;
+        }
+        
+        .book-type-tabs .nav-link.active {
+            color: var(--deep-blue);
+            font-weight: bold;
+            border-bottom: 3px solid var(--deep-blue);
+        }
+        
+        .no-results {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-submit form when select fields change
+            const filterSelects = document.querySelectorAll('.filter-form select');
+            filterSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    // Only auto-submit when changing the main type tabs
+                    if (this.id === 'type') {
+                        document.getElementById('book-filter-form').submit();
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
