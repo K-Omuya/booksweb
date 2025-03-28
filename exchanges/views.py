@@ -6,6 +6,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 
+from django.shortcuts import render
+from django.views.generic import ListView
+from django.db.models import Q
+from .models import Book, Genre
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 class BookListView(ListView):
     model = Book
     template_name = 'exchanges/book_list.html'
@@ -14,24 +21,60 @@ class BookListView(ListView):
     
     def get_queryset(self):
         queryset = Book.objects.filter(is_available=True)
-        genre = self.request.GET.get('genre')
-        query = self.request.GET.get('q')
         
-        if genre:
-            queryset = queryset.filter(genre__name=genre)
-        if query:
+        # Get filter parameters from request
+        genre_id = self.request.GET.get('genre')
+        location = self.request.GET.get('location')
+        book_type = self.request.GET.get('type')
+        search_query = self.request.GET.get('q')
+        
+        # Apply filters if they exist
+        if genre_id:
+            queryset = queryset.filter(genre_id=genre_id)
+        
+        if location:
+            queryset = queryset.filter(location=location)
+        
+        if book_type:
+            if book_type == 'donation':
+                queryset = queryset.filter(is_donation=True)
+            elif book_type == 'exchange':
+                queryset = queryset.filter(is_donation=False)
+        
+        if search_query:
             queryset = queryset.filter(
-                models.Q(title__icontains=query) | 
-                models.Q(author__icontains=query)
+                Q(title__icontains=search_query) | 
+                Q(author__icontains=search_query) |
+                Q(description__icontains=search_query)
             )
         
         return queryset
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
+        # Add genres for filter dropdown
         context['genres'] = Genre.objects.all()
+        
+        # Add unique locations for filter dropdown
+        locations = Book.objects.filter(is_available=True).values_list('location', flat=True).distinct()
+        context['locations'] = sorted(locations)
+        
         return context
 
+# For donation books specifically
+class DonationBookListView(BookListView):
+    def get_queryset(self):
+        # Start with the parent queryset but always filter for donations
+        queryset = super().get_queryset().filter(is_donation=True)
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Change the title to indicate these are donation books
+        context['page_title'] = "Donated Books"
+        context['is_donation_page'] = True
+        return context
 class BookDetailView(DetailView):
     model = Book
     template_name = 'exchanges/book_detail.html'
