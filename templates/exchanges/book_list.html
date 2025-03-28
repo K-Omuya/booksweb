@@ -11,7 +11,16 @@
     }
     
     .book-list-header {
-        margin-bottom: 30px;
+        background-image: url("{% static 'images/background.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 15px;
     }
     
     .filters-container {
@@ -198,17 +207,21 @@
 <!-- Breadcrumb -->
 <nav aria-label="breadcrumb" class="bg-light py-2">
     <div class="container">
-        <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Book Catalogue</li>
+        <ol style="background-color:#3f51b5;border-radius: 5pc;max-height: 2pc;padding-left: 1pc;color: white;" class="breadcrumb mb-0">
+            <li  class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'book_list' %}">Exchange</a></li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Book Catalogue</li>
+        </ol>
         </ol>
     </div>
 </nav>
+    <a style="text-align: left; padding-left: 20px;" href="{% url 'home' %}" class="btn btn-lg">Back</a>
+
 
 <section class="book-list-section">
     <div class="container">
         <div class="book-list-header">
-            <h1 class="section-title">Book Catalogue</h1>
+            <h1 style="color: white;" class="section-title">Book Catalogue</h1>
             <p class="text-center">Browse through our collection of available books for exchange or donation.</p>
         </div>
         
@@ -216,10 +229,7 @@
             <h3 class="filter-title">Filter Books</h3>
             
             <form method="get" class="filter-form">
-                <div class="search-box">
-                    <input type="text" name="q" class="form-control" placeholder="Search by title or author" value="{{ request.GET.q }}">
-                    <button type="submit" class="btn"><i class="fas fa-search"></i></button>
-                </div>
+                
                 
                 <div class="row">
                     <div class="col-md-4">
@@ -256,10 +266,24 @@
                             </select>
                         </div>
                     </div>
+                    <div class="search-box">
+                        <input type="text" name="q" class="form-control" placeholder="Search by title or author" value="{{ request.GET.q }}">
+                        <button type="submit" class="btn"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
             </form>
         </div>
+        <div style="display: flex; gap: 20px; " class="actions">
+            <div class="text-center mt-4">
+                <a href="{% url 'book_upload' %}" class="btn btn-lg">Upload a Book</a>
+            </div>
+            <div class="text-center mt-4">
+                <a href="{% url 'book_upload' %}" class="btn btn-lg">Donate a Book</a>
+            </div>
+
+        </div><br>
         
+        <h1 style="text-align: center; color: rgb(92, 92, 199);"><strong>Book Library</strong></h1><br>
         {% if books %}
             <div class="books-grid">
                 {% for book in books %}
@@ -272,7 +296,13 @@
                                     <i class="fas fa-book"></i>
                                 </div>
                             {% endif %}
+                            
                         </div>
+                        {% if book.is_donation %}
+                                    <span class="badge bg-success">Donation</span>
+                                {% else %}
+                                    <span class="badge bg-primary">Exchange</span>
+                                {% endif %}
                         <div class="book-details">
                             <h3 class="book-title">{{ book.title }}</h3>
                             <p class="book-author">By {{ book.author }}</p>
@@ -288,11 +318,7 @@
                             
                             <div class="book-actions">
                                 <a href="{% url 'book_detail' book.id %}" class="btn">View Details</a>
-                                {% if book.is_donation %}
-                                    <span class="badge bg-success">Donation</span>
-                                {% else %}
-                                    <span class="badge bg-primary">Exchange</span>
-                                {% endif %}
+                                
                             </div>
                         </div>
                     </div>
@@ -351,9 +377,7 @@
             </div>
         {% endif %}
         
-        <div class="text-center mt-4">
-            <a href="{% url 'book_upload' %}" class="btn btn-lg">Upload a Book</a>
-        </div>
+       
     </div>
 </section>
 {% endblock %}

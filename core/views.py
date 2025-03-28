@@ -39,18 +39,6 @@ class ContactView(CreateView):
         messages.success(self.request, 'Thank you for your message! We will get back to you soon.')
         return super().form_valid(form)
 
-# # Testimonial Views
-# class TestimonialListView(ListView):
-#     model = Testimonial
-#     template_name = 'core/testimonial_list.html'
-#     context_object_name = 'testimonials'
-#     queryset = Testimonial.objects.filter(is_active=True)
-#     paginate_by = 9
-
-# class TestimonialDetailView(DetailView):
-#     model = Testimonial
-#     template_name = 'core/testimonial_detail.html'
-#     context_object_name = 'testimonial'
 
 # Impact View
 class ImpactView(TemplateView):
@@ -118,25 +106,94 @@ from django.views.generic import ListView, CreateView
 from django.contrib import messages
 from django.urls import reverse_lazy
 
+from django.views.generic import TemplateView
+from django.db.models import Sum, Count
+from exchanges.models import Book, Exchange
+from clubs.models import BookClub
+from donations.models import BookDonation
+from django.contrib.auth.models import User
 
-# class TestimonialsListView(ListView):
-#     model = Testimonial
-#     template_name = 'core/testimonials.html'
-#     context_object_name = 'testimonials'
-#     paginate_by = 9
+class HomeView(TemplateView):
+    template_name = 'core/home.html'
     
-#     def get_queryset(self):
-#         # Only show approved testimonials to the public
-#         return Testimonial.objects.filter(is_active=True).order_by('-created_at')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Calculate impact metrics from database
+        # 1. Students Impacted (using User count as a proxy)
+        students_impacted = User.objects.count()
+        
+        # 2. Schools Reached (using BookClub count)
+        schools_reached = BookClub.objects.count()
+        
+        # 3. Books Exchanged (count of completed exchanges)
+        books_exchanged = Exchange.objects.filter(status='completed').count()
+        
+        # 4. Books Donated (count of book donations)
+        books_donated = BookDonation.objects.count()
+        
+        # Create impact metrics list
+        metrics = [
+            {'title': 'Students Impacted', 'value': students_impacted, 'icon': 'fa-users'},
+            {'title': 'Schools Reached', 'value': schools_reached, 'icon': 'fa-school'},
+            {'title': 'Books Exchanged', 'value': books_exchanged, 'icon': 'fa-exchange-alt'},
+            {'title': 'Books Donated', 'value': books_donated, 'icon': 'fa-hand-holding-heart'}
+        ]
+        
+        context['metrics'] = metrics
+        
+        # Add other context data as needed
+        return context
 
-# class TestimonialCreateView(CreateView):
-#     model = Testimonial
-#     form_class = TestimonialForm
-#     template_name = 'core/testimonial_form.html'
-#     success_url = reverse_lazy('testimonials')
+
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView, CreateView, ListView
+from .models import ContactMessage, Testimonial, ImpactMetric
+from .forms import ContactForm, TestimonialForm
+from django.urls import reverse_lazy
+from django.contrib import messages
+
+class HomeView(TemplateView):
+    template_name = 'core/home.html'
     
-#     def form_valid(self, form):
-#         # Set is_active to False so admin can review
-#         form.instance.is_active = False
-#         messages.success(self.request, 'Thank you for your testimonial! It will be reviewed and published soon.')
-#         return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['testimonials'] = Testimonial.objects.filter(is_active=True)[:3]
+        context['metrics'] = ImpactMetric.objects.all()
+        return context
+
+class TestimonialsView(ListView):
+    model = Testimonial
+    template_name = 'core/testimonials.html'
+    context_object_name = 'testimonials'
+    
+    def get_queryset(self):
+        return Testimonial.objects.filter(is_active=True)
+
+class AddTestimonialView(CreateView):
+    model = Testimonial
+    form_class = TestimonialForm
+    template_name = 'core/add_testimonial.html'
+    success_url = reverse_lazy('testimonials')
+    
+    def form_valid(self, form):
+        form.instance.is_active = False  # Set to inactive by default for moderation
+        messages.success(self.request, 'Thank you for your testimonial! It will be displayed after review.')
+        return super().form_valid(form)
+
+
+
+def dashboard_view(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    # Add any context data needed for the dashboard
+    context = {
+        'user': request.user,
+        # Add other context variables as needed
+    }
+    
+    return render(request, 'core/dashboard.html', context)    
+
+
+

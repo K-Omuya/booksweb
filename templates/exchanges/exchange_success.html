@@ -6,7 +6,6 @@
 {% block extra_css %}
 <style>
     .success-section {
-        padding: 80px 0;
         background-color: var(--light-gray);
     }
     
@@ -140,20 +139,21 @@
 <!-- Breadcrumb -->
 <nav aria-label="breadcrumb" class="bg-light py-2">
     <div class="container">
-        <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'book_list' %}">Books</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Exchange Success</li>
+        <ol style="background-color:#3f51b5;border-radius: 5pc;max-height: 2pc;padding-left: 1pc;color: white;" class="breadcrumb mb-0">
+            <li  class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Exchaneg </li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Book Exchange</li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Book Exchange Success</li>
         </ol>
     </div>
-</nav>
+</nav><br>
 
 <section class="success-section">
     <div class="container">
         <div class="success-container">
             <div class="success-icon">
                 <i class="fas fa-exchange-alt"></i>
-            </div>
+            </div><br>
             
             <h1 class="success-title">Book Exchange Request Successful!</h1>
             
@@ -205,7 +205,7 @@
                 <ol class="next-steps-list">
                     <li>The book owner will be notified of your exchange request.</li>
                     <li>Once they confirm availability, you'll receive a notification.</li>
-                    <li>You'll need to make a payment of 20 KSh to facilitate the exchange.</li>
+                    <li>You'll need to make a payment of  <strong style="color: red;">KSh.200</strong> to facilitate the exchange.</li>
                     <li>After payment, coordination for pickup or delivery will be arranged.</li>
                 </ol>
             </div>
@@ -224,5 +224,5 @@
             </div>
         </div>
     </div>
-</section>
+</section><br>
 {% endblock %}

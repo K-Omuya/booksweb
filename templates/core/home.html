@@ -299,7 +299,7 @@
 
 /* Blog Section Styles */
 .blog-section {
-    padding: 80px 0;
+    /* padding: 80px 0; */
     background-color: var(--light-gray);
 }
 
@@ -444,6 +444,14 @@
 {% endblock %}
 
 {% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol style="background-color:#3f51b5;border-radius: 5pc;max-height: 2pc;padding-left: 1pc;color: white;" class="breadcrumb mb-0">
+            <li  class="breadcrumb-item"><a href="{% url 'home' %}">Home Page</a></li>
+        </ol>
+    </div>
+</nav>
 <!-- Hero Section -->
 <section class="hero">
     <div class="hero-content">
@@ -462,14 +470,14 @@
         <h2 class="section-title">About Us</h2>
         <div class="about-content">
             <div class="about-text">
-                <p>Books for All is dedicated to bridging educational inequality by ensuring every student has access to books through donations and exchanges, fostering a culture of learning and knowledge sharing.</p>
+                <p><strong>Books for All</strong> is dedicated to bridging educational inequality by ensuring every student has access to books through donations and exchanges, fostering a culture of learning and knowledge sharing.</p>
                 <div class="mission-vision">
                     <div class="mission">
-                        <h3>Our Mission</h3>
+                        <h3><strong>Our Mission</strong></h3>
                         <p>To bridge the educational inequality by ensuring every student has access to books through donations and exchanges, fostering a culture of learning and knowledge sharing.</p>
                     </div>
                     <div class="vision">
-                        <h3>Our Vision</h3>
+                        <h3><strong>Our Vision</strong></h3>
                         <p>A future where no child lacks books and education is accessible to all.</p>
                     </div>
                 </div>
@@ -488,6 +496,9 @@
     <div class="container">
         <h2 style="color: #003366; font-size: 1.8rem; text-align: center; margin-bottom: 30px;">Featured Posts</h2>
         <div class="row">
+            <div class="text-center mt-4">
+                <a href="{% url 'blog_list' %}" class="btn">View All Posts</a>
+            </div>
             {% for post in featured_posts %}
                 <div class="col-md-4">
                     <div style="background-color: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); padding: 15px;">
@@ -504,7 +515,7 @@
                                 <a href="{% url 'blog_detail' post.slug %}" style="text-decoration: none; color: inherit;">{{ post.title }}</a>
                             </h3>
                             <p style="color: #444; font-size: 1rem; margin-top: 10px;">{{ post.content|truncatewords:25 }}</p>
-                            <a href="{% url 'blog_detail' post.slug %}" style="color: #003366; text-decoration: none; font-weight: bold;">Read More →</a>
+                            <a href="{% url 'blog_detail' post.slug %}" class="btn">Read More</i></a>
                         </div>
                     </div>
                 </div>
@@ -514,8 +525,31 @@
         </div>
     </div>
 </section>
+<!-- Impact Section -->
+<section style="background-color: #f9f9f9; padding: 50px 0; text-align: center;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        <h2 style="font-size: 32px; color: #333; margin-bottom: 20px;">Our Impact</h2>
+        <div style="margin-top: 30px;">
+            <p style="font-size: 18px; color: #444; max-width: 800px; margin: 0 auto;">
+                Since 2020, Books for All has been working to bridge the educational gap by providing books to students across Kenya. Our impact continues to grow as we expand our reach and partnerships.
+            </p>
+            <a href="{% url 'donate_book' %}" style="display: inline-block; margin-top: 20px; padding: 12px 24px; background: #007bff; color: #fff; text-decoration: none; font-size: 18px; border-radius: 5px;">
+                Make an Impact Today
+            </a>
+        </div><br>
 
+        <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+            {% for metric in metrics %}
+                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); min-width: 150px;">
+                    <div style="font-size: 36px; font-weight: bold; color: #007bff;">{{ metric.value }}</div>
+                    <div style="font-size: 16px; color: #666; margin-top: 5px;">{{ metric.title }}</div>
+                </div>
+            {% endfor %}
+        </div>
 
+       
+    </div>
+</section>
 
 <!-- Services Section -->
 <section class="services-section">
@@ -528,8 +562,9 @@
                 </div>
                 <h3>Book Exchanges</h3>
                 <p>Exchange your books with others in the community. For a small fee of 20 shillings, facilitate the exchange of knowledge.</p>
-                <a href="{% url 'book_list' %}" class="btn-link">Exchange Books <i class="fas fa-arrow-right"></i></a>
-            </div>
+                  <a href="{% url 'book_list' %}" class="btn">Explore Book Exchange <br><i class="fas fa-arrow-right"></i></a>
+              
+                </div>
             
             <div class="service-card">
                 <div class="service-icon">
@@ -537,7 +572,7 @@
                 </div>
                 <h3>Donations</h3>
                 <p>Donate books or make monetary contributions to help us provide books to students and schools in need.</p>
-                <a href="{% url 'donate_book' %}" class="btn-link">Donate Now <i class="fas fa-arrow-right"></i></a>
+                <a href="{% url 'book_list' %}" class="btn">Donate Now <br><i class="fas fa-arrow-right"></i></a>
             </div>
             
             <div class="service-card">
@@ -546,12 +581,12 @@
                 </div>
                 <h3>Book Clubs</h3>
                 <p>Join or create book clubs in primary schools that help collect, catalog, and distribute books to those who need them.</p>
-                <a href="{% url 'club_list' %}" class="btn-link">Explore Clubs <i class="fas fa-arrow-right"></i></a>
+                <a href="{% url 'book_list' %}" class="btn">Explore Clubs <br><i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
 </section>
-
+<!-- 
 
 <!-- Testimonials Section -->
 <section class="testimonials-section">
@@ -605,60 +640,9 @@
             {% endif %}
         </div>
     </div>
-</section>
+</section> -->
 
-<!-- Blog Section -->
-<section class="blog-section">
-    <div class="container">
-        <h2 class="section-title">Latest Blog Posts</h2>
-        <div class="blog-grid">
-            {% if latest_posts %}
-                {% for post in latest_posts %}
-                    <div class="blog-card">
-                        <div class="blog-image">
-                            {% if post.featured_image %}
-                                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
-                            {% else %}
-                            {% load static %}
-                            <img src="{% static 'images/home.jpeg' %}" alt="Children reading books">
-                          
-                            {% endif %}
-                        </div>
-                        <div class="blog-content">
-                            <h3 class="blog-title">{{ post.title }}</h3>
-                            <p class="blog-excerpt">{{ post.content|truncatewords:20 }}</p>
-                            <a href="{% url 'blog_detail' post.slug %}" class="btn-link">Read More <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="blog-card">
-                    <div class="blog-image">
-                        <img src="{% static 'images/books.jpeg' %}" alt="Children reading books">
-                    </div>
-                    <div class="blog-content">
-                        <h3 class="blog-title">The Importance of Reading</h3>
-                        <p class="blog-excerpt">Reading is fundamental to developing a child's language skills and imagination. Regular reading helps children build vocabulary, improve comprehension, and develop critical thinking skills.</p>
-                        
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-image">
-                        <img src="{% static 'images/home.jpeg' %}" alt="Children reading books">
-                    </div>
-                    <div class="blog-content">
-                        <h3 class="blog-title">How Book Clubs Transform Schools</h3>
-                        <p class="blog-excerpt">Book clubs create a community of readers, fostering discussion and critical thinking. They also help students develop communication skills and empathy through shared reading experiences.</p>
-                       
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="text-center mt-4">
-            <a href="{% url 'blog_list' %}" class="btn">View All Posts</a>
-        </div>
-    </div>
-</section>
+
 
 <!-- Call to Action -->
 <section class="cta-section">

@@ -6,12 +6,20 @@
 {% block extra_css %}
 <style>
     .pledge-section {
-        padding: 60px 0;
-        background-color: var(--light-gray);
+              background-color: var(--light-gray);
     }
     
     .pledge-header {
-        margin-bottom: 40px;
+        background-image: url("{% static 'images/background.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 15px;
     }
     
     .pledge-container {
@@ -184,10 +192,10 @@
 <!-- Breadcrumb -->
 <nav aria-label="breadcrumb" class="bg-light py-2">
     <div class="container">
-        <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'donate_money' %}">Donate</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Pledge a Donation</li>
+        <ol style="background-color:#3f51b5;border-radius: 5pc;max-height: 2pc;padding-left: 1pc;color: white;" class="breadcrumb mb-0">
+            <li  class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Donation </li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Pledge Book</li>
         </ol>
     </div>
 </nav>
@@ -198,7 +206,7 @@
             <h1 class="section-title">Pledge a Donation</h1>
             <p class="text-center">Can't donate now? Make a pledge for later and help us plan for future educational resources.</p>
         </div>
-        
+      <br>  
         <div class="pledge-container">
             <div class="pledge-info">
                 <div class="pledge-info-card">

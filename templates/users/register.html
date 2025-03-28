@@ -78,6 +78,17 @@
 {% endblock %}
 
 {% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol style="background-color:#3f51b5;border-radius: 5pc;max-height: 2pc;padding-left: 1pc;color: white;" class="breadcrumb mb-0">
+            <li  class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Profile </li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Register</li>
+        </ol>
+    </div>
+</nav>
+
 <section class="register-section">
     <div class="container">
         <div class="register-container">

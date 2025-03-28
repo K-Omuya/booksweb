@@ -6,12 +6,20 @@
 {% block extra_css %}
 <style>
     .blog-section {
-        padding: 60px 0;
         background-color: var(--light-gray);
     }
     
     .blog-header {
-        margin-bottom: 40px;
+        background-image: url("{% static 'images/background.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 15px;x;
     }
     
     .categories-container {
@@ -272,22 +280,30 @@
 
 {% block content %}
 <!-- Breadcrumb -->
-<nav aria-label="breadcrumb" class="bg-light py-2">
-    <div class="container">
-        <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Blog</li>
-        </ol>
-    </div>
-</nav>
+<!-- Breadcrumb -->
 
+<div class="container d-flex align-items-center justify-content-between mt-4 w-100"
+     style="background-color:#3f51b5; border-radius: 10px; padding: 5px 15px;">
+    
+    <!-- Left: Back to Home Button with Back Arrow -->
+    <a style="background-color: #3f51b5;" href="{% url 'home' %}" class="btn btn-lg text-white d-flex align-items-center">
+        <i class="bi bi-arrow-left me-2"></i> Back to blog page
+    </a>
+
+    <!-- Centered Breadcrumb -->
+    <ol class="breadcrumb d-flex justify-content-center align-items-center mb-0 text-white flex-grow-1">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-white">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Blog</li>
+        <li class="breadcrumb-item active" aria-current="page">Blog List</li>
+    </ol>
+</div><br>
 <section class="blog-section">
     <div class="container">
         <div class="blog-header">
-            <h1 class="section-title">Our Blog</h1>
+            <h1 style="color: white;" class="section-title">Our Blog</h1>
             <p class="text-center">Stay updated with our latest news, stories, and educational content</p>
         </div>
-        
+      <br>  
         <div class="categories-container">
             <h3 class="categories-title">Categories</h3>
             <div class="categories-list">
@@ -323,10 +339,12 @@
                                 <div class="blog-author">
                                     <span>By {{ post.author.get_full_name|default:post.author.username }}</span>
                                 </div>
-                                <a href="{% url 'blog_detail' post.slug %}" class="btn-link">Read More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                            <a style="border-radius: 30px;"" href="{% url 'blog_detail'  post.slug%}" class="btn btn-lg ">Read More<i class="fas fa-arrow-right"></i></a>
+                        
                             </div>
                         </div>
-                    </div>
+                    </div><br>
                 {% endfor %}
             </div>
             

@@ -6,12 +6,20 @@
 {% block extra_css %}
 <style>
     .features-section {
-        padding: 60px 0;
         background-color: var(--light-gray);
     }
     
     .features-header {
-        margin-bottom: 50px;
+        background-image: url("{% static 'images/background.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 15px;
     }
     
     .feature-grid {
@@ -204,12 +212,14 @@
 {% endblock %}
 
 {% block content %}
+
 <!-- Breadcrumb -->
 <nav aria-label="breadcrumb" class="bg-light py-2">
     <div class="container">
-        <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Our Features</li>
+        <ol style="background-color:#3f51b5;border-radius: 5pc;max-height: 2pc;padding-left: 1pc;color: white;" class="breadcrumb mb-0">
+            <li  class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">About Us</li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Our Features</li>
         </ol>
     </div>
 </nav>
@@ -221,6 +231,7 @@
             <h1 class="section-title">Our Features</h1>
             <p class="section-subtitle">Books for All offers a comprehensive set of features designed to make book sharing, donations, and distribution as simple and effective as possible.</p>
         </div>
+        <br>
         
         <div class="feature-grid">
             <div class="feature-card">
@@ -230,7 +241,7 @@
                 <div class="feature-content">
                     <h3 class="feature-title">Book Exchange Platform</h3>
                     <p class="feature-text">Our intuitive book exchange system allows users to browse available books, list their own, and arrange exchanges with minimal effort.</p>
-                    <a href="{% url 'book_list' %}" class="btn-link">Explore Book Exchange <i class="fas fa-arrow-right"></i></a>
+                    <a href="{% url 'book_list' %}" class="btn">Explore Book Exchange <br><i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
             
@@ -241,7 +252,8 @@
                 <div class="feature-content">
                     <h3 class="feature-title">Book Donation System</h3>
                     <p class="feature-text">Donate books easily through our platform, with options for delivery or pickup to ensure they reach students in need.</p>
-                    <a href="{% url 'donate_book' %}" class="btn-link">Donate Books <i class="fas fa-arrow-right"></i></a>
+                    <a href="{% url 'book_list' %}" class="btn">Donate Books <br><i class="fas fa-arrow-right"></i></a>
+              
                 </div>
             </div>
             
@@ -252,8 +264,8 @@
                 <div class="feature-content">
                     <h3 class="feature-title">School Book Clubs</h3>
                     <p class="feature-text">Create and manage school book clubs that serve as collection and distribution points for donated books.</p>
-                    <a href="{% url 'club_list' %}" class="btn-link">Explore Book Clubs <i class="fas fa-arrow-right"></i></a>
-                </div>
+                    <a href="{% url 'book_list' %}" class="btn">Explore Book Clubs <br><i class="fas fa-arrow-right"></i></a>
+               </div>
             </div>
             
             <div class="feature-card">
@@ -263,7 +275,8 @@
                 <div class="feature-content">
                     <h3 class="feature-title">Monetary Donations</h3>
                     <p class="feature-text">Support our mission through financial contributions that help us purchase new books and cover operational costs.</p>
-                    <a href="{% url 'donate_money' %}" class="btn-link">Make a Donation <i class="fas fa-arrow-right"></i></a>
+                    <a href="{% url 'book_list' %}" class="btn">Make a Donation <br><i class="fas fa-arrow-right"></i></a>
+              
                 </div>
             </div>
             
@@ -274,7 +287,8 @@
                 <div class="feature-content">
                     <h3 class="feature-title">Nationwide Coverage</h3>
                     <p class="feature-text">Our network spans across Kenya, with book clubs and distribution points in multiple counties.</p>
-                    <a href="{% url 'club_list' %}" class="btn-link">View Locations <i class="fas fa-arrow-right"></i></a>
+                    <a href="{% url 'book_list' %}" class="btn">View Locations <br><i class="fas fa-arrow-right"></i></a>
+              
                 </div>
             </div>
             
@@ -285,7 +299,8 @@
                 <div class="feature-content">
                     <h3 class="feature-title">Educational Blog</h3>
                     <p class="feature-text">Access educational content, success stories, and updates about our initiatives through our regularly updated blog.</p>
-                    <a href="{% url 'blog_list' %}" class="btn-link">Read Our Blog <i class="fas fa-arrow-right"></i></a>
+                    <a href="{% url 'book_list' %}" class="btn">Read Our Blogs <br><i class="fas fa-arrow-right"></i></a>
+              
                 </div>
             </div>
         </div>

@@ -78,33 +78,55 @@ TEMPLATES = [
 WSGI_APPLICATION = 'booksweb.wsgi.application'
 
 
+
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-import dj_database_url
-import os
-import os
-import dj_database_url
-import environ  
-
-# Initialize environment variables
-env = environ.Env()
-environ.Env.read_env() 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'books_for_all_db',
-        'USER': 'db_user',
-        'PASSWORD': '6PHCVGZRVmeH3oQid0qwjeebD97RmUPa', 
-        'HOST': 'dpg-cvi5op3v2p9s738omv60-a.oregon-postgres.render.com',  
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
 
-STATIC_URL = '/static/'
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# import dj_database_url
+# import os
+# import environ  
+
+# # Initialize environment variables
+# env = environ.Env()
+# environ.Env.read_env() 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'books_for_all_db',
+#         'USER': 'db_user',
+#         'PASSWORD': '6PHCVGZRVmeH3oQid0qwjeebD97RmUPa', 
+#         'HOST': 'dpg-cvi5op3v2p9s738omv60-a.oregon-postgres.render.com',  
+#         'PORT': '5432',
+#         'OPTIONS': {'sslmode': 'require'},
+#     }
+# }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # or your email host
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your-email@gmail.com'  # replace with your email
+EMAIL_HOST_PASSWORD = 'your-email-password'  # replace with your email password or app password
+DEFAULT_FROM_EMAIL = 'Books for All <your-email@gmail.com>'
+
+STATIC_URL = '/static/'
+# After logging out, redirect to the homepage
+LOGOUT_REDIRECT_URL = 'home'
 # For production, set STATIC_ROOT to a directory where you want to store collected static files.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 

@@ -14,7 +14,7 @@ body {
 .breadcrumb {
     background: linear-gradient(90deg, #1E3A8A, #002F6C);
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 25px;
 }
 
 .breadcrumb a {
@@ -324,15 +324,23 @@ body {
 </style>
 
 <!-- Breadcrumb -->
-<nav aria-label="breadcrumb" class="breadcrumb-container">
-    <div class="container">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'blog_list' %}">Blog</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
-        </ol>
-    </div>
-</nav>
+
+<div class="container d-flex align-items-center justify-content-between mt-4 w-100"
+     style="background-color:#3f51b5; border-radius: 10px; padding: 5px 15px;">
+    
+    <!-- Left: Back to Home Button with Back Arrow -->
+    <a style="background-color: #3f51b5;" href="{% url 'blog_create' %}" class="btn btn-lg text-white d-flex align-items-center">
+        <i class="bi bi-arrow-left me-2"></i> Back to blog page
+    </a>
+
+    <!-- Centered Breadcrumb -->
+    <ol class="breadcrumb d-flex justify-content-center align-items-center mb-0 text-white flex-grow-1">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-white">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Blog</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+    </ol>
+</div>
+
 
 <!-- Blog Detail Section -->
 <section class="blog-detail-section">

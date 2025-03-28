@@ -527,33 +527,52 @@ footer {
             </div>
         </div>
     </div>
-    
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="{% url 'home' %}">
-                        <i class="fas fa-book-open"></i> Books_for_All
+  
+  
+  <!-- Header -->
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <i class="fas fa-book-open"></i> Books_for_All
+                </a>
+            </div>
+            <div class="header-actions">
+                {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <a href="#" class="btn profile-btn dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i> 
+                            {{ user.get_full_name|default:user.username }} 
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'my_books' %}">My Books</a></li>
+                            
+                                {% if user.is_staff %}  
+                                <a href="{% url 'admin:index' %}" class="profile-nav-link admin-link">
+                                    <i class="fas fa-tachometer-alt"></i> Admin Dashboard
+                                </a>
+                                {% endif %}
+                            
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
                     </a>
-                </div>
-                <div class="header-actions">
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'profile' %}" class="btn profile-btn">
-                            <i class="fas fa-user"></i> Profile <i class="fas fa-chevron-down"></i>
-                        </a>
-                    {% else %}
-                        <a href="{% url 'login' %}" class="btn login-btn">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </a>
-                        <a href="{% url 'register' %}" class="btn register-btn">
-                            <i class="fas fa-user-plus"></i> Register
-                        </a>
-                    {% endif %}
-                </div>
+                    <a href="{% url 'register' %}" class="btn register-btn">
+                        <i class="fas fa-user-plus"></i> Register
+                    </a>
+                {% endif %}
             </div>
         </div>
-    </header>
+    </div>
+</header>
+  
     <!-- Navigation -->
 <nav class="main-nav navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
@@ -571,7 +590,7 @@ footer {
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'about' %}" class="dropdown-item">Our Team</a></li>
                         <li><a href="{% url 'features' %}" class="dropdown-item">Our Features</a></li>
-                        <li><a href="{% url 'about'%}"class="dropdown-item">Testimonials</a></li>
+                        <li><a href="{% url 'testimonials'%}"class="dropdown-item">Testimonials</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -642,9 +661,9 @@ footer {
                 <div class="footer-column">
                     <h3 class="footer-title">Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="{% url 'blog_list' %}">Blogs</a></li>
-                        <li><a href="{% url 'about' %}">About Us</a></li>
-                        <li><a href="{% url 'book_list' %}">Books Catalogue</a></li>
+                        <li><a href="{% url 'blog_list' %}">FAQs</a></li>
+                        <li><a href="{% url 'book_list' %}">Privacy Policy</a></li>
+                        <li><a href="{% url 'about' %}">Terms & Conditions</a></li>
                         <li><a href="{% url 'about' %}#features">Our Features</a></li>
                         <li><a href="{% url 'club_list' %}">Book Clubs</a></li>
                         <li><a href="{% url 'about' %}#testimonials">Testimonials</a></li>
@@ -672,10 +691,10 @@ footer {
                 <div class="footer-column">
                     <h3 class="footer-title">Social Media Links</h3>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://facebook.com/bookforall20" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href=" https://x.com/Bookforall20" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/bookforall20" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedln.com/bookforall20" class="social-link"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>

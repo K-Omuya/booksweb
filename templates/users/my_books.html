@@ -11,7 +11,16 @@
     }
     
     .my-books-header {
-        margin-bottom: 30px;
+        background-image: url("{% static 'images/background.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 15px;
     }
     
     .my-books-title {

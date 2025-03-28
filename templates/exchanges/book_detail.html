@@ -247,14 +247,14 @@
 <!-- Breadcrumb -->
 <nav aria-label="breadcrumb" class="bg-light py-2">
     <div class="container">
-        <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'book_list' %}">Books</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ book.title }}</li>
+        <ol style="background-color:#3f51b5;border-radius: 5pc;max-height: 2pc;padding-left: 1pc;color: white;" class="breadcrumb mb-0">
+            <li  class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Exchaneg </li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Book Exchange</li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Book Exchange Details</li>
         </ol>
     </div>
 </nav>
-
 <section class="book-detail-section">
     <div class="container">
         <div class="row">
@@ -324,7 +324,7 @@
                         {% if book.is_donation %}
                             <p>This book has been generously donated and is available to those who need it.</p>
                         {% else %}
-                            <p>This book is available for exchange. A small fee of 20 shillings will be charged to facilitate the exchange.</p>
+                            <p>This book is available for exchange. A small fee of <strong style="color: red;">Ksh.200</strong> will be charged to facilitate the exchange.</p>
                         {% endif %}
                         
                         {% if user.is_authenticated %}
@@ -336,7 +336,7 @@
                                     </button>
                                 </form>
                             {% else %}
-                                <p>This is your book. You cannot request your own book.</p>
+                                <strong><p>This is your book. You cannot request your own book once uploaded</p></strong>
                             {% endif %}
                         {% else %}
                             <p>Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to request this book.</p>

@@ -6,18 +6,25 @@
 {% block extra_css %}
 <style>
     .testimonials-section {
-        padding: 60px 0;
-        background-color: var(--light-gray);
+         background-color: var(--light-gray);
     }
     
-    .section-header {
-        text-align: center;
-        margin-bottom: 40px;
+    .testimonials-header {
+        background-image: url("{% static 'images/background.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 15px;
     }
     
     .testimonials-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         gap: 30px;
         margin-bottom: 40px;
     }
@@ -25,41 +32,37 @@
     .testimonial-card {
         background-color: var(--white);
         border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        position: relative;
         transition: transform 0.3s ease;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
     }
     
     .testimonial-card:hover {
         transform: translateY(-5px);
     }
     
-    .testimonial-content {
-        position: relative;
-        padding-left: 25px;
-        margin-bottom: 20px;
-        font-style: italic;
-        flex-grow: 1;
+    .testimonial-card::before {
+        content: '"';
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 5rem;
+        color: rgba(0, 64, 128, 0.1);
+        font-family: serif;
+        line-height: 1;
     }
     
-    .testimonial-content::before {
-        content: """;
-        position: absolute;
-        top: -10px;
-        left: 0;
-        font-size: 3rem;
-        color: rgba(0, 64, 128, 0.2);
-        line-height: 1;
+    .testimonial-content {
+        margin-bottom: 20px;
+        padding-left: 20px;
+        font-style: italic;
     }
     
     .testimonial-author {
         display: flex;
         align-items: center;
         gap: 15px;
-        margin-top: auto;
     }
     
     .author-image {
@@ -75,22 +78,9 @@
         object-fit: cover;
     }
     
-    .author-initial {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background-color: var(--deep-blue);
-        color: var(--white);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
-    
     .author-details h4 {
-        margin-bottom: 5px;
         color: var(--deep-blue);
+        margin-bottom: 5px;
     }
     
     .author-details p {
@@ -98,49 +88,9 @@
         font-size: 0.9rem;
     }
     
-    .pagination {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        margin-bottom: 40px;
-    }
-    
-    .page-item {
-        list-style: none;
-    }
-    
-    .page-link {
-        display: block;
-        padding: 8px 15px;
-        background-color: var(--white);
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        color: var(--deep-blue);
-        transition: all 0.3s ease;
-    }
-    
-    .page-item.active .page-link {
-        background-color: var(--deep-blue);
-        color: var(--white);
-        border-color: var(--deep-blue);
-    }
-    
-    .page-link:hover {
-        background-color: var(--light-gray);
-    }
-    
-    .no-testimonials {
+    .add-testimonial {
         text-align: center;
-        padding: 40px;
-        background-color: var(--white);
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-    
-    .no-testimonials i {
-        font-size: 3rem;
-        color: #ddd;
-        margin-bottom: 20px;
+        margin-top: 30px;
     }
 </style>
 {% endblock %}
@@ -149,29 +99,34 @@
 <!-- Breadcrumb -->
 <nav aria-label="breadcrumb" class="bg-light py-2">
     <div class="container">
-        <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Testimonials</li>
+        <ol style="background-color:#3f51b5;border-radius: 5pc;max-height: 2pc;padding-left: 1pc;color: white;" class="breadcrumb mb-0">
+            <li  class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">About </li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Testimonials</li>
         </ol>
     </div>
 </nav>
 
+
 <section class="testimonials-section">
     <div class="container">
-        <div class="section-header">
+        <div class="testimonials-header">
             <h1 class="section-title">What People Say About Us</h1>
-            <p>Read testimonials from students, teachers, donors, and partners who have experienced the impact of Books for All.</p>
-        </div>
+            <p class="text-center">Read about the experiences of students, teachers, and donors who have been a part of our mission.</p>
+        </div><br>
+        <div class="add-testimonial">
+            <h2>Share Your Experience</h2>
+            <p>Has Books for All made a difference in your life? We'd love to hear your story!</p>
+            <a href="{% url 'add_testimonial' %}" class="btn btn-lg">Add Your Testimonial</a>
+        </div><br>
         
         {% if messages %}
-            <div class="messages mb-4">
-                {% for message in messages %}
-                    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            </div>
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show mb-4" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
         {% endif %}
         
         <div class="testimonials-grid">
@@ -186,8 +141,8 @@
                                 <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}">
                             </div>
                         {% else %}
-                            <div class="author-initial">
-                                {{ testimonial.name|first }}
+                            <div class="author-image">
+                                <img src="/api/placeholder/100/100" alt="{{ testimonial.name }}">
                             </div>
                         {% endif %}
                         <div class="author-details">
@@ -197,61 +152,13 @@
                     </div>
                 </div>
             {% empty %}
-                <div class="no-testimonials">
-                    <i class="fas fa-quote-right"></i>
-                    <h3>No testimonials yet</h3>
-                    <p>Check back soon for testimonials from our community.</p>
+                <div class="alert alert-info text-center" style="grid-column: 1 / -1;">
+                    <p>No testimonials available yet. Be the first to share your experience!</p>
                 </div>
             {% endfor %}
         </div>
         
-        {% if is_paginated %}
-            <ul class="pagination">
-                {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1" aria-label="First">
-                            <span aria-hidden="true">&laquo;&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                {% endif %}
-                
-                {% for num in paginator.page_range %}
-                    {% if page_obj.number == num %}
-                        <li class="page-item active">
-                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                        </li>
-                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-                
-                {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ paginator.num_pages }}" aria-label="Last">
-                            <span aria-hidden="true">&raquo;&raquo;</span>
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-        {% endif %}
-        
-        <div class="text-center mt-5">
-            <h3>Want to share your experience?</h3>
-            <p>We'd love to hear about your experience with Books for All.</p>
-            <a href="{% url 'submit_testimonial' %}" class="btn btn-lg">Share Your Testimonial</a>
-        </div>
+       
     </div>
 </section>
 {% endblock %}

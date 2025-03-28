@@ -10,7 +10,7 @@ class ContactMessage(models.Model):
     
     def __str__(self):
         return f"{self.name} - {self.subject}"
- 
+
 class ImpactMetric(models.Model):
     title = models.CharField(max_length=100)
     value = models.IntegerField()
@@ -18,4 +18,13 @@ class ImpactMetric(models.Model):
     
     def __str__(self):
         return self.title
-
+class Testimonial(models.Model):
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100)
+    content = models.TextField()
+    image = models.ImageField(upload_to='testimonials/', blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
