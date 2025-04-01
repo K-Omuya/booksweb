@@ -1,0 +1,784 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Books for All</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="{% static 'lib/animate/animate.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"/>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start --><div class="container-fluid header-top">
+    <div class="nav-shaps-2"></div>
+    <div class="container d-flex align-items-center">
+        <div class="d-flex align-items-center h-100">
+            <a href="#" class="navbar-brand" style="height: 125px;">
+                <h1 class="text-primary mb-0" style="color: #ffffff;">
+                    <i class="fas fa-book-open me-2"></i> Books_for_All
+                </h1>
+            </a>
+        </div>
+        <div class="w-100 h-100">
+            <div class="topbar px-0 py-2 d-none d-lg-block" style="height: 45px;">
+                <div class="row gx-0 align-items-center">
+                    <div class="col-lg-8 text-center text-lg-center mb-lg-0">
+                        <div class="d-flex flex-wrap">
+                            <div class="pe-4">
+                                <a href="Bookforall@prc.cx" class="text-muted small"
+                                    style="color: white; font-weight: bold;">
+                                    <i class="fas fa-envelope text-primary me-2" style="color: white"></i>
+                                    Bookforall@prc.cx
+                                </a>
+                            </div>
+                            <div class="pe-0">
+                                <a href="#" class="text-muted small"
+                                    style="color: white; font-weight: bold;">
+                                    <i class="fa fa-clock text-primary me-2" style="color: white"></i>
+                                    Mon - Sat: 8.00 am - 5.00 pm
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center text-lg-end">
+                        <div class="d-flex justify-content-end">
+                            <div class="d-flex align-items-center small"></div>
+                            <div class="d-flex align-items-center pe-3">
+                                <!-- Profile Dropdown - Fixed to the Right -->
+                                <div class="position-absolute end-0 me-3" style="padding-top: 100px;">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center"
+                                            type="button" id="profileDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="fas fa-user-circle me-1"></i> Profile
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end position-absolute end-0 mt-2"
+                                            aria-labelledby="profileDropdown" style="right: 0;">
+                                            <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="{% url 'home' %}">Logout</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">Admin Panel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Bar -->
+            <div class="nav-bar px-0 py-lg-0" style="height: 80px;">
+                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-lg-end">
+                    <a href="#" class="navbar-brand-2">
+                        <h1 class="text-primary mb-0"><i class="fas fa-book-open me-2"></i> Books_for_All</h1>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav mx-0 mx-lg-auto">
+                            <a href="{% url 'home' %}" class="nav-item nav-link fw-bold text-dark">Home</a>
+                            <a href="{% url 'about' %}" class="nav-item nav-link fw-bold text-dark">About</a>
+
+                            <!-- Exchange Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Exchange
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'book_upload' %}" class="dropdown-item">Upload Book</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Book Catalogue</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Donated Books</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Pledged Books</a>
+                                </div>
+                            </div>
+
+                            <!-- Donate Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Donate
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'donate_money' %}" class="dropdown-item">Donate Money</a>
+                                    <a href="{% url 'pledge_donation' %}" class="dropdown-item">Pledge Book</a>
+                                    <a href="{% url 'donate_book' %}" class="dropdown-item">Donate Book</a>
+                                </div>
+                            </div>
+
+                            <!-- Clubs Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Clubs
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'club_create' %}" class="dropdown-item">Create Book Club</a>
+                                    <a href="{% url 'club_list' %}" class="dropdown-item">Book Clubs</a>
+                                </div>
+                            </div>
+
+                            <!-- Explore Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Explore
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'about' %}" class="dropdown-item">Our Team</a>
+                                    <a href="{% url 'features' %}" class="dropdown-item">Our Features</a>
+                                    <a href="{% url 'testimonials' %}" class="dropdown-item">Testimonials</a>
+                                    <a href="{% url 'impact' %}" class="dropdown-item">Our Impact</a>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'blog_list' %}" class="nav-item nav-link fw-bold text-dark">Blogs</a>
+                            <a href="{% url 'contact' %}" class="nav-item nav-link fw-bold text-dark">Contact Us</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Navbar & Hero End -->
+
+        <!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">
+            {{ page_title|default:"Blog Details" }}
+        </h4>
+        <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Blogs</a></li>
+            <li class="breadcrumb-item active text-primary">Blog Details</li>
+        </ol>
+    </div>
+</div>
+
+
+<style>
+    :root {
+    /* Primary Colors */
+    --deep-blue: #004080; /* Navigation & Headings */
+    --bright-orange: #FF8200; /* Call-to-Action Buttons */
+
+    /* Accent Colors */
+    --soft-green: #3CB371; /* Highlights & Impact Sections */
+    --dark-gray: #333333; /* Text & Contrast Elements */
+
+    /* Background & Neutrals */
+    --light-gray: #F5F5F5; /* Section Backgrounds */
+    --white: #FFFFFF; /* General Background */
+}
+
+    /* General Styling */
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+/* Blog Detail Section */
+.blog-detail-section {
+    padding: 40px 0;
+}
+
+.blog-detail-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Blog Content */
+.blog-content {
+    flex: 2;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Blog Header */
+.blog-header {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.blog-title {
+    font-size: 2rem;
+    color: #1E3A8A;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+/* Blog Meta */
+.blog-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.blog-meta i {
+    color: #FF6B00;
+}
+
+/* Blog Author */
+.blog-author {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.blog-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1E3A8A;
+}
+
+/* Featured Image */
+.blog-featured-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Blog Body */
+.blog-body {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Blog Tags */
+.blog-tags {
+    margin-top: 20px;
+}
+
+.blog-tag {
+    display: inline-block;
+    background: #FF6B00;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 0.9rem;
+}
+
+.blog-tag:hover {
+    background: #1E3A8A;
+}
+
+/* Share Buttons */
+.blog-share {
+    margin-top: 30px;
+}
+
+.share-buttons a {
+    display: inline-block;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.facebook-share { background: #3b5998; }
+.twitter-share { background: #1DA1F2; }
+.whatsapp-share { background: #25D366; }
+.email-share { background: #FF6B00; }
+
+.share-buttons a:hover {
+    opacity: 0.8;
+}
+
+/* Author Bio */
+.author-bio {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 5px solid #1E3A8A;
+}
+
+.author-bio img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Comments Section */
+.comments-section {
+    margin-top: 40px;
+}
+
+.comment {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.comment-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #FF6B00;
+}
+
+.comment-content {
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Comment Form */
+.comment-form-container {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+}
+
+.comment-form .form-group {
+    margin-bottom: 15px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.comment-form .btn {
+    background: #1E3A8A;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.comment-form .btn:hover {
+    background: #FF6B00;
+}
+
+/* Sidebar */
+.blog-sidebar {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-widget {
+    margin-bottom: 30px;
+}
+
+.widget-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #1E3A8A;
+    margin-bottom: 15px;
+}
+
+/* Sidebar Lists */
+.recent-posts li, .categories-list li, .popular-posts li {
+    list-style: none;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.recent-posts li a, .categories-list li a, .popular-posts li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.recent-posts li a:hover, .categories-list li a:hover, .popular-posts li a:hover {
+    color: #FF6B00;
+}
+
+/* Related Posts */
+.related-posts-section {
+    background: #f1f1f1;
+    padding: 40px 0;
+    margin-top: 40px;
+}
+
+.related-posts {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+}
+
+.related-post {
+    flex: 0 0 300px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.related-post:hover {
+    transform: translateY(-5px);
+}
+
+.related-post img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(90deg, #1E3A8A, #002F6C);
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.cta-buttons .btn {
+    background: white;
+    color: #1E3A8A;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.cta-buttons .btn:hover {
+    background: #FF6B00;
+    color: white;
+}
+
+</style>
+
+<!-- Blog Detail Section -->
+<section class="blog-detail-section">
+    <div class="container">
+        <div class="blog-detail-container">
+
+            <!-- Blog Content Column -->
+            <div class="blog-content">
+                <div class="blog-header">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar-alt"></i> {{ post.created_at|date:"F d, Y" }}</span>
+                        {% if post.category %}
+                        <span><i class="fas fa-folder"></i> {{ post.category.name }}</span>
+                        {% endif %}
+                        <span><i class="far fa-eye"></i> {{ post.views }} views</span>
+                    </div>
+
+                    <h1 class="blog-title">{{ post.title }}</h1>
+
+                    <div class="blog-author">
+                        <div class="author-image">
+                            <img src="{{ post.author.profile.profile_picture.url|default:'/static/images/default-user.png' }}"
+                                 alt="{{ post.author.username }}">
+                        </div>
+                        <div class="author-info">
+                            <h3>{{ post.author.get_full_name|default:post.author.username }}</h3>
+                            <p>Published in {{ post.category.name|default:"Uncategorized" }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {% if post.featured_image %}
+                <div class="blog-featured-image">
+                    <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                </div>
+                {% endif %}
+
+                <div class="blog-body">
+                    {{ post.content|safe }}
+                </div>
+
+                <!-- Blog Tags -->
+                {% if post.tags.all %}
+                <div class="blog-tags">
+                    <i class="fas fa-tags"></i>
+                    {% for tag in post.tags.all %}
+                    <a href="{% url 'blog_list' %}?tag={{ tag.slug }}" class="blog-tag">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Share Buttons -->
+                <div class="blog-share">
+                    <span>Share this post:</span>
+                    <div class="share-buttons">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="facebook-share">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}" target="_blank" class="twitter-share">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://wa.me/?text={{ post.title }} {{ request.build_absolute_uri }}" target="_blank" class="whatsapp-share">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="mailto:?subject={{ post.title }}&body=Check out this article: {{ request.build_absolute_uri }}" class="email-share">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="comments-section">
+                    <h2>Comments ({{ comments.count }})</h2>
+
+                    {% if comments %}
+                    <div class="comments-list">
+                        {% for comment in comments %}
+                        <div class="comment">
+                            <div class="comment-author">
+                                <img src="{{ comment.author.profile.profile_picture.url|default:'/static/images/default-user.png' }}"
+                                     alt="{{ comment.author.username }}">
+                                <div class="author-info">
+                                    <h4>{{ comment.author.get_full_name|default:comment.author.username }}</h4>
+                                    <span>{{ comment.created_at|date:"F d, Y" }} at {{ comment.created_at|time:"H:i" }}</span>
+                                </div>
+                            </div>
+                            <div class="comment-content">
+                                <p>{{ comment.content }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="no-comments">
+                        <p>No comments yet. Be the first to share your thoughts!</p>
+                    </div>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <div class="comment-form-container">
+                        <h3>Leave a Comment</h3>
+                        <form method="post" action="{% url 'add_comment' post.slug %}" class="comment-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="comment">Your Comment</label>
+                                {{ comment_form.content }}
+                            </div>
+                            <button type="submit" class="btn">Post Comment</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="login-to-comment">
+                        <p>Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to leave a comment.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="blog-sidebar">
+                <div class="sidebar-widget">
+                    <h3>Recent Posts</h3>
+                    <ul class="recent-posts">
+                        {% for recent_post in recent_posts %}
+                        <li>
+                            <a href="{% url 'blog_detail' recent_post.slug %}">
+                                {{ recent_post.title }}
+                                <span>{{ recent_post.created_at|date:"M d, Y" }}</span>
+                            </a>
+                        </li>
+                        {% empty %}
+                        <li>No recent posts available</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>Categories</h3>
+                    <ul class="categories-list">
+                        {% for category in categories %}
+                        <li>
+                            <a href="{% url 'blog_list' %}?category={{ category.slug }}">
+                                {{ category.name }} ({{ category.blogpost_set.count }})
+                            </a>
+                        </li>
+                        {% empty %}
+                        <li>No categories available</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Footer Start -->
+<div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s" style="background-color: #004080; color: #FFFFFF;">
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- About Section -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FF8200; font-size: 18px; font-weight: bold; margin-bottom: 15px;">
+                        <i class="fas fa-book text-white me-2"></i> Books for All
+                    </h4>
+                    <p style="margin: 0; font-size: 14px; line-height: 1.7;">SHARE A BOOK, SHARE A DREAM..</p>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Quick Links</h4>
+                    <ul style="list-style-type: none; padding: 0; font-size: 14px; line-height: 1.7;">
+                        <li><a href="{% url 'blog_list' %}" style="color: #FF8200; text-decoration: none;">Blogs</a></li>
+                        <li><a href="{% url 'about' %}" style="color: #FF8200; text-decoration: none;">About Us</a></li>
+                        <li><a href="{% url 'book_list' %}" style="color: #FF8200; text-decoration: none;">Books Catalogue</a></li>
+                        <li><a href="{% url 'features' %}" style="color: #FF8200; text-decoration: none;">Our Features</a></li>
+                        <li><a href="{% url 'club_list' %}" style="color: #FF8200; text-decoration: none;">Book Clubs</a></li>
+                        <li><a href="{% url 'testimonials' %}" style="color: #FF8200; text-decoration: none;">Testimonials</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Contact Info</h4>
+                    <div style="font-size: 14px; line-height: 1.7;">
+                        <div style="margin-bottom: 10px;">
+                            <i class="fas fa-map-marker-alt text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Address:</strong>
+                            <p style="margin: 0; display: inline;">753-10101, Westlands, Nairobi</p>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <i class="fas fa-envelope text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Mail Us:</strong>
+                            <p style="margin: 0; display: inline;">Bookforall@prc.cx</p>
+                        </div>
+                        <div>
+                            <i class="fa fa-phone-alt text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Telephone:</strong>
+                            <p style="margin: 0; display: inline;">+254 703 128 764</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Social Media Links</h4>
+                    <div style="display: flex; gap: 10px; justify-content: start;">
+                        <!-- Facebook -->
+                        <a href="https://facebook.com/bookforall20"
+                           style="width: 50px; height: 50px; background-color: #3B5998; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-facebook-f" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- Twitter -->
+                        <a href="https://x.com/Bookforall20"
+                           style="width: 50px; height: 50px; background-color: #1DA1F2; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-twitter" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://instagram.com/bookforall20"
+                           style="width: 50px; height: 50px; background: radial-gradient(circle at 30% 30%, #F09433, #E6683C, #DC2743, #CC2366, #BC1888); color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-instagram" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/bookforall20"
+                           style="width: 50px; height: 50px; background-color: #0A66C2; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-linkedin-in" style="font-size: 18px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+
+<!-- Back to Top Button -->
+<div class="back-to-top" style="position: fixed; bottom: 20px; right: 20px; z-index: 99;">
+    <a href="#" class="btn" style="width: 45px; height: 45px; font-size: 20px; background-color: #FF8200; color: #FFFFFF; display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
+
+
+
+
+
+

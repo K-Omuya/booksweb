@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Exchange Successful - Books for All{% endblock %}
+
+{% block extra_css %}
+<style>
+    .success-section {
+        background-color: var(--light-gray);
+    }
+    
+    .success-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        text-align: center;
+    }
+    
+    .success-icon {
+        width: 100px;
+        height: 100px;
+        background-color: var(--bright-orange);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        margin: 0 auto 30px;
+    }
+    
+    .success-title {
+        color: var(--deep-blue);
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .success-message {
+        color: var(--dark-gray);
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+    }
+    
+    .book-info {
+        background-color: var(--light-gray);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        text-align: left;
+        display: flex;
+        gap: 20px;
+    }
+    
+    .book-image {
+        width: 120px;
+        height: 160px;
+        overflow: hidden;
+        border-radius: 5px;
+        flex-shrink: 0;
+    }
+    
+    .book-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .book-details {
+        flex-grow: 1;
+    }
+    
+    .book-title {
+        font-size: 1.3rem;
+        color: var(--deep-blue);
+        margin-bottom: 5px;
+    }
+    
+    .book-author {
+        color: var(--dark-gray);
+        margin-bottom: 10px;
+        font-style: italic;
+    }
+    
+    .book-meta {
+        margin-top: 15px;
+    }
+    
+    .book-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+    
+    .book-meta-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--bright-orange);
+    }
+    
+    .next-steps {
+        margin-bottom: 30px;
+        text-align: left;
+    }
+    
+    .next-steps h3 {
+        color: var(--deep-blue);
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+    }
+    
+    .next-steps-list {
+        list-style-position: inside;
+        padding-left: 0;
+    }
+    
+    .next-steps-list li {
+        margin-bottom: 10px;
+    }
+    
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol style="background-color:#3f51b5;border-radius: 5pc;max-height: 2pc;padding-left: 1pc;color: white;" class="breadcrumb mb-0">
+            <li  class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Exchaneg </li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Book Exchange</li>
+            <li style="color: white;" class="breadcrumb-item active" aria-current="page">Book Exchange Success</li>
+        </ol>
+    </div>
+</nav><br>
+
+<section class="success-section">
+    <div class="container">
+        <div class="success-container">
+            <div class="success-icon">
+                <i class="fas fa-exchange-alt"></i>
+            </div><br>
+            
+            <h1 class="success-title">Book Exchange Request Successful!</h1>
+            
+            <p class="success-message">
+                Your request to exchange the book has been submitted successfully. The book owner will be notified of your interest.
+            </p>
+            
+            {% if exchange %}
+            <div class="book-info">
+                <div class="book-image">
+                    {% if exchange.book.image %}
+                        <img src="{{ exchange.book.image.url }}" alt="{{ exchange.book.title }}">
+                    {% else %}
+                        <div style="background-color: #ddd; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-book fa-2x" style="color: #aaa;"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="book-details">
+                    <h3 class="book-title">{{ exchange.book.title }}</h3>
+                    <p class="book-author">By {{ exchange.book.author }}</p>
+                    
+                    <div class="book-meta">
+                        <div class="book-meta-item">
+                            <div class="book-meta-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span>Book Owner: {{ exchange.book.donor_name }}</span>
+                        </div>
+                        <div class="book-meta-item">
+                            <div class="book-meta-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span>Location: {{ exchange.book.location }}</span>
+                        </div>
+                        <div class="book-meta-item">
+                            <div class="book-meta-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <span>Delivery: {{ exchange.book.get_delivery_option_display }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="next-steps">
+                <h3>Next Steps:</h3>
+                <ol class="next-steps-list">
+                    <li>The book owner will be notified of your exchange request.</li>
+                    <li>Once they confirm availability, you'll receive a notification.</li>
+                    <li>You'll need to make a payment of  <strong style="color: red;">KSh.200</strong> to facilitate the exchange.</li>
+                    <li>After payment, coordination for pickup or delivery will be arranged.</li>
+                </ol>
+            </div>
+            
+            {% if exchange %}
+            <div class="exchange-status">
+                <h3>Exchange Request ID: #{{ exchange.id }}</h3>
+                <p>Status: <span class="badge bg-warning">{{ exchange.get_status_display }}</span></p>
+                <p>Date Requested: {{ exchange.created_at|date:"F j, Y" }}</p>
+            </div>
+            {% endif %}
+            
+            <div class="action-buttons">
+                <a href="{% url 'home' %}" class="btn">Return to Home</a>
+                <a href="{% url 'book_list' %}" class="btn">Browse More Books</a>
+            </div>
+        </div>
+    </div>
+</section><br>
+{% endblock %}
