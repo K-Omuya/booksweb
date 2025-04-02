@@ -45,24 +45,21 @@ class BookAdmin(admin.AdminSite):
             app['models'].sort(key=lambda x: x['name'])
         
         return app_list
-
-
+# admin.py
 from django.contrib import admin
+from .models import Testimonial
 
-# @admin.register(Testimonial)
-# class TestimonialAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'role', 'is_active', 'created_at')
-#     list_filter = ('is_active', 'role', 'created_at')
-#     search_fields = ('name', 'role', 'content')
-#     list_editable = ('is_active',)
-#     actions = ['approve_testimonials', 'unapprove_testimonials']
-    
-#     def approve_testimonials(self, request, queryset):
-#         queryset.update(is_active=True)
-#         self.message_user(request, f"{queryset.count()} testimonials were approved.")
-#     approve_testimonials.short_description = "Approve selected testimonials"
-    
-#     def unapprove_testimonials(self, request, queryset):
-#         queryset.update(is_active=False)
-#         self.message_user(request, f"{queryset.count()} testimonials were unapproved.")
-#     unapprove_testimonials.short_description = "Unapprove selected testimonials"
+class TestimonialAdmin(admin.ModelAdmin):
+    list_display = ('name', 'role', 'is_active', 'created_at')
+    list_filter = ('is_active',)  # Filter by active or inactive testimonials
+    search_fields = ('name', 'role', 'content')  # Enable search by name, role, or content
+    actions = ['approve_testimonials']  # Add custom actions to approve testimonials
+
+    def approve_testimonials(self, request, queryset):
+        """Custom action to approve selected testimonials."""
+        queryset.update(is_active=True)
+        self.message_user(request, "Selected testimonials have been approved.")
+
+    approve_testimonials.short_description = "Approve selected testimonials"
+
+admin.site.register(Testimonial, TestimonialAdmin)

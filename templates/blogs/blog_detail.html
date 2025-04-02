@@ -179,6 +179,16 @@
 
     <!-- Navbar & Hero End -->
 
+
+   <!-- Display success message if it exists -->
+    {% if messages %}
+        <div class="alert alert-success custom-alert alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+                <strong>{{ message }}</strong>
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
         <!-- Header Start -->
 <div class="container-fluid bg-breadcrumb">
     <div class="container text-center py-5" style="max-width: 900px;">

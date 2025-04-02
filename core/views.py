@@ -162,25 +162,47 @@ class HomeView(TemplateView):
         context['metrics'] = ImpactMetric.objects.all()
         return context
 
-class TestimonialsView(ListView):
-    model = Testimonial
-    template_name = 'core/testimonials.html'
-    context_object_name = 'testimonials'
-    
-    def get_queryset(self):
-        return Testimonial.objects.filter(is_active=True)
+
+# views.py
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.contrib import messages
+from django.views.generic import CreateView
+from .models import Testimonial
+from .forms import TestimonialForm
+
+from django.shortcuts import render
+from .forms import TestimonialForm
+
+from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from .models import Testimonial
+from .forms import TestimonialForm
 
 class AddTestimonialView(CreateView):
     model = Testimonial
     form_class = TestimonialForm
     template_name = 'core/add_testimonial.html'
-    success_url = reverse_lazy('testimonials')
-    
+    success_url = reverse_lazy('testimonials')  # Redirects to testimonials page after form submission
+
     def form_valid(self, form):
         form.instance.is_active = False  # Set to inactive by default for moderation
-        messages.success(self.request, 'Thank you for your testimonial! It will be displayed after review.')
+        # Display a success message
+        messages.success(self.request, 'Thank you for your testimonial! It will be displayed after review by the Books for All team.')
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        for field in context['form']:
+            field.field.widget.attrs.update({'class': 'form-control'})  # Add Bootstrap class manually
+        return context
+
+
+# View to display all active (approved) testimonials
+def testimonials_view(request):
+    testimonials = Testimonial.objects.filter(is_active=True)
+    return render(request, 'core/testimonials.html', {'testimonials': testimonials})
 
 
 def dashboard_view(request):

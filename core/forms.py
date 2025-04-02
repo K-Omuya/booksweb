@@ -27,12 +27,11 @@ class ContactForm(forms.ModelForm):
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message', 'rows': 5}),
         }
 
+# forms.py
+from django import forms
+from .models import Testimonial
+
 class TestimonialForm(forms.ModelForm):
     class Meta:
         model = Testimonial
         fields = ['name', 'role', 'content', 'image']
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}),
-            'role': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Role (e.g., Teacher, Student, Parent)'}),
-            'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Share your experience...', 'rows': 5}),
-        }

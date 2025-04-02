@@ -17,9 +17,10 @@ urlpatterns = [
     path('about/', views.AboutView.as_view(), name='about'),
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('impact/', views.ImpactView.as_view(), name='impact'),
-    path('testimonials/', views.TestimonialsView.as_view(), name='testimonials'),
-    path('features/', views.FeaturesView.as_view(), name='features'),    
-    path('testimonials/add/', views.AddTestimonialView.as_view(), name='add_testimonial'),
+    path('features/', views.FeaturesView.as_view(), name='features'),
+
+    path('add/', views.AddTestimonialView.as_view(), name='add_testimonial'),  # URL to add testimonial
+    path('testimonials/', views.testimonials_view, name='testimonials'),
     path('admin/dashboard/', admin_views.admin_dashboard, name='admin_dashboard'),
 
    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),

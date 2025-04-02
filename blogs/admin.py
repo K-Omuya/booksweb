@@ -6,14 +6,25 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}
 
-@admin.register(BlogPost)
+from django.contrib import admin
+from .models import BlogPost
+
 class BlogPostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'category', 'is_featured', 'is_published', 'created_at')
-    list_filter = ('is_featured', 'is_published', 'category')
+    list_display = ('title', 'author', 'is_approved', 'is_published', 'created_at')
+    list_filter = ('is_approved', 'is_published', 'created_at')
     search_fields = ('title', 'content', 'author__username')
-    prepopulated_fields = {'slug': ('title',)}
-    date_hierarchy = 'created_at'
-    ordering = ('-created_at',)
+
+    actions = ['approve_blog_posts', 'publish_blog_posts']
+
+    def approve_blog_posts(self, request, queryset):
+        queryset.update(is_approved=True)
+    approve_blog_posts.short_description = "Approve selected blog posts"
+
+    def publish_blog_posts(self, request, queryset):
+        queryset.update(is_published=True)
+    publish_blog_posts.short_description = "Publish selected blog posts"
+
+admin.site.register(BlogPost, BlogPostAdmin)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
