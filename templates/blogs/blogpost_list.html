@@ -193,7 +193,8 @@
     </div>
 </div>
 <style>
-    :root {
+    <style>
+  :root {
     /* Primary Colors */
     --deep-blue: #004080; /* Navigation & Headings */
     --bright-orange: #FF8200; /* Call-to-Action Buttons */
@@ -205,110 +206,109 @@
     /* Background & Neutrals */
     --light-gray: #F5F5F5; /* Section Backgrounds */
     --white: #FFFFFF; /* General Background */
-}
-
+  }
 </style>
 
-<section class="blog-section" style="background-color: #f5f5f5; padding: 40px 0;">
-    <div class="container">
-
-      <br>
-      <div class="text-center mt-4">
-            <a href="{% url 'blog_create' %}" class="btn btn-lg" style="background-color: #FF8200; color: white; border-radius: 30px;">Create New Post</a>
-        </div>
-
-        <div class="categories-container" style="margin-top: 30px;">
-            <h3 class="categories-title" style="color: #004080;">Categories</h3>
-            <div class="categories-list" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;">
-                <a href="{% url 'blog_list' %}" class="category-pill {% if not category %}active{% endif %}" style="background-color: #e0e0e0; padding: 8px 15px; border-radius: 20px; font-size: 1rem; color: #333; text-decoration: none;">All</a>
-                {% for cat in categories %}
-                    <a href="{% url 'blog_list' %}?category={{ cat.slug }}" class="category-pill {% if category.slug == cat.slug %}active{% endif %}" style="background-color: #e0e0e0; padding: 8px 15px; border-radius: 20px; font-size: 1rem; color: #333; text-decoration: none;">{{ cat.name }}</a>
-                {% endfor %}
-            </div>
-        </div>
-
-
-        {% if posts %}
-            <h2 class="featured-title" style="text-align: center; font-size: 2rem; color: #004080; margin-top: 40px;">Latest Posts</h2>
-            <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
-                {% for post in posts %}
-                    <div class="blog-card" style="background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
-                        <div class="blog-content" style="padding: 20px;">
-                            <div class="blog-meta" style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
-                                <span class="date" style="margin-right: 15px;"><i class="far fa-calendar-alt"></i> {{ post.created_at|date:"F d, Y" }}</span>
-                                {% if post.category %}
-                                    <span class="category" style="background-color: #004080; color: white; padding: 5px 10px; border-radius: 5px;">{{ post.category.name }}</span>
-                                {% endif %}
-                            </div>
-                            <h3 class="blog-title" style="font-size: 1.5rem; color: #004080; margin-bottom: 15px; font-weight: bold;">{{ post.title }}</h3>
-                            <div class="blog-excerpt" style="font-size: 1rem; color: #333;">
-                                <p>{{ post.content|truncatewords:20 }}</p>
-                            </div>
-                            <div class="blog-footer" style="margin-top: 20px;">
-                                <div class="blog-author" style="font-size: 0.9rem; color: #666;">
-                                    <span>By {{ post.author.get_full_name|default:post.author.username }}</span>
-                                </div>
-                            </div>
-                            <a href="{% url 'blog_detail' post.slug %}" class="btn btn-lg" style="background-color: #FF8200; color: white; border-radius: 30px; margin-top: 15px; text-decoration: none;">Read More <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div><br>
-                {% endfor %}
-            </div>
-
-            <!-- Pagination -->
-            {% if is_paginated %}
-                <div class="pagination-container" style="margin-top: 40px; text-align: center;">
-                    <ul class="pagination" style="list-style: none; display: inline-flex; gap: 5px;">
-                        {% if page_obj.has_previous %}
-                            <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
-                                <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page=1" aria-label="First" style="color: #004080; text-decoration: none;">
-                                    <span aria-hidden="true">&laquo;&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
-                                <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous" style="color: #004080; text-decoration: none;">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        {% endif %}
-
-                        {% for num in paginator.page_range %}
-                            {% if page_obj.number == num %}
-                                <li class="page-item active" style="border: 1px solid #004080; padding: 5px 10px; border-radius: 5px; background-color: #004080;">
-                                    <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ num }}" style="color: white; text-decoration: none;">{{ num }}</a>
-                                </li>
-                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                                <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
-                                    <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ num }}" style="color: #004080; text-decoration: none;">{{ num }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-
-                        {% if page_obj.has_next %}
-                            <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
-                                <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next" style="color: #004080; text-decoration: none;">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
-                                <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ paginator.num_pages }}" aria-label="Last" style="color: #004080; text-decoration: none;">
-                                    <span aria-hidden="true">&raquo;&raquo;</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            {% endif %}
-        {% else %}
-            <div class="no-results" style="text-align: center; background-color: #fff; padding: 30px; border-radius: 10px; margin-top: 40px;">
-                <i class="fas fa-newspaper" style="font-size: 3rem; color: #ddd; margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.5rem; color: #333;">No blog posts found</h3>
-                <p style="font-size: 1rem; color: #666;">We couldn't find any blog posts matching your criteria. Check back soon for new content!</p>
-            </div>
-        {% endif %}
+<section class="blog-section" style="background-color: var(--light-gray); padding: 40px 0;">
+  <div class="container">
+    <br>
+    <!-- Create New Post Button -->
+    <div class="text-center mt-4">
+      <a href="{% url 'blog_create' %}" class="btn btn-lg" style="background-color: var(--bright-orange); color: white; border-radius: 30px;">Create New Post</a>
     </div>
-</section>
 
+    <!-- Categories Section -->
+    <div class="categories-container" style="margin-top: 30px;">
+      <h3 class="categories-title" style="color: var(--deep-blue);">Categories</h3>
+      <div class="categories-list" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;">
+        <a href="{% url 'blog_list' %}" class="category-pill {% if not category %}active{% endif %}" style="background-color: #e0e0e0; padding: 8px 15px; border-radius: 20px; font-size: 1rem; color: var(--dark-gray); text-decoration: none;">All</a>
+        {% for cat in categories %}
+          <a href="{% url 'blog_list' %}?category={{ cat.slug }}" class="category-pill {% if category.slug == cat.slug %}active{% endif %}" style="background-color: #e0e0e0; padding: 8px 15px; border-radius: 20px; font-size: 1rem; color: var(--dark-gray); text-decoration: none;">{{ cat.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Blog Posts -->
+    {% if posts %}
+      <h2 class="featured-title" style="text-align: center; font-size: 2rem; color: var(--deep-blue); margin-top: 40px;">Latest Posts</h2>
+      <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+        {% for post in posts %}
+          <div class="blog-card" style="background-color: var(--white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
+            <div class="blog-content" style="padding: 20px;">
+              <div class="blog-meta" style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                <span class="date" style="margin-right: 15px;"><i class="far fa-calendar-alt"></i> {{ post.created_at|date:"F d, Y" }}</span>
+                {% if post.category %}
+                  <span class="category" style="background-color: var(--deep-blue); color: var(--white); padding: 5px 10px; border-radius: 5px;">{{ post.category.name }}</span>
+                {% endif %}
+              </div>
+              <h3 class="blog-title" style="font-size: 1.5rem; color: var(--deep-blue); margin-bottom: 15px; font-weight: bold;">{{ post.title }}</h3>
+              <div class="blog-excerpt" style="font-size: 1rem; color: var(--dark-gray);">
+                <p>{{ post.content|truncatewords:20 }}</p>
+              </div>
+              <div class="blog-footer" style="margin-top: 20px;">
+                <div class="blog-author" style="font-size: 0.9rem; color: #666;">
+                  <span>By {{ post.author.get_full_name|default:post.author.username }}</span>
+                </div>
+              </div>
+              <a href="{% url 'blog_detail' post.slug %}" class="btn btn-lg" style="background-color: var(--bright-orange); color: var(--white); border-radius: 30px; margin-top: 15px; text-decoration: none;">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div><br>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if is_paginated %}
+        <div class="pagination-container" style="margin-top: 40px; text-align: center;">
+          <ul class="pagination" style="list-style: none; display: inline-flex; gap: 5px;">
+            {% if page_obj.has_previous %}
+              <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
+                <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page=1" aria-label="First" style="color: var(--deep-blue); text-decoration: none;">
+                  <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
+                <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous" style="color: var(--deep-blue); text-decoration: none;">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% for num in paginator.page_range %}
+              {% if page_obj.number == num %}
+                <li class="page-item active" style="border: 1px solid var(--deep-blue); padding: 5px 10px; border-radius: 5px; background-color: var(--deep-blue);">
+                  <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ num }}" style="color: var(--white); text-decoration: none;">{{ num }}</a>
+                </li>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
+                  <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ num }}" style="color: var(--deep-blue); text-decoration: none;">{{ num }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
+                <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next" style="color: var(--deep-blue); text-decoration: none;">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              <li class="page-item" style="border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px;">
+                <a class="page-link" href="?{% if category %}category={{ category.slug }}&{% endif %}page={{ paginator.num_pages }}" aria-label="Last" style="color: var(--deep-blue); text-decoration: none;">
+                  <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="no-results" style="text-align: center; background-color: var(--white); padding: 30px; border-radius: 10px; margin-top: 40px;">
+        <i class="fas fa-newspaper" style="font-size: 3rem; color: #ddd; margin-bottom: 15px;"></i>
+        <h3 style="font-size: 1.5rem; color: var(--dark-gray);">No blog posts found</h3>
+        <p style="font-size: 1rem; color: #666;">We couldn't find any blog posts matching your criteria. Check back soon for new content!</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
 
 <!-- Footer Start -->
 <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s" style="background-color: #004080; color: #FFFFFF;">

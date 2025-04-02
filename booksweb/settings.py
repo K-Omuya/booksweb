@@ -78,15 +78,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'booksweb.wsgi.application'
 
+import environ
 
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()  # This will read the .env file
 
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+#
+# # Database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Database
@@ -111,6 +116,25 @@ DATABASES = {
 #         'OPTIONS': {'sslmode': 'require'},
 #     }
 # }
+import os
+import environ
+
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()
+
+# DATABASES configuration for PostgreSQL on Render
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'books_for_all_db',  # Database name
+        'USER': 'db_user',  # Database username
+        'PASSWORD': '6PHCVGZRVmeH3oQid0qwjeebD97RmUPa',  # Database password
+        'HOST': 'dpg-cvi5op3v2p9s738omv60-a.oregon-postgres.render.com',  # Database host URL
+        'PORT': '5432',  # Default PostgreSQL port
+    }
+}
+
 import os
 
 MEDIA_URL = '/media/'
