@@ -79,55 +79,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'booksweb.wsgi.application'
 
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-
-cloudinary.config(
-    cloud_name="books_for_all",
-    api_key="585385153378791",
-    api_secret="063TGBKUxDnGmAYX5MXQMfJEvKg",
-)
 
 
 import environ
-
-# Initialize environment variables
-env = environ.Env()
-environ.Env.read_env()  # This will read the .env file
-
-#
-# # Database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# import dj_database_url
-# import os
-# import environ  
-
-# # Initialize environment variables
-# env = environ.Env()
-# environ.Env.read_env() 
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'books_for_all_db',
-#         'USER': 'db_user',
-#         'PASSWORD': '6PHCVGZRVmeH3oQid0qwjeebD97RmUPa', 
-#         'HOST': 'dpg-cvi5op3v2p9s738omv60-a.oregon-postgres.render.com',  
-#         'PORT': '5432',
-#         'OPTIONS': {'sslmode': 'require'},
-#     }
-# }
 import os
 import environ
 
@@ -148,6 +102,12 @@ DATABASES = {
 }
 
 import os
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -165,8 +125,6 @@ EMAIL_HOST_USER = 'your-email@gmail.com'  # replace with your email
 EMAIL_HOST_PASSWORD = 'your-email-password'  # replace with your email password or app password
 DEFAULT_FROM_EMAIL = 'Books for All <your-email@gmail.com>'
 
-STATIC_URL = '/static/'
-# After logging out, redirect to the homepage
 LOGOUT_REDIRECT_URL = 'home'
 # For production, set STATIC_ROOT to a directory where you want to store collected static files.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -203,19 +161,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -231,3 +177,20 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Custom user model (if you want to extend the user model)
 # AUTH_USER_MODEL = 'users.CustomUser'
+
+# Cloudinary settings
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name="books_for_all",  # Replace with your Cloudinary Cloud Name
+    api_key="585385153378791",   # Replace with your Cloudinary API Key
+    api_secret="063TGBKUxDnGmAYX5MXQMfJEvKg",  # Replace with your Cloudinary API Secret
+)
+
+# Media files settings
+DEFAULT_FILE_STORAGE = 'cloudinary.storage.MediaCloudinaryStorage'
+
+# Media URL
+MEDIA_URL = f"https://res.cloudinary.com/{cloudinary.config().cloud_name}/"  # Automatically use your Cloudinary Cloud Name
