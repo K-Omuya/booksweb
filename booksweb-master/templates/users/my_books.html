@@ -1,0 +1,545 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Books - Books for All{% endblock %}
+
+{% block extra_css %}
+<style>
+    .my-books-section {
+        padding: 60px 0;
+        background-color: var(--light-gray);
+    }
+    
+    .my-books-header {
+        background-image: url("{% static 'images/background.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 15px;
+    }
+    
+    .my-books-title {
+        color: var(--deep-blue);
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    .tab-navigation {
+        display: flex;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 30px;
+    }
+    
+    .tab-button {
+        padding: 12px 20px;
+        background-color: transparent;
+        border: none;
+        color: var(--dark-gray);
+        font-weight: 500;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .tab-button:hover {
+        color: var(--deep-blue);
+    }
+    
+    .tab-button.active {
+        color: var(--deep-blue);
+    }
+    
+    .tab-button.active::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: var(--deep-blue);
+    }
+    
+    .tab-content {
+        display: none;
+    }
+    
+    .tab-content.active {
+        display: block;
+    }
+    
+    .book-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+    }
+    
+    .book-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .book-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .book-image {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .book-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .book-image .placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f5f5f5;
+        color: #ccc;
+    }
+    
+    .book-details {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .book-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: var(--deep-blue);
+        margin-bottom: 5px;
+    }
+    
+    .book-author {
+        color: var(--dark-gray);
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .book-meta {
+        margin-bottom: 15px;
+        font-size: 0.85rem;
+        color: #777;
+    }
+    
+    .book-status {
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+    
+    .status-available {
+        background-color: var(--soft-green);
+        color: white;
+    }
+    
+    .status-pending {
+        background-color: #f0ad4e;
+        color: white;
+    }
+    
+    .status-donated {
+        background-color: var(--bright-orange);
+        color: white;
+    }
+    
+    .status-exchanged {
+        background-color: var(--deep-blue);
+        color: white;
+    }
+    
+    .book-actions {
+        margin-top: auto;
+        display: flex;
+        gap: 10px;
+    }
+    
+    .book-actions .btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .no-books {
+        background-color: var(--white);
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    .no-books i {
+        font-size: 3rem;
+        color: #ddd;
+        margin-bottom: 15px;
+    }
+    
+    .no-books h3 {
+        color: var(--deep-blue);
+        margin-bottom: 10px;
+    }
+    
+    .action-bar {
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .filter-dropdown {
+        min-width: 150px;
+    }
+    
+    @media (max-width: 576px) {
+        .tab-navigation {
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .action-bar {
+            flex-direction: column;
+            gap: 15px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'profile' %}">My Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Books</li>
+        </ol>
+    </div>
+</nav>
+
+<section class="my-books-section">
+    <div class="container">
+        <div class="my-books-header">
+            <h1 class="my-books-title">My Books</h1>
+            <p>Manage your books that you've uploaded, exchanged, or donated.</p>
+        </div>
+        
+        <div class="tab-navigation">
+            <button class="tab-button active" data-tab="uploaded">Uploaded Books</button>
+            <button class="tab-button" data-tab="exchanged">Exchanged Books</button>
+            <button class="tab-button" data-tab="donated">Donated Books</button>
+        </div>
+        
+        <!-- Uploaded Books Tab -->
+        <div id="uploaded-tab" class="tab-content active">
+            <div class="action-bar">
+                <div>
+                    <a href="{% url 'book_upload' %}" class="btn">Upload New Book</a>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <select class="form-select filter-dropdown">
+                        <option value="all">All Books</option>
+                        <option value="available">Available</option>
+                        <option value="pending">Pending Exchange</option>
+                        <option value="exchanged">Exchanged</option>
+                    </select>
+                </div>
+            </div>
+            
+            {% if uploaded_books %}
+                <div class="book-grid">
+                    {% for book in uploaded_books %}
+                        <div class="book-card">
+                            <div class="book-image">
+                                {% if book.image %}
+                                    <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                                {% else %}
+                                    <div class="placeholder">
+                                        <i class="fas fa-book fa-3x"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="book-details">
+                                <h3 class="book-title">{{ book.title }}</h3>
+                                <p class="book-author">By {{ book.author }}</p>
+                                
+                                <div class="book-meta">
+                                    <div><i class="fas fa-map-marker-alt"></i> {{ book.location }}</div>
+                                    <div><i class="far fa-calendar-alt"></i> Added on {{ book.created_at|date:"M d, Y" }}</div>
+                                </div>
+                                
+                                {% if book.is_available %}
+                                    <span class="book-status status-available">Available</span>
+                                {% else %}
+                                    {% if book.exchanges.exists %}
+                                        <span class="book-status status-exchanged">Exchanged</span>
+                                    {% else %}
+                                        <span class="book-status status-pending">Pending</span>
+                                    {% endif %}
+                                {% endif %}
+                                
+                                <div class="book-actions">
+                                    <a href="{% url 'book_detail' book.id %}" class="btn">View Details</a>
+                                    {% if book.is_available %}
+                                        <a href="{% url 'book_edit' book.id %}" class="btn">Edit</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-books">
+                    <i class="fas fa-book-open"></i>
+                    <h3>No Books Uploaded Yet</h3>
+                    <p>You haven't uploaded any books for exchange or donation.</p>
+                    <a href="{% url 'book_upload' %}" class="btn mt-3">Upload a Book</a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Exchanged Books Tab -->
+        <div id="exchanged-tab" class="tab-content">
+            {% if exchanged_books %}
+                <div class="book-grid">
+                    {% for exchange in exchanged_books %}
+                        <div class="book-card">
+                            <div class="book-image">
+                                {% if exchange.book.image %}
+                                    <img src="{{ exchange.book.image.url }}" alt="{{ exchange.book.title }}">
+                                {% else %}
+                                    <div class="placeholder">
+                                        <i class="fas fa-book fa-3x"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="book-details">
+                                <h3 class="book-title">{{ exchange.book.title }}</h3>
+                                <p class="book-author">By {{ exchange.book.author }}</p>
+                                
+                                <div class="book-meta">
+                                    <div><i class="fas fa-user"></i> From {{ exchange.book.donor.username }}</div>
+                                    <div><i class="far fa-calendar-alt"></i> Requested on {{ exchange.created_at|date:"M d, Y" }}</div>
+                                </div>
+                                
+                                <span class="book-status status-{{ exchange.status }}">{{ exchange.get_status_display }}</span>
+                                
+                                <div class="book-actions">
+                                    <a href="{% url 'book_detail' exchange.book.id %}" class="btn">View Book</a>
+                                    <a href="{% url 'exchange_detail' exchange.id %}" class="btn">Exchange Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-books">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>No Books Exchanged Yet</h3>
+                    <p>You haven't exchanged any books with other users.</p>
+                    <a href="{% url 'book_list' %}" class="btn mt-3">Browse Books</a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Donated Books Tab -->
+        <div id="donated-tab" class="tab-content">
+            <div class="action-bar">
+                <div>
+                    <a href="{% url 'donate_book' %}" class="btn">Donate More Books</a>
+                </div>
+            </div>
+            
+            {% if donated_books %}
+                <div class="book-grid">
+                    {% for donation in donated_books %}
+                        <div class="book-card">
+                            <div class="book-image">
+                                {% if donation.image %}
+                                    <img src="{{ donation.image.url }}" alt="{{ donation.title }}">
+                                {% else %}
+                                    <div class="placeholder">
+                                        <i class="fas fa-book fa-3x"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="book-details">
+                                <h3 class="book-title">{{ donation.title }}</h3>
+                                <p class="book-author">By {{ donation.author }}</p>
+                                
+                                <div class="book-meta">
+                                    <div><i class="fas fa-bookmark"></i> {{ donation.get_book_type_display }}</div>
+                                    <div><i class="fas fa-cubes"></i> Quantity: {{ donation.quantity }}</div>
+                                    <div><i class="far fa-calendar-alt"></i> Donated on {{ donation.created_at|date:"M d, Y" }}</div>
+                                </div>
+                                
+                                <span class="book-status status-donated">Donated</span>
+                                
+                                <div class="book-actions">
+                                    <a href="{% url 'donation_detail' donation.id %}" class="btn">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-books">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h3>No Books Donated Yet</h3>
+                    <p>You haven't donated any books to support education.</p>
+                    <a href="{% url 'donate_book' %}" class="btn mt-3">Donate Books</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Tab navigation for different book categories
+    const bookTabButtons = document.querySelectorAll('[data-book-tab]');
+    const bookTabContents = document.querySelectorAll('.book-tab-content');
+    
+    bookTabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            bookTabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Hide all tab contents
+            bookTabContents.forEach(content => content.classList.remove('active'));
+            
+            // Show the selected tab content
+            const tabId = this.getAttribute('data-book-tab') + '-tab';
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+    
+    // Book deletion confirmation
+    const deleteButtons = document.querySelectorAll('.delete-book-btn');
+    
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (!confirm('Are you sure you want to remove this book?')) {
+                e.preventDefault();
+            }
+        });
+    });
+    
+    // Book search functionality
+    const searchInput = document.getElementById('book-search');
+    const bookCards = document.querySelectorAll('.book-card');
+    
+    if (searchInput) {
+        searchInput.addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            bookCards.forEach(card => {
+                const title = card.querySelector('.book-title').textContent.toLowerCase();
+                const author = card.querySelector('.book-author').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || author.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+    
+    // Sort functionality
+    const sortSelect = document.getElementById('book-sort');
+    const bookContainer = document.querySelector('.book-list');
+    
+    if (sortSelect && bookContainer) {
+        sortSelect.addEventListener('change', function() {
+            const sortValue = this.value;
+            const books = Array.from(bookCards);
+            
+            books.sort((a, b) => {
+                if (sortValue === 'title-asc') {
+                    return a.querySelector('.book-title').textContent.localeCompare(
+                        b.querySelector('.book-title').textContent
+                    );
+                } else if (sortValue === 'title-desc') {
+                    return b.querySelector('.book-title').textContent.localeCompare(
+                        a.querySelector('.book-title').textContent
+                    );
+                } else if (sortValue === 'date-asc') {
+                    return new Date(a.dataset.date) - new Date(b.dataset.date);
+                } else if (sortValue === 'date-desc') {
+                    return new Date(b.dataset.date) - new Date(a.dataset.date);
+                }
+                return 0;
+            });
+            
+            // Remove all current books
+            bookCards.forEach(card => card.remove());
+            
+            // Add sorted books back
+            books.forEach(book => {
+                bookContainer.appendChild(book);
+            });
+        });
+    }
+    
+    // Book filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    if (filterButtons.length > 0) {
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filterValue = this.dataset.filter;
+                
+                // Toggle active class
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter books
+                bookCards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        if (card.classList.contains(filterValue)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    }
+});
+</script>
+
+{% endblock %}

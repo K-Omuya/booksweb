@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Logged Out - Books for All{% endblock %}
+
+{% block extra_css %}
+<style>
+    .logout-section {
+        padding: 80px 0;
+        background-color: var(--light-gray);
+    }
+    
+    .logout-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        text-align: center;
+    }
+    
+    .logout-icon {
+        font-size: 4rem;
+        color: var(--deep-blue);
+        margin-bottom: 20px;
+    }
+    
+    .logout-title {
+        color: var(--deep-blue);
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .logout-message {
+        margin-bottom: 30px;
+        color: var(--dark-gray);
+    }
+    
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    @media (max-width: 576px) {
+        .action-buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="logout-section">
+    <div class="container">
+        <div class="logout-container">
+            <div class="logout-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            
+            <h1 class="logout-title">You Have Been Logged Out</h1>
+            
+            <div class="logout-message">
+                <p>Thank you for using Books for All. You have been successfully logged out.</p>
+                <p>We hope to see you again soon!</p>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="{% url 'login' %}" class="btn">Log In Again</a>
+                <a href="{% url 'home' %}" class="btn btn-outline">Return to Home</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,696 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Books for All</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="{% static 'lib/animate/animate.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"/>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start --><div class="container-fluid header-top">
+    <div class="nav-shaps-2"></div>
+    <div class="container d-flex align-items-center">
+        <div class="d-flex align-items-center h-100">
+            <a href="#" class="navbar-brand" style="height: 125px;">
+                <h1 class="text-primary mb-0" style="color: #ffffff;">
+                    <i class="fas fa-book-open me-2"></i> Books_for_All
+                </h1>
+            </a>
+        </div>
+        <div class="w-100 h-100">
+            <div class="topbar px-0 py-2 d-none d-lg-block" style="height: 45px;">
+                <div class="row gx-0 align-items-center">
+                    <div class="col-lg-8 text-center text-lg-center mb-lg-0">
+                        <div class="d-flex flex-wrap">
+                            <div class="pe-4">
+                                <a href="Bookforall@prc.cx" class="text-muted small"
+                                    style="color: white; font-weight: bold;">
+                                    <i class="fas fa-envelope text-primary me-2" style="color: white"></i>
+                                    Bookforall@prc.cx
+                                </a>
+                            </div>
+                            <div class="pe-0">
+                                <a href="#" class="text-muted small"
+                                    style="color: white; font-weight: bold;">
+                                    <i class="fa fa-clock text-primary me-2" style="color: white"></i>
+                                    Mon - Sat: 8.00 am - 5.00 pm
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center text-lg-end">
+                        <div class="d-flex justify-content-end">
+                            <div class="d-flex align-items-center small"></div>
+                            <div class="d-flex align-items-center pe-3">
+                                <!-- Profile Dropdown - Fixed to the Right -->
+                                <div class="position-absolute end-0 me-3" style="padding-top: 100px;">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center"
+                                            type="button" id="profileDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="fas fa-user-circle me-1"></i> Profile
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end position-absolute end-0 mt-2"
+                                            aria-labelledby="profileDropdown" style="right: 0;">
+                                            <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="{% url 'home' %}">Logout</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">Admin Panel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Bar -->
+            <div class="nav-bar px-0 py-lg-0" style="height: 80px;">
+                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-lg-end">
+                    <a href="#" class="navbar-brand-2">
+                        <h1 class="text-primary mb-0"><i class="fas fa-book-open me-2"></i> Books_for_All</h1>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav mx-0 mx-lg-auto">
+                            <a href="{% url 'home' %}" class="nav-item nav-link fw-bold text-dark">Home</a>
+                            <a href="{% url 'about' %}" class="nav-item nav-link fw-bold text-dark">About</a>
+
+                            <!-- Exchange Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Exchange
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'book_upload' %}" class="dropdown-item">Upload Book</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Book Catalogue</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Donated Books</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Pledged Books</a>
+                                </div>
+                            </div>
+
+                            <!-- Donate Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Donate
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'donate_money' %}" class="dropdown-item">Donate Money</a>
+                                    <a href="{% url 'pledge_donation' %}" class="dropdown-item">Pledge Book</a>
+                                    <a href="{% url 'donate_book' %}" class="dropdown-item">Donate Book</a>
+                                </div>
+                            </div>
+
+                            <!-- Clubs Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Clubs
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'club_create' %}" class="dropdown-item">Create Book Club</a>
+                                    <a href="{% url 'club_list' %}" class="dropdown-item">Book Clubs</a>
+                                </div>
+                            </div>
+
+                            <!-- Explore Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Explore
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'about' %}" class="dropdown-item">Our Team</a>
+                                    <a href="{% url 'features' %}" class="dropdown-item">Our Features</a>
+                                    <a href="{% url 'testimonials' %}" class="dropdown-item">Testimonials</a>
+                                    <a href="{% url 'impact' %}" class="dropdown-item">Our Impact</a>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'blog_list' %}" class="nav-item nav-link fw-bold text-dark">Blogs</a>
+                            <a href="{% url 'contact' %}" class="nav-item nav-link fw-bold text-dark">Contact Us</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Navbar & Hero End -->
+
+        <!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">
+            {{ page_title|default:"Book Catalogue" }}
+        </h4>
+        <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Exchanges</a></li>
+            <li class="breadcrumb-item active text-primary">Book Catalogue</li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="filters-container">
+                <h3 class="filter-title">Filter Books</h3>
+
+                <form method="get" class="filter-form" id="book-filter-form">
+                    <div class="search-box mb-4">
+                        <input type="text" name="q" class="form-control" placeholder="Search by title or author" value="{{ request.GET.q }}">
+                        <button type="submit" class="btn"><i class="fas fa-search"></i></button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="filter-group">
+                                <label for="genre">Genre</label>
+                                <select name="genre" id="genre" class="form-control">
+                                    <option value="">All Genres</option>
+                                    {% for genre in genres %}
+                                        <option value="{{ genre.id }}" {% if request.GET.genre == genre.id|stringformat:"i" %}selected{% endif %}>{{ genre.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="filter-group">
+                                <label for="location">Location</label>
+                                <select name="location" id="location" class="form-control">
+                                    <option value="">All Locations</option>
+                                    {% for location in locations %}
+                                        <option value="{{ location }}" {% if request.GET.location == location %}selected{% endif %}>{{ location }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="filter-group">
+                                <label for="type">Type</label>
+                                <select name="type" id="type" class="form-control">
+                                    <option value="">All Types</option>
+                                    <option value="exchange" {% if request.GET.type == 'exchange' %}selected{% endif %}>Exchange</option>
+                                    <option value="donation" {% if request.GET.type == 'donation' %}selected{% endif %}>Donation</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="filter-group">
+                                <label for="sort">Sort By</label>
+                                <select name="sort" id="sort" class="form-control">
+                                    <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest First</option>
+                                    <option value="oldest" {% if request.GET.sort == 'oldest' %}selected{% endif %}>Oldest First</option>
+                                    <option value="title_asc" {% if request.GET.sort == 'title_asc' %}selected{% endif %}>Title A-Z</option>
+                                    <option value="title_desc" {% if request.GET.sort == 'title_desc' %}selected{% endif %}>Title Z-A</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-buttons mt-3 text-center">
+                        <button type="submit" class="btn">Apply Filters</button>
+                        <a href="{% url 'book_list' %}" class="btn btn-outline-secondary">Reset Filters</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="book-type-tabs mt-4 mb-4">
+                <ul class="nav nav-tabs justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link {% if not request.GET.type %}active{% endif %}" href="{% url 'book_list' %}{% if request.GET.q or request.GET.genre or request.GET.location or request.GET.sort %}?{% if request.GET.q %}q={{ request.GET.q }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% endif %}">All Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.GET.type == 'exchange' %}active{% endif %}" href="{% url 'book_list' %}?type=exchange{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Exchange Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.GET.type == 'donation' %}active{% endif %}" href="{% url 'book_list' %}?type=donation{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}{% if request.GET.location %}&location={{ request.GET.location }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Donated Books</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="actions d-flex justify-content-center gap-3 mb-4">
+                <a href="{% url 'book_upload' %}" class="btn">Upload a Book for Exchange</a>
+                <a href="{% url 'donate_book' %}" class="btn">Donate a Book</a>
+            </div>
+
+            <h2 class="text-center mb-4">{% if request.GET.type == 'donation' %}Donated Books{% elif request.GET.type == 'exchange' %}Exchange Books{% else %}Book Library{% endif %}</h2>
+
+            {% if books %}
+                <div class="books-grid">
+                    {% for book in books %}
+                        <div class="book-card">
+                            <div class="book-image">
+                                {% if book.image %}
+                                    <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                                {% else %}
+                                    <div class="book-placeholder">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="book-badge">
+                                    {% if book.is_donation %}
+                                        <span class="badge bg-success">Donation</span>
+                                    {% else %}
+                                        <span class="badge bg-primary">Exchange</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="book-details">
+                                <h3 class="book-title">{{ book.title }}</h3>
+                                <p class="book-author">By {{ book.author }}</p>
+
+                                {% if book.genre %}
+                                    <div class="genre-badge">{{ book.genre.name }}</div>
+                                {% endif %}
+
+                                <div class="book-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ book.location }}</span>
+                                </div>
+
+                                <div class="book-actions">
+                                    <a href="{% url 'book_detail' book.id %}" class="btn">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if is_paginated %}
+                    <div class="pagination-container">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page=1" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for num in paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.genre %}genre={{ request.GET.genre }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ paginator.num_pages }}" aria-label="Last">
+                                        <span aria-hidden="true">&raquo;&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="no-results">
+                    <i class="fas fa-book-open"></i>
+                    <h3>No books found</h3>
+                    <p>We couldn't find any books matching your criteria. Try adjusting your filters or <a href="{% url 'book_upload' %}">upload a book</a> yourself!</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <style>
+        :root {
+    /* Primary Colors */
+    --deep-blue: #004080; /* Navigation & Headings */
+    --bright-orange: #FF8200; /* Call-to-Action Buttons */
+
+    /* Accent Colors */
+    --soft-green: #3CB371; /* Highlights & Impact Sections */
+    --dark-gray: #333333; /* Text & Contrast Elements */
+
+    /* Background & Neutrals */
+    --light-gray: #F5F5F5; /* Section Backgrounds */
+    --white: #FFFFFF; /* General Background */
+}
+
+        .book-list-section {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
+
+        .book-list-header {
+            margin-bottom: 30px;
+        }
+
+        .filters-container {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .filter-title {
+            color: var(--deep-blue);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .search-box {
+            display: flex;
+            width: 100%;
+        }
+
+        .search-box input {
+            flex: 1;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            height: 45px;
+        }
+
+        .search-box button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: var(--deep-blue);
+            color: white;
+        }
+
+        .filter-group {
+            margin-bottom: 15px;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .book-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+
+        .book-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .book-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #ddd;
+            font-size: 3rem;
+        }
+
+        .book-details {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-title {
+            font-size: 1.15rem;
+            color: var(--deep-blue);
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .book-author {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .genre-badge {
+            display: inline-block;
+            background-color: var(--light-gray);
+            color: var(--deep-blue);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .book-location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .book-actions {
+            margin-top: auto;
+        }
+
+        .book-actions .btn {
+            width: 100%;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .book-type-tabs .nav-link {
+            color: var(--dark-gray);
+            font-weight: 500;
+            padding: 10px 20px;
+        }
+
+        .book-type-tabs .nav-link.active {
+            color: var(--deep-blue);
+            font-weight: bold;
+            border-bottom: 3px solid var(--deep-blue);
+        }
+
+        .no-results {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-submit form when select fields change
+            const filterSelects = document.querySelectorAll('.filter-form select');
+            filterSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    // Only auto-submit when changing the main type tabs
+                    if (this.id === 'type') {
+                        document.getElementById('book-filter-form').submit();
+                    }
+                });
+            });
+        });
+    </script>
+
+
+<!-- Footer Start -->
+<div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s" style="background-color: #004080; color: #FFFFFF;">
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- About Section -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FF8200; font-size: 18px; font-weight: bold; margin-bottom: 15px;">
+                        <i class="fas fa-book text-white me-2"></i> Books for All
+                    </h4>
+                    <p style="margin: 0; font-size: 14px; line-height: 1.7;">SHARE A BOOK, SHARE A DREAM..</p>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Quick Links</h4>
+                    <ul style="list-style-type: none; padding: 0; font-size: 14px; line-height: 1.7;">
+                        <li><a href="{% url 'blog_list' %}" style="color: #FF8200; text-decoration: none;">Blogs</a></li>
+                        <li><a href="{% url 'about' %}" style="color: #FF8200; text-decoration: none;">About Us</a></li>
+                        <li><a href="{% url 'book_list' %}" style="color: #FF8200; text-decoration: none;">Books Catalogue</a></li>
+                        <li><a href="{% url 'features' %}" style="color: #FF8200; text-decoration: none;">Our Features</a></li>
+                        <li><a href="{% url 'club_list' %}" style="color: #FF8200; text-decoration: none;">Book Clubs</a></li>
+                        <li><a href="{% url 'testimonials' %}" style="color: #FF8200; text-decoration: none;">Testimonials</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Contact Info</h4>
+                    <div style="font-size: 14px; line-height: 1.7;">
+                        <div style="margin-bottom: 10px;">
+                            <i class="fas fa-map-marker-alt text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Address:</strong>
+                            <p style="margin: 0; display: inline;">753-10101, Westlands, Nairobi</p>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <i class="fas fa-envelope text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Mail Us:</strong>
+                            <p style="margin: 0; display: inline;">Bookforall@prc.cx</p>
+                        </div>
+                        <div>
+                            <i class="fa fa-phone-alt text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Telephone:</strong>
+                            <p style="margin: 0; display: inline;">+254 703 128 764</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Social Media Links</h4>
+                    <div style="display: flex; gap: 10px; justify-content: start;">
+                        <!-- Facebook -->
+                        <a href="https://facebook.com/bookforall20"
+                           style="width: 50px; height: 50px; background-color: #3B5998; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-facebook-f" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- Twitter -->
+                        <a href="https://x.com/Bookforall20"
+                           style="width: 50px; height: 50px; background-color: #1DA1F2; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-twitter" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://instagram.com/bookforall20"
+                           style="width: 50px; height: 50px; background: radial-gradient(circle at 30% 30%, #F09433, #E6683C, #DC2743, #CC2366, #BC1888); color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-instagram" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/bookforall20"
+                           style="width: 50px; height: 50px; background-color: #0A66C2; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-linkedin-in" style="font-size: 18px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+
+<!-- Back to Top Button -->
+<div class="back-to-top" style="position: fixed; bottom: 20px; right: 20px; z-index: 99;">
+    <a href="#" class="btn" style="width: 45px; height: 45px; font-size: 20px; background-color: #FF8200; color: #FFFFFF; display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,700 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Books for All</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="{% static 'lib/animate/animate.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"/>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start --><div class="container-fluid header-top">
+    <div class="nav-shaps-2"></div>
+    <div class="container d-flex align-items-center">
+        <div class="d-flex align-items-center h-100">
+            <a href="#" class="navbar-brand" style="height: 125px;">
+                <h1 class="text-primary mb-0" style="color: #ffffff;">
+                    <i class="fas fa-book-open me-2"></i> Books_for_All
+                </h1>
+            </a>
+        </div>
+        <div class="w-100 h-100">
+            <div class="topbar px-0 py-2 d-none d-lg-block" style="height: 45px;">
+                <div class="row gx-0 align-items-center">
+                    <div class="col-lg-8 text-center text-lg-center mb-lg-0">
+                        <div class="d-flex flex-wrap">
+                            <div class="pe-4">
+                                <a href="Bookforall@prc.cx" class="text-muted small"
+                                    style="color: white; font-weight: bold;">
+                                    <i class="fas fa-envelope text-primary me-2" style="color: white"></i>
+                                    Bookforall@prc.cx
+                                </a>
+                            </div>
+                            <div class="pe-0">
+                                <a href="#" class="text-muted small"
+                                    style="color: white; font-weight: bold;">
+                                    <i class="fa fa-clock text-primary me-2" style="color: white"></i>
+                                    Mon - Sat: 8.00 am - 5.00 pm
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center text-lg-end">
+                        <div class="d-flex justify-content-end">
+                            <div class="d-flex align-items-center small"></div>
+                            <div class="d-flex align-items-center pe-3">
+                                <!-- Profile Dropdown - Fixed to the Right -->
+                                <div class="position-absolute end-0 me-3" style="padding-top: 100px;">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center"
+                                            type="button" id="profileDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="fas fa-user-circle me-1"></i> Profile
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end position-absolute end-0 mt-2"
+                                            aria-labelledby="profileDropdown" style="right: 0;">
+                                            <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="{% url 'home' %}">Logout</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">Admin Panel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Bar -->
+            <div class="nav-bar px-0 py-lg-0" style="height: 80px;">
+                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-lg-end">
+                    <a href="#" class="navbar-brand-2">
+                        <h1 class="text-primary mb-0"><i class="fas fa-book-open me-2"></i> Books_for_All</h1>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav mx-0 mx-lg-auto">
+                            <a href="{% url 'home' %}" class="nav-item nav-link fw-bold text-dark">Home</a>
+                            <a href="{% url 'about' %}" class="nav-item nav-link fw-bold text-dark">About</a>
+
+                            <!-- Exchange Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Exchange
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'book_upload' %}" class="dropdown-item">Upload Book</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Book Catalogue</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Donated Books</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Pledged Books</a>
+                                </div>
+                            </div>
+
+                            <!-- Donate Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Donate
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'donate_money' %}" class="dropdown-item">Donate Money</a>
+                                    <a href="{% url 'pledge_donation' %}" class="dropdown-item">Pledge Book</a>
+                                    <a href="{% url 'donate_book' %}" class="dropdown-item">Donate Book</a>
+                                </div>
+                            </div>
+
+                            <!-- Clubs Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Clubs
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'club_create' %}" class="dropdown-item">Create Book Club</a>
+                                    <a href="{% url 'club_list' %}" class="dropdown-item">Book Clubs</a>
+                                </div>
+                            </div>
+
+                            <!-- Explore Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Explore
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'about' %}" class="dropdown-item">Our Team</a>
+                                    <a href="{% url 'features' %}" class="dropdown-item">Our Features</a>
+                                    <a href="{% url 'testimonials' %}" class="dropdown-item">Testimonials</a>
+                                    <a href="{% url 'impact' %}" class="dropdown-item">Our Impact</a>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'blog_list' %}" class="nav-item nav-link fw-bold text-dark">Blogs</a>
+                            <a href="{% url 'contact' %}" class="nav-item nav-link fw-bold text-dark">Contact Us</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Navbar & Hero End -->
+
+        <!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">
+            {{ page_title|default:"Pledge" }}
+        </h4>
+        <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Donation</a></li>
+            <li class="breadcrumb-item active text-primary">Pledge</li>
+        </ol>
+    </div>
+</div>
+
+<style>
+    :root {
+    /* Primary Colors */
+    --deep-blue: #004080; /* Navigation & Headings */
+    --bright-orange: #FF8200; /* Call-to-Action Buttons */
+
+    /* Accent Colors */
+    --soft-green: #3CB371; /* Highlights & Impact Sections */
+    --dark-gray: #333333; /* Text & Contrast Elements */
+
+    /* Background & Neutrals */
+    --light-gray: #F5F5F5; /* Section Backgrounds */
+    --white: #FFFFFF; /* General Background */
+}
+
+    .pledge-section {
+              background-color: var(--light-gray);
+    }
+
+    .pledge-header {
+        background-image: url("{% static 'images/background.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 15px;
+    }
+
+    .pledge-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .pledge-info {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .pledge-info-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+    .pledge-info-title {
+        color: var(--deep-blue);
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .pledge-steps {
+        list-style-position: inside;
+        padding-left: 0;
+        margin-bottom: 20px;
+        counter-reset: step-counter;
+    }
+
+    .pledge-steps li {
+        margin-bottom: 15px;
+        position: relative;
+        padding-left: 30px;
+    }
+
+    .pledge-steps li::before {
+        content: counter(step-counter);
+        counter-increment: step-counter;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 24px;
+        height: 24px;
+        background-color: var(--deep-blue);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+
+    .benefits-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .benefits-list li {
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 25px;
+    }
+
+    .benefits-list li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        top: 2px;
+        color: var(--soft-green);
+        font-weight: bold;
+    }
+
+    .pledge-form-container {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .pledge-form {
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+    }
+
+    .form-title {
+        color: var(--deep-blue);
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .pledge-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .pledge-form label {
+        color: var(--dark-gray);
+        margin-bottom: 5px;
+        display: block;
+        font-weight: 500;
+    }
+
+    .pledge-form .form-control {
+        padding: 12px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+    }
+
+    .pledge-form .form-control:focus {
+        border-color: var(--deep-blue);
+        box-shadow: none;
+    }
+
+    .pledge-options {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .pledge-option {
+        flex: 1;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .pledge-option:hover, .pledge-option.active {
+        border-color: var(--deep-blue);
+        background-color: rgba(0, 64, 128, 0.05);
+    }
+
+    .pledge-option-icon {
+        font-size: 2rem;
+        color: var(--deep-blue);
+        margin-bottom: 10px;
+    }
+
+    .pledge-option-title {
+        font-weight: bold;
+        color: var(--deep-blue);
+        margin-bottom: 5px;
+    }
+
+    .pledge-option-desc {
+        font-size: 0.9rem;
+        color: var(--dark-gray);
+    }
+
+    .pledge-details {
+        display: none;
+    }
+
+    .pledge-details.active {
+        display: block;
+    }
+</style>
+
+
+<section class="pledge-section">
+    <div class="container">
+
+        <div class="pledge-container">
+            <div class="pledge-info">
+                <div class="pledge-info-card">
+                    <h2 class="pledge-info-title">How Pledges Work</h2>
+
+                    <ol class="pledge-steps">
+                        <li>Fill out the pledge form with the type of donation you'd like to make in the future.</li>
+                        <li>Specify when you expect to fulfill your pledge.</li>
+                        <li>We'll send you a gentle reminder when the date approaches.</li>
+                        <li>Fulfill your pledge when you're ready by donating books or money.</li>
+                        <li>Your contribution will help us plan and allocate resources for future needs.</li>
+                    </ol>
+
+                    <h3 class="pledge-info-title">Why Make a Pledge?</h3>
+                    <ul class="benefits-list">
+                        <li>Help us forecast and plan for future book donations</li>
+                        <li>Allow schools to know what resources they can expect</li>
+                        <li>Commit to making a difference on your own timeline</li>
+                        <li>Join our community of supporters</li>
+                        <li>Make a promise now that will impact students later</li>
+                    </ul>
+                </div>
+
+                <div class="pledge-info-card">
+                    <h3 class="pledge-info-title">Our Impact</h3>
+                    <p>Thanks to generous donors and pledgers like you, we've been able to:</p>
+                    <ul class="benefits-list">
+                        <li>Distribute over 5,000 books to students in need</li>
+                        <li>Support 30+ schools with educational materials</li>
+                        <li>Establish book clubs in communities across Kenya</li>
+                        <li>Help thousands of students improve their reading skills</li>
+                    </ul>
+                    <p class="mt-3">Your pledge today helps us continue this important work tomorrow.</p>
+                </div>
+            </div>
+
+            <div class="pledge-form-container">
+                <form class="pledge-form" method="post">
+                    {% csrf_token %}
+                    <h2 class="form-title">Pledge Details</h2>
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="pledge-options">
+                        <div class="pledge-option active" data-type="books">
+                            <div class="pledge-option-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3 class="pledge-option-title">Books</h3>
+                            <p class="pledge-option-desc">Pledge to donate books later</p>
+                        </div>
+
+                        <div class="pledge-option" data-type="money">
+                            <div class="pledge-option-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <h3 class="pledge-option-title">Money</h3>
+                            <p class="pledge-option-desc">Pledge a monetary donation</p>
+                        </div>
+
+                        <div class="pledge-option" data-type="both">
+                            <div class="pledge-option-icon">
+                                <i class="fas fa-hand-holding-heart"></i>
+                            </div>
+                            <h3 class="pledge-option-title">Both</h3>
+                            <p class="pledge-option-desc">Pledge both books and money</p>
+                        </div>
+                    </div>
+
+                    <!-- Books Pledge Details -->
+                    <div id="books-details" class="pledge-details active">
+                        <div class="form-group">
+                            <label for="{{ form.book_quantity.id_for_label }}">Number of Books*</label>
+                            {{ form.book_quantity }}
+                            {% if form.book_quantity.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.book_quantity.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="text-muted">Approximately how many books do you plan to donate?</small>
+                        </div>
+                    </div>
+
+                    <!-- Money Pledge Details -->
+                    <div id="money-details" class="pledge-details">
+                        <div class="form-group">
+                            <label for="{{ form.monetary_amount.id_for_label }}">Amount (KSh)*</label>
+                            {{ form.monetary_amount }}
+                            {% if form.monetary_amount.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.monetary_amount.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="text-muted">Approximately how much do you plan to donate?</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.expected_date.id_for_label }}">Expected Fulfillment Date</label>
+                        {{ form.expected_date }}
+                        {% if form.expected_date.errors %}
+                            <div class="text-danger">
+                                {% for error in form.expected_date.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <small class="text-muted">When do you expect to fulfill this pledge?</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.message.id_for_label }}">Message (Optional)</label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                            <div class="text-danger">
+                                {% for error in form.message.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <small class="text-muted">Any additional information about your planned donation?</small>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg w-100">Make Pledge</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Pledge type selection
+        const pledgeOptions = document.querySelectorAll('.pledge-option');
+        const pledgeDetails = document.querySelectorAll('.pledge-details');
+        const bookQuantityInput = document.getElementById('{{ form.book_quantity.id_for_label }}');
+        const monetaryAmountInput = document.getElementById('{{ form.monetary_amount.id_for_label }}');
+
+        pledgeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                pledgeOptions.forEach(opt => opt.classList.remove('active'));
+
+                // Add active class to clicked option
+                this.classList.add('active');
+
+                // Hide all details sections
+                pledgeDetails.forEach(detail => detail.classList.remove('active'));
+
+                // Get the type of pledge
+                const pledgeType = this.dataset.type;
+
+                // Show the appropriate details section
+                if (pledgeType === 'books') {
+                    document.getElementById('books-details').classList.add('active');
+                    bookQuantityInput.setAttribute('required', 'required');
+                    monetaryAmountInput.removeAttribute('required');
+                    monetaryAmountInput.value = '';
+                } else if (pledgeType === 'money') {
+                    document.getElementById('money-details').classList.add('active');
+                    monetaryAmountInput.setAttribute('required', 'required');
+                    bookQuantityInput.removeAttribute('required');
+                    bookQuantityInput.value = '';
+                } else if (pledgeType === 'both') {
+                    document.getElementById('books-details').classList.add('active');
+                    document.getElementById('money-details').classList.add('active');
+                    bookQuantityInput.setAttribute('required', 'required');
+                    monetaryAmountInput.setAttribute('required', 'required');
+                }
+            });
+        });
+    });
+</script>
+
+
+<!-- Footer Start -->
+<div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s" style="background-color: #004080; color: #FFFFFF;">
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- About Section -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FF8200; font-size: 18px; font-weight: bold; margin-bottom: 15px;">
+                        <i class="fas fa-book text-white me-2"></i> Books for All
+                    </h4>
+                    <p style="margin: 0; font-size: 14px; line-height: 1.7;">SHARE A BOOK, SHARE A DREAM..</p>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Quick Links</h4>
+                    <ul style="list-style-type: none; padding: 0; font-size: 14px; line-height: 1.7;">
+                        <li><a href="{% url 'blog_list' %}" style="color: #FF8200; text-decoration: none;">Blogs</a></li>
+                        <li><a href="{% url 'about' %}" style="color: #FF8200; text-decoration: none;">About Us</a></li>
+                        <li><a href="{% url 'book_list' %}" style="color: #FF8200; text-decoration: none;">Books Catalogue</a></li>
+                        <li><a href="{% url 'features' %}" style="color: #FF8200; text-decoration: none;">Our Features</a></li>
+                        <li><a href="{% url 'club_list' %}" style="color: #FF8200; text-decoration: none;">Book Clubs</a></li>
+                        <li><a href="{% url 'testimonials' %}" style="color: #FF8200; text-decoration: none;">Testimonials</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Contact Info</h4>
+                    <div style="font-size: 14px; line-height: 1.7;">
+                        <div style="margin-bottom: 10px;">
+                            <i class="fas fa-map-marker-alt text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Address:</strong>
+                            <p style="margin: 0; display: inline;">753-10101, Westlands, Nairobi</p>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <i class="fas fa-envelope text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Mail Us:</strong>
+                            <p style="margin: 0; display: inline;">Bookforall@prc.cx</p>
+                        </div>
+                        <div>
+                            <i class="fa fa-phone-alt text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Telephone:</strong>
+                            <p style="margin: 0; display: inline;">+254 703 128 764</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Social Media Links</h4>
+                    <div style="display: flex; gap: 10px; justify-content: start;">
+                        <!-- Facebook -->
+                        <a href="https://facebook.com/bookforall20"
+                           style="width: 50px; height: 50px; background-color: #3B5998; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-facebook-f" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- Twitter -->
+                        <a href="https://x.com/Bookforall20"
+                           style="width: 50px; height: 50px; background-color: #1DA1F2; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-twitter" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://instagram.com/bookforall20"
+                           style="width: 50px; height: 50px; background: radial-gradient(circle at 30% 30%, #F09433, #E6683C, #DC2743, #CC2366, #BC1888); color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-instagram" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/bookforall20"
+                           style="width: 50px; height: 50px; background-color: #0A66C2; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-linkedin-in" style="font-size: 18px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+
+<!-- Back to Top Button -->
+<div class="back-to-top" style="position: fixed; bottom: 20px; right: 20px; z-index: 99;">
+    <a href="#" class="btn" style="width: 45px; height: 45px; font-size: 20px; background-color: #FF8200; color: #FFFFFF; display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
+
+
+
