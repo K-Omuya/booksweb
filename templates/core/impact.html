@@ -1,0 +1,755 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Books for All</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="{% static 'lib/animate/animate.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"/>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start --><div class="container-fluid header-top">
+    <div class="nav-shaps-2"></div>
+    <div class="container d-flex align-items-center">
+        <div class="d-flex align-items-center h-100">
+            <a href="#" class="navbar-brand" style="height: 125px;">
+                <h1 class="text-primary mb-0" style="color: #ffffff;">
+                    <i class="fas fa-book-open me-2"></i> Books_for_All
+                </h1>
+            </a>
+        </div>
+        <div class="w-100 h-100">
+            <div class="topbar px-0 py-2 d-none d-lg-block" style="height: 45px;">
+                <div class="row gx-0 align-items-center">
+                    <div class="col-lg-8 text-center text-lg-center mb-lg-0">
+                        <div class="d-flex flex-wrap">
+                            <div class="pe-4">
+                                <a href="Bookforall@prc.cx" class="text-muted small"
+                                    style="color: white; font-weight: bold;">
+                                    <i class="fas fa-envelope text-primary me-2" style="color: white"></i>
+                                    Bookforall@prc.cx
+                                </a>
+                            </div>
+                            <div class="pe-0">
+                                <a href="#" class="text-muted small"
+                                    style="color: white; font-weight: bold;">
+                                    <i class="fa fa-clock text-primary me-2" style="color: white"></i>
+                                    Mon - Sat: 8.00 am - 5.00 pm
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center text-lg-end">
+                        <div class="d-flex justify-content-end">
+                            <div class="d-flex align-items-center small"></div>
+                            <div class="d-flex align-items-center pe-3">
+                                <!-- Profile Dropdown - Fixed to the Right -->
+                                <div class="position-absolute end-0 me-3" style="padding-top: 100px;">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center"
+                                            type="button" id="profileDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="fas fa-user-circle me-1"></i> Profile
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end position-absolute end-0 mt-2"
+                                            aria-labelledby="profileDropdown" style="right: 0;">
+                                            <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="{% url 'home' %}">Logout</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">Admin Panel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Bar -->
+            <div class="nav-bar px-0 py-lg-0" style="height: 80px;">
+                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-lg-end">
+                    <a href="#" class="navbar-brand-2">
+                        <h1 class="text-primary mb-0"><i class="fas fa-book-open me-2"></i> Books_for_All</h1>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav mx-0 mx-lg-auto">
+                            <a href="{% url 'home' %}" class="nav-item nav-link fw-bold text-dark">Home</a>
+                            <a href="{% url 'about' %}" class="nav-item nav-link fw-bold text-dark">About</a>
+
+                            <!-- Exchange Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Exchange
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'book_upload' %}" class="dropdown-item">Upload Book</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Book Catalogue</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Donated Books</a>
+                                    <a href="{% url 'book_list' %}" class="dropdown-item">Pledged Books</a>
+                                </div>
+                            </div>
+
+                            <!-- Donate Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Donate
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'donate_money' %}" class="dropdown-item">Donate Money</a>
+                                    <a href="{% url 'pledge_donation' %}" class="dropdown-item">Pledge Book</a>
+                                    <a href="{% url 'donate_book' %}" class="dropdown-item">Donate Book</a>
+                                </div>
+                            </div>
+
+                            <!-- Clubs Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Clubs
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'club_create' %}" class="dropdown-item">Create Book Club</a>
+                                    <a href="{% url 'club_list' %}" class="dropdown-item">Book Clubs</a>
+                                </div>
+                            </div>
+
+                            <!-- Explore Dropdown -->
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle fw-bold text-dark" data-bs-toggle="dropdown">
+                                    Explore
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'about' %}" class="dropdown-item">Our Team</a>
+                                    <a href="{% url 'features' %}" class="dropdown-item">Our Features</a>
+                                    <a href="{% url 'testimonials' %}" class="dropdown-item">Testimonials</a>
+                                    <a href="{% url 'impact' %}" class="dropdown-item">Our Impact</a>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'blog_list' %}" class="nav-item nav-link fw-bold text-dark">Blogs</a>
+                            <a href="{% url 'contact' %}" class="nav-item nav-link fw-bold text-dark">Contact Us</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Navbar & Hero End -->
+
+        <!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">
+            {{ page_title|default:"Our Impacts" }}
+        </h4>
+        <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+            <li class="breadcrumb-item active text-primary">Our Impacts</li>
+        </ol>
+    </div>
+</div>
+
+<style>
+    .impact-section {
+        padding: 80px 0;
+        background-color: var(--deep-blue);
+        color: var(--white);
+    }
+
+    .impact-header {
+        background-image: url("{% static 'images/background.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-color: var(--deep-blue);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 15px;
+    }
+
+    .impact-title {
+        color: var(--white);
+        margin-bottom: 15px;
+    }
+
+    .impact-subtitle {
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.9;
+    }
+
+    .impact-stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+        margin-bottom: 60px;
+    }
+
+    .impact-stat {
+        text-align: center;
+        flex: 1;
+        min-width: 200px;
+        max-width: 250px;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 30px 20px;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    .impact-stat:hover {
+        transform: translateY(-10px);
+    }
+
+    .impact-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-color: var(--bright-orange);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 20px;
+    }
+
+    .impact-number {
+        font-size: 3rem;
+        font-weight: bold;
+        color: var(--white);
+        margin-bottom: 10px;
+    }
+
+    .impact-label {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .impact-story-section {
+        padding: 80px 0;
+        background-color: var(--white);
+    }
+
+    .impact-stories {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .story-card {
+        background-color: var(--light-gray);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .story-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .story-image {
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .story-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .story-card:hover .story-image img {
+        transform: scale(1.05);
+    }
+
+    .story-content {
+        padding: 20px;
+    }
+
+    .story-title {
+        font-size: 1.3rem;
+        color: var(--deep-blue);
+        margin-bottom: 10px;
+    }
+
+    .story-excerpt {
+        margin-bottom: 15px;
+    }
+
+    .impact-counties-section {
+        padding: 80px 0;
+        background-color: var(--light-gray);
+    }
+
+    .impact-map {
+        height: 500px;
+        background-color: #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+
+    .county-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .county-item {
+        background-color: var(--white);
+        padding: 15px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .county-icon {
+        width: 40px;
+        height: 40px;
+        background-color: var(--light-gray);
+        color: var(--deep-blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .county-details h4 {
+        margin: 0;
+        color: var(--deep-blue);
+    }
+
+    .county-details p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #777;
+    }
+
+    .impact-goals-section {
+        padding: 80px 0;
+        background-color: var(--deep-blue);
+        color: var(--white);
+    }
+
+    .goals-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .goal-card {
+        flex: 1;
+        min-width: 300px;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 10px;
+    }
+
+    .goal-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .goal-icon {
+        width: 50px;
+        height: 50px;
+        background-color: var(--bright-orange);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .goal-title {
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    .goal-text {
+        margin-bottom: 0;
+    }
+
+    .impact-cta-section {
+        padding: 80px 0;
+        background-color: var(--white);
+        text-align: center;
+    }
+
+    .impact-cta-content {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .impact-cta-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+        .impact-stat {
+            min-width: 100%;
+        }
+
+        .goals-container {
+            flex-direction: column;
+        }
+
+        .impact-cta-buttons {
+            flex-direction: column;
+        }
+    }
+</style>
+
+
+<!-- Impact Statistics -->
+<section class="impact-stats py-5">
+    <div class="container">
+        <div class="row text-center">
+            {% for metric in metrics %}
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="display-4 text-primary mb-3">{{ metric.value }}</div>
+                            <h5 class="card-title">{{ metric.title }}</h5>
+                            {% if metric.icon %}
+                                <i class="fas fa-{{ metric.icon }} fa-2x text-muted mt-2"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>Impact metrics will be displayed here.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Impact Map -->
+<section class="impact-map py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Our Reach Across Kenya</h2>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card shadow">
+                    <div class="card-body p-0">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8181116.264535488!2d33.922619066029105!3d0.17189159056477316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182780d08350900f%3A0x403b0eb0a1976dd9!2sKenya!5e0!3m2!1sen!2sus!4v1678880152397!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <p class="mb-0">We have impacted <strong>{{ counties_reached|default:"20+" }}</strong> counties across Kenya</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Stories -->
+<section class="impact-stories py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Success Stories</h2>
+        <div class="row">
+            {% for story in impact_stories %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if story.image %}
+                            <img src="{{ story.image.url }}" class="card-img-top" alt="{{ story.title }}">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.jpg' %}" class="card-img-top" alt="Story placeholder">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ story.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ story.location }}</h6>
+                            <p class="card-text">{{ story.summary }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#storyModal{{ story.id }}">Read More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal for this story -->
+                <div class="modal fade" id="storyModal{{ story.id }}" tabindex="-1" aria-labelledby="storyModalLabel{{ story.id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="storyModalLabel{{ story.id }}">{{ story.title }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {% if story.image %}
+                                    <img src="{{ story.image.url }}" class="img-fluid mb-3 rounded" alt="{{ story.title }}">
+                                {% endif %}
+                                <h6 class="text-muted mb-3">{{ story.location }} | {{ story.date|date:"F Y" }}</h6>
+                                <div>{{ story.content|safe }}</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <div class="card shadow-sm p-4">
+                        <h5>Our success stories will be displayed here.</h5>
+                        <p>Check back soon for inspiring stories of how Books for All is making a difference.</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Testimonials</h2>
+        <div class="row">
+            {% for testimonial in testimonials %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3 text-primary">
+                                <i class="fas fa-quote-left fa-2x"></i>
+                            </div>
+                            <p class="card-text font-italic">{{ testimonial.content }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent d-flex align-items-center">
+                            {% if testimonial.image %}
+                                <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                            {% else %}
+                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                    {{ testimonial.name|first }}
+                                </div>
+                            {% endif %}
+                            <div>
+                                <h6 class="mb-0">{{ testimonial.name }}</h6>
+                                <small class="text-muted">{{ testimonial.role }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <div class="card shadow-sm p-4">
+                        <h5>Testimonials will be displayed here.</h5>
+                        <p>Check back soon to see what our beneficiaries are saying about our impact.</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Annual Reports -->
+<section class="annual-reports py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Annual Impact Reports</h2>
+        <div class="row">
+            {% for report in annual_reports %}
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
+                            <h5 class="card-title">{{ report.year }} Report</h5>
+                            <p class="card-text small">{{ report.description|truncatechars:60 }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent text-center">
+                            <a href="{{ report.file.url }}" class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <div class="card shadow-sm p-4">
+                        <h5>Annual reports will be available here.</h5>
+                        <p>We are committed to transparency in reporting our impact.</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="mb-3">Be Part of Our Impact</h2>
+        <p class="lead mb-4">Join us in our mission to make books accessible to all students across Kenya.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'donate_book' %}" class="btn btn-light btn-lg">Donate Books</a>
+            <a href="{% url 'donate_money' %}" class="btn btn-outline-light btn-lg">Support Us</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer Start -->
+<div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s" style="background-color: #004080; color: #FFFFFF;">
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- About Section -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FF8200; font-size: 18px; font-weight: bold; margin-bottom: 15px;">
+                        <i class="fas fa-book text-white me-2"></i> Books for All
+                    </h4>
+                    <p style="margin: 0; font-size: 14px; line-height: 1.7;">SHARE A BOOK, SHARE A DREAM..</p>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Quick Links</h4>
+                    <ul style="list-style-type: none; padding: 0; font-size: 14px; line-height: 1.7;">
+                        <li><a href="{% url 'blog_list' %}" style="color: #FF8200; text-decoration: none;">Blogs</a></li>
+                        <li><a href="{% url 'about' %}" style="color: #FF8200; text-decoration: none;">About Us</a></li>
+                        <li><a href="{% url 'book_list' %}" style="color: #FF8200; text-decoration: none;">Books Catalogue</a></li>
+                        <li><a href="{% url 'features' %}" style="color: #FF8200; text-decoration: none;">Our Features</a></li>
+                        <li><a href="{% url 'club_list' %}" style="color: #FF8200; text-decoration: none;">Book Clubs</a></li>
+                        <li><a href="{% url 'testimonials' %}" style="color: #FF8200; text-decoration: none;">Testimonials</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Contact Info</h4>
+                    <div style="font-size: 14px; line-height: 1.7;">
+                        <div style="margin-bottom: 10px;">
+                            <i class="fas fa-map-marker-alt text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Address:</strong>
+                            <p style="margin: 0; display: inline;">753-10101, Westlands, Nairobi</p>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <i class="fas fa-envelope text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Mail Us:</strong>
+                            <p style="margin: 0; display: inline;">Bookforall@prc.cx</p>
+                        </div>
+                        <div>
+                            <i class="fa fa-phone-alt text-white me-2"></i>
+                            <strong style="color: #FFFFFF;">Telephone:</strong>
+                            <p style="margin: 0; display: inline;">+254 703 128 764</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #FFFFFF; font-size: 18px; font-weight: bold; margin-bottom: 15px;">Social Media Links</h4>
+                    <div style="display: flex; gap: 10px; justify-content: start;">
+                        <!-- Facebook -->
+                        <a href="https://facebook.com/bookforall20"
+                           style="width: 50px; height: 50px; background-color: #3B5998; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-facebook-f" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- Twitter -->
+                        <a href="https://x.com/Bookforall20"
+                           style="width: 50px; height: 50px; background-color: #1DA1F2; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-twitter" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://instagram.com/bookforall20"
+                           style="width: 50px; height: 50px; background: radial-gradient(circle at 30% 30%, #F09433, #E6683C, #DC2743, #CC2366, #BC1888); color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-instagram" style="font-size: 18px;"></i>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/bookforall20"
+                           style="width: 50px; height: 50px; background-color: #0A66C2; color: #FFFFFF; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+                            <i class="fab fa-linkedin-in" style="font-size: 18px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+
+<!-- Back to Top Button -->
+<div class="back-to-top" style="position: fixed; bottom: 20px; right: 20px; z-index: 99;">
+    <a href="#" class="btn" style="width: 45px; height: 45px; font-size: 20px; background-color: #FF8200; color: #FFFFFF; display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); transition: all 0.3s;">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
+
+

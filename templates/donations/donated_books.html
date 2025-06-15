@@ -1,0 +1,447 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Donated Books - Books for All{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    /* Primary Colors */
+    --deep-blue: #004080; /* Navigation & Headings */
+    --bright-orange: #FF8200; /* Call-to-Action Buttons */
+
+    /* Accent Colors */
+    --soft-green: #3CB371; /* Highlights & Impact Sections */
+    --dark-gray: #333333; /* Text & Contrast Elements */
+
+    /* Background & Neutrals */
+    --light-gray: #F5F5F5; /* Section Backgrounds */
+    --white: #FFFFFF; /* General Background */
+}
+
+    .donated-books-section {
+        padding: 60px 0;
+        background-color: var(--light-gray);
+    }
+    
+    .section-header {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    
+    .section-subtitle {
+        max-width: 700px;
+        margin: 0 auto;
+        color: var(--dark-gray);
+    }
+    
+    .filters-section {
+        background-color: var(--white);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+    
+    .filter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: flex-end;
+    }
+    
+    .filter-group {
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    .filter-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: var(--deep-blue);
+    }
+    
+    .search-box {
+        display: flex;
+        margin-bottom: 15px;
+    }
+    
+    .search-box input {
+        flex: 1;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    
+    .search-box button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    
+    .books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+    }
+    
+    .book-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .book-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .book-image {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .book-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .book-card:hover .book-image img {
+        transform: scale(1.05);
+    }
+    
+    .book-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--soft-green);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+    
+    .book-details {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .book-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--deep-blue);
+        margin-bottom: 8px;
+    }
+    
+    .book-author {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+    }
+    
+    .book-info {
+        display: flex;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .book-info-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.85rem;
+        color: #666;
+    }
+    
+    .book-info-item i {
+        color: var(--deep-blue);
+    }
+    
+    .book-description {
+        color: #333;
+        margin-bottom: 15px;
+        flex-grow: 1;
+    }
+    
+    .book-actions {
+        margin-top: auto;
+    }
+    
+    .btn-request {
+        width: 100%;
+        background-color: var(--deep-blue);
+    }
+    
+    .btn-request:hover {
+        background-color: var(--bright-orange);
+    }
+    
+    .pagination-container {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        gap: 8px;
+    }
+    
+    .page-item .page-link {
+        padding: 8px 16px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        color: var(--deep-blue);
+        transition: all 0.3s ease;
+    }
+    
+    .page-item.active .page-link {
+        background-color: var(--deep-blue);
+        color: white;
+        border-color: var(--deep-blue);
+    }
+    
+    .page-item .page-link:hover {
+        background-color: var(--light-gray);
+    }
+    
+    .no-results {
+        background-color: var(--white);
+        padding: 30px;
+        text-align: center;
+        border-radius: 10px;
+    }
+    
+    .no-results i {
+        font-size: 3rem;
+        color: #ddd;
+        margin-bottom: 15px;
+    }
+    
+    .book-type {
+        display: inline-block;
+        padding: 3px 10px;
+        background-color: var(--light-gray);
+        color: var(--deep-blue);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .donor-info {
+        background-color: var(--light-gray);
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .donor-avatar {
+        width: 35px;
+        height: 35px;
+        background-color: var(--deep-blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .donor-details {
+        font-size: 0.9rem;
+    }
+    
+    .donor-name {
+        font-weight: bold;
+        color: var(--deep-blue);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="bg-light py-2">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Donated Books</li>
+        </ol>
+    </div>
+</nav>
+
+<section class="donated-books-section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">Donated Books</h1>
+            <p class="section-subtitle">Browse through our collection of books generously donated by community members. These books are available for students and schools in need.</p>
+        </div>
+        
+        <div class="filters-section">
+            <form method="get" class="filter-form">
+                <div class="filter-group">
+                    <label for="search">Search</label>
+                    <div class="search-box">
+                        <input type="text" id="search" name="q" class="form-control" placeholder="Search by title or author" value="{{ request.GET.q }}">
+                        <button type="submit" class="btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="book_type">Book Type</label>
+                    <select id="book_type" name="type" class="form-control">
+                        <option value="">All Types</option>
+                        <option value="curriculum" {% if request.GET.type == 'curriculum' %}selected{% endif %}>Curriculum Books</option>
+                        <option value="story" {% if request.GET.type == 'story' %}selected{% endif %}>Story Books</option>
+                        <option value="general" {% if request.GET.type == 'general' %}selected{% endif %}>General Reading</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <select id="location" name="location" class="form-control">
+                        <option value="">All Locations</option>
+                        {% for location in locations %}
+                            <option value="{{ location }}" {% if request.GET.location == location %}selected{% endif %}>{{ location }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <button type="submit" class="btn">Filter</button>
+                    <a href="{% url 'donated_books' %}" class="btn btn-outline-secondary">Reset</a>
+                </div>
+            </form>
+        </div>
+        
+        {% if donated_books %}
+            <div class="books-grid">
+                {% for book in donated_books %}
+                    <div class="book-card">
+                        <div class="book-image">
+                            {% if book.image %}
+                                <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                            {% else %}
+                                <img src="/api/placeholder/400/300" alt="{{ book.title }}">
+                            {% endif %}
+                            <div class="book-badge">Donated</div>
+                        </div>
+                        <div class="book-details">
+                            <h2 class="book-title">{{ book.title }}</h2>
+                            <p class="book-author">By {{ book.author }}</p>
+                            
+                            <div class="book-type">{{ book.get_book_type_display }}</div>
+                            
+                            <div class="book-info">
+                                <div class="book-info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ book.location }}</span>
+                                </div>
+                                
+                                <div class="book-info-item">
+                                    <i class="fas fa-boxes"></i>
+                                    <span>{{ book.quantity }} available</span>
+                                </div>
+                            </div>
+                            
+                            <div class="book-description">
+                                {% if book.description %}
+                                    {{ book.description|truncatechars:120 }}
+                                {% else %}
+                                    <em>No description provided</em>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="donor-info">
+                                <div class="donor-avatar">
+                                    {{ book.donor_name|first }}
+                                </div>
+                                <div class="donor-details">
+                                    <div class="donor-name">{{ book.donor_name }}</div>
+                                    <div>Donated on {{ book.created_at|date:"M d, Y" }}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="book-actions">
+                                <a href="{% url 'book_detail' book.id %}" class="btn btn-request">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if is_paginated %}
+                <div class="pagination-container">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}page=1" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                        {% for num in paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active">
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.type %}type={{ request.GET.type }}&{% endif %}{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}page={{ paginator.num_pages }}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="no-results">
+                <i class="fas fa-book-open"></i>
+                <h3>No Donated Books Found</h3>
+                <p>We couldn't find any books matching your criteria. Try adjusting your filters or check back later!</p>
+                <a href="{% url 'donate_book' %}" class="btn mt-3">Donate a Book</a>
+            </div>
+        {% endif %}
+        
+        <div class="text-center mt-5">
+            <p>Want to help students access educational resources?</p>
+            <a href="{% url 'donate_book' %}" class="btn btn-lg">Donate Your Books</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

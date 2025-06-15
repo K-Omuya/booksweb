@@ -1,0 +1,584 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Books for All - Share a Book, Share a Dream{% endblock %}
+<style>
+    
+</style>
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Carousel Start -->
+<div class="header-carousel owl-carousel overflow-hidden" style="background-color: #F5F5F5;">
+    <!-- Carousel Item 1 -->
+    <div class="header-carousel-item hero-section" style="background-color: #004080;">
+        <div class="hero-bg-half-1"></div>
+        <div class="carousel-caption">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-7 animated fadeInLeft">
+                        <div class="text-sm-center text-md-start">
+                            <h4 class="text-uppercase fw-bold mb-4" style="color: #FF8200;">Welcome to Books for All</h4>
+                            <h1 class="display-1 text-white mb-4">Books for All is now in your city</h1>
+                            <p class="mb-5 fs-5" style="color: #FFFFFF;">
+                                Explore a world of knowledge with our vast collection of books. Whether you love fiction, history, or self-improvement, we have something for everyone. Start your reading journey today!
+                            </p>
+                            <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
+                                <a class="btn py-3 px-4 px-md-5 me-2" style="background-color: #FF8200; color: #FFFFFF;" href="#" onclick="openModal('videoModal1', 'https://www.youtube.com/embed/example1')">
+                                    <i class="fas fa-play-circle me-2"></i> <span>Watch Video</span>
+                                </a>
+                                <a class="btn py-3 px-4 px-md-5 ms-2" style="background-color: #3CB371; color: #FFFFFF;" href="#" onclick="openModal('learnMoreModal1', '')">
+                                    <span>Learn More</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carousel Item 2 -->
+    <div class="header-carousel-item hero-section" style="background-color: #004080;">
+        <div class="hero-bg-half-2"></div>
+        <div class="carousel-caption">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-7 animated fadeInLeft">
+                        <div class="text-sm-center text-md-start">
+                            <h4 class="text-uppercase fw-bold mb-4" style="color: #FF8200;">Welcome to Books for All</h4>
+                            <h1 class="display-2 text-white mb-4">Stay updated and Expand Your Mind by reading from our store</h1>
+                            <p class="mb-5 fs-5" style="color: #FFFFFF;">
+                                Discover a treasure trove of books for every reader. From timeless classics to modern bestsellers, we bring knowledge and stories closer to you. Start your reading adventure today!
+                            </p>
+                            <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
+                                <a class="btn py-3 px-4 px-md-5 me-2" style="background-color: #FF8200; color: #FFFFFF;" href="#" onclick="openModal('videoModal2', 'https://www.youtube.com/embed/example2')">
+                                    <i class="fas fa-play-circle me-2"></i> <span>Watch Video</span>
+                                </a>
+                                <a class="btn py-3 px-4 px-md-5 ms-2" style="background-color: #3CB371; color: #FFFFFF;" href="#" onclick="openModal('learnMoreModal2', '')">
+                                    <span>Learn More</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
+
+
+<!-- Modal Structure -->
+<div id="modalsContainer"></div>
+
+<script>
+function openModal(id, videoUrl) {
+    let content = '';
+    if (id.includes('video')) {
+        content = `<h2 style="color: #004080;">Watch Video</h2>
+                   <iframe width="560" height="315" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>`;
+    } else {
+        let learnMoreContent = '';
+        if (id === 'learnMoreModal1') {
+            learnMoreContent = "<p>Books for All is a community initiative that provides access to books for everyone. Whether you're a student, an avid reader, or just starting your reading journey, we have something for you!</p>";
+        } else if (id === 'learnMoreModal2') {
+            learnMoreContent = "<p>Stay updated with the latest releases and curated book selections tailored to different interests. Expand your knowledge with books that inspire, educate, and entertain.</p>";
+        }
+        content = `<h2 style="color: #004080;">Learn More</h2>${learnMoreContent}`;
+    }
+
+    document.getElementById('modalsContainer').innerHTML = `
+        <div id="${id}" class="modal-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+            <div class="modal-content" style="background: white; padding: 20px; border-radius: 8px; text-align: center; max-width: 600px; width: 90%;">
+                ${content}
+                <button onclick="closeModal('${id}')" style="margin-top: 10px; padding: 10px 20px; background: #FF8200; color: white; border: none; cursor: pointer; border-radius: 5px;">Close</button>
+            </div>
+        </div>
+    `;
+    document.getElementById(id).style.display = 'block';
+}
+
+function closeModal(id) {
+    document.getElementById(id).remove();
+}
+</script>
+<!-- About Start -->
+<!-- About Start -->
+<div class="container-fluid about pt-5" style="background-color: #F5F5F5;">
+    <div class="container pt-5">
+        <div class="row g-5 align-items-center">
+            <!-- Left Content -->
+            <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2s">
+                <div class="about-content h-100">
+                    <h4 style="color: #3CB371; font-weight: bold;">About Books for All</h4>
+                    <h1 class="display-4 mb-4" style="color: #004080; font-weight: 700;">Unlock Your Potential with the Power of Books</h1>
+                    <p class="mb-4" style="color: #333333; font-size: 1.2rem;">
+                        Explore a world of knowledge, imagination, and inspiration. Whether for learning or leisure,
+                        Books for All brings stories and wisdom right to your fingertips.
+                    </p>
+
+                    <!-- Tabs -->
+                    <div class="tab-class pb-4">
+                        <ul class="nav d-flex flex-wrap justify-content-center mb-3">
+                            <li class="nav-item">
+                                <a class="d-flex py-2 px-3 active" data-bs-toggle="pill" href="#tab-1"
+                                    style="background-color: #FF8200; color: #FFFFFF; border-radius: 5px; font-weight: bold; margin-bottom: 5px;">
+                                    Our Mission
+                                </a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="d-flex py-2 px-3" data-bs-toggle="pill" href="#tab-2"
+                                    style="background-color: #004080; color: #FFFFFF; border-radius: 5px; font-weight: bold; margin-bottom: 5px;">
+                                    Our Vision
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="d-flex py-2 px-3" data-bs-toggle="pill" href="#tab-3"
+                                    style="background-color: #3CB371; color: #FFFFFF; border-radius: 5px; font-weight: bold;">
+                                    Our Goal
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane fade show active p-3"
+                                style="background-color: #FFFFFF; border: 2px solid #FF8200; border-radius: 10px;">
+                                <div class="d-flex align-items-center py-3">
+                                    <span class="fas fa-rocket" style="color: #3CB371; font-size: 2rem; margin-right: 15px;"></span>
+                                    <p class="mb-0" style="color: #333333;">To bridge the educational inequality by ensuring every student has access to books through donations and exchanges.</p>
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane fade p-3"
+                                style="background-color: #FFFFFF; border: 2px solid #004080; border-radius: 10px;">
+                                <div class="d-flex align-items-center py-3">
+                                    <span class="fas fa-rocket" style="color: #FF8200; font-size: 2rem; margin-right: 15px;"></span>
+                                    <p class="mb-0" style="color: #333333;">A future where no child lacks books and education is accessible to all.</p>
+                                </div>
+                            </div>
+                            <div id="tab-3" class="tab-pane fade p-3"
+                                style="background-color: #FFFFFF; border: 2px solid #3CB371; border-radius: 10px;">
+                                <div class="d-flex align-items-center py-3">
+                                    <span class="fas fa-rocket" style="color: #004080; font-size: 2rem; margin-right: 15px;"></span>
+                                    <p class="mb-0" style="color: #333333;">Our goal is to make books accessible to everyone, fostering a culture of reading and learning.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons (Inline) -->
+                    <div class="row g-3 align-items-center justify-content-between">
+                        <div class="col-12 d-flex justify-content-between">
+                            <button id="learnMoreBtn" class="btn py-3 px-4"
+                                style="background-color: #FF8200; color: #FFFFFF; border-radius: 5px; font-weight: bold; width: 32%;">
+                                Learn More
+                            </button>
+                            <button id="makeAppointmentBtn" class="btn py-3 px-4"
+                                style="background-color: #FF8200; color: #FFFFFF; border-radius: 5px; font-weight: bold; width: 32%;">
+                                Make Appointment
+                            </button>
+                            <div class="d-flex flex-column text-center text-md-start" style="width: 32%;">
+                                <h3 style="font-size: 1.2rem;">Call Our Experts</h3>
+                                <p style="color: #004080; font-weight: bold;">0703128764</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Image -->
+            <div class="col-lg-6 wow fadeInUp text-center" data-wow-delay="0.2s" style="padding: 0;">
+                <div class="about-img h-100" style="width: 100%; height: 100%; position: relative;">
+                    <img src="{% static 'img/back.jpg' %}" class="img-fluid"
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"
+                        alt="Books for All">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+
+<!-- Appointment Form Modal -->
+
+<!-- Styles -->
+<style>
+.modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
+.modal-content { text-align: center; }
+.close { cursor: pointer; float: right; font-size: 20px; }
+#successMessage { display: none; position: fixed; top: 20px; right: 20px; background: green; color: white; padding: 10px; border-radius: 5px; }
+</style>
+<div id="appointmentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Book an Appointment</h2>
+        <form id="appointmentForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <input type="date" id="date" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!-- Success Popup -->
+<div id="successMessage">Appointment Booked Successfully!</div>
+
+<!-- JavaScript -->
+<script>
+document.getElementById("openAppointmentForm").onclick = function() {
+    document.getElementById("appointmentModal").style.display = "block";
+};
+
+document.querySelector(".close").onclick = function() {
+    document.getElementById("appointmentModal").style.display = "none";
+};
+
+document.getElementById("appointmentForm").onsubmit = function(event) {
+    event.preventDefault();
+
+    // Collect form data
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let date = document.getElementById("date").value;
+
+    // Send data to database (You need to implement the backend part)
+    console.log("Appointment Data:", { name, email, date });
+
+    // Close the form
+    document.getElementById("appointmentModal").style.display = "none";
+
+    // Show success message
+    let successMessage = document.getElementById("successMessage");
+    successMessage.style.display = "block";
+
+    // Hide success message after 3 seconds
+    setTimeout(() => {
+        successMessage.style.display = "none";
+    }, 3000);
+};
+</script>
+
+
+<!-- Blog Start -->
+<div class="container-fluid blog py-5" style="background-color: #F5F5F5;">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary" style="color: #3CB371; font-weight: bold;">Our Stories</h4>
+            <h1 class="display-4 mb-4" style="color: #004080; font-weight: 700;">Discover Inspiring Book Journeys</h1>
+            <p class="mb-0" style="font-size: 1.2rem; color: #333333;">
+                Explore heartwarming stories of book donations, literacy impact, and the joy of sharing books with those in need. Join us in spreading knowledge and love for reading.
+            </p>
+        </div>
+        <div class="blog-carousel owl-carousel">
+            <!-- Blog Items -->
+            <div class="blog-item wow fadeInUp" data-wow-delay="0.2s" style="border-radius: 10px; overflow: hidden; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+                <div class="blog-img" style="width: 100%; height: 250px; overflow: hidden; position: relative; background-color: #FFFFFF;">
+                    <a href="#">
+                        <img src="{% static 'img/profile2.jpeg' %}" alt="Library Initiative" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; object-fit: cover;">
+                    </a>
+                </div>
+                <div class="blog-content p-4" style="background-color: #FFFFFF; border-radius: 10px;">
+                    <div class="blog-comment d-flex justify-content-between py-2 px-3 mb-4" style="border-bottom: 2px solid #EEEEEE;">
+                        <div class="small" style="color: #333333;"><span class="fa fa-user" style="color: #FF8200;"></span> Alex Jeremy</div>
+                        <div class="small" style="color: #333333;"><span class="fa fa-calendar" style="color: #FF8200;"></span> 15 Feb 2025</div>
+                    </div>
+                    <a href="#" class="h4 d-inline-block mb-3" style="color: #004080; font-weight: 600;">Bringing Books to Rural Schools</a>
+                    <p class="mb-3" style="color: #666666;">A touching story of how donated books transformed the learning experience for children in underserved communities.</p>
+                     </div>
+            </div>
+            <div class="blog-item wow fadeInUp" data-wow-delay="0.4s" style="border-radius: 10px; overflow: hidden; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+                <div class="blog-img" style="width: 100%; height: 250px; overflow: hidden; position: relative; background-color: #FFFFFF;">
+                    <a href="#">
+                        <img src="{% static 'img/profile2.jpeg' %}" alt="Book Fair" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; object-fit: cover;">
+                    </a>
+                </div>
+                <div class="blog-content p-4" style="background-color: #FFFFFF; border-radius: 10px;">
+                    <div class="blog-comment d-flex justify-content-between py-2 px-3 mb-4" style="border-bottom: 2px solid #EEEEEE;">
+                        <div class="small" style="color: #333333;"><span class="fa fa-user" style="color: #FF8200;"></span> Sarah Connor</div>
+                        <div class="small" style="color: #333333;"><span class="fa fa-calendar" style="color: #FF8200;"></span> 10 March 2025</div>
+                    </div>
+                    <a href="#" class="h4 d-inline-block mb-3" style="color: #004080; font-weight: 600;">A Community Book Fair</a>
+                    <p class="mb-3" style="color: #666666;">Discover how a local book fair inspired a new generation of young readers and book lovers.</p>
+                     </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+
+
+    <<!-- Explore Books Start -->
+<div class="container-fluid explore py-5 wow zoomIn" data-wow-delay="0.2s"
+    style="background-color: #282c34; color: #ffffff; text-align: center;">
+    <div class="container py-5">
+        <h1 class="display-1 text-white mb-4"
+            style="font-weight: bold; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);">
+            Explore Books for All
+        </h1>
+
+        <!-- Video Section -->
+        <div style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;">
+            <!-- First YouTube Short -->
+            <iframe
+                width="315"
+                height="560"
+                src="https://www.youtube.com/embed/XNvsmQCjJEw"
+                title="YouTube Short 3"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="
+                    border-radius: 20px;
+                    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);">
+            </iframe>
+
+            <!-- Second YouTube Short -->
+            <iframe
+                width="315"
+                height="560"
+                src="https://www.youtube.com/embed/XNvsmQCjJEw"
+                title="YouTube Short 3"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="
+                    border-radius: 20px;
+                    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);">
+            </iframe>
+
+            <!-- Third YouTube Short -->
+            <iframe
+                width="315"
+                height="560"
+                src="https://www.youtube.com/embed/XNvsmQCjJEw"
+                title="YouTube Short 3"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="
+                    border-radius: 20px;
+                    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);">
+            </iframe>
+        </div>
+    </div>
+</div>
+<!-- Explore Books End -->
+
+    <!-- Testimonial Start -->
+<div class="container-fluid testimonial" style="background-color: #004080; padding: 90px 0;"> <!-- Deep Blue background -->
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 style="color: #3CB371;">Testimonial</h4> <!-- Soft Green for the subtitle -->
+            <h1 class="display-4" style="color: #FFFFFF;">What Our Readers Are Saying</h1> <!-- White for the heading -->
+            <p style="color: #F5F5F5; font-size: 1.25rem;"> <!-- Light Gray for the paragraph -->
+                At <strong style="color: #FF8200;">Books for All</strong>, we believe that books have the power to change lives.
+                Our mission is to make reading accessible and enjoyable for everyone.
+                Whether you're an avid reader, a student seeking knowledge, or someone discovering the joy of books,
+                we are here to support you. Don't just take our word for it—hear what our readers have to say!
+            </p>
+        </div>
+        <div class="testimonial-carousel owl-carousel wow fadeInUp" data-wow-delay="0.2s">
+            <!-- Testimonial Item 1 -->
+            <div class="testimonial-item mx-auto" style="max-width: 900px; background-color: #FFFFFF; border-radius: 10px; padding: 20px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);"> <!-- White background for individual items -->
+                <span class="fa fa-quote-left fa-3x" style="color: #FF8200;"></span> <!-- Bright Orange for the quote icon -->
+                <div class="testimonial-img mb-4" style="width: 200px; height: 200px; overflow: hidden; margin: 0 auto; border-radius: 50%; background-color: #F5F5F5;"> <!-- Light Gray fallback -->
+                    <img src="{% static 'img/profile3.jpeg' %}" class="img-fluid" alt="Library Initiative" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p style="color: #333333; font-size: 1.15rem; margin-bottom: 20px;"> <!-- Dark Gray for the text -->
+                    Books for All has completely transformed my reading habits.
+                    The collection is vast, and I always find something new to read. Highly recommend it!
+                </p>
+                <div class="d-block">
+                    <h4 style="color: #004080;">Jane Wairimo</h4> <!-- Deep Blue for names -->
+                    <p style="color: #333333;">Book Enthusiast</p> <!-- Dark Gray for roles -->
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #F5F5F5;"></i> <!-- Light Gray for inactive stars -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial Item 2 -->
+            <div class="testimonial-item mx-auto" style="max-width: 900px; background-color: #FFFFFF; border-radius: 10px; padding: 20px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
+                <span class="fa fa-quote-left fa-3x" style="color: #FF8200;"></span>
+                <div class="testimonial-img mb-4" style="width: 200px; height: 200px; overflow: hidden; margin: 0 auto; border-radius: 50%; background-color: #F5F5F5;">
+                    <img src="{% static 'img/profile2.jpeg' %}" class="img-fluid" alt="Library Initiative" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p style="color: #333333; font-size: 1.15rem; margin-bottom: 20px;">
+                    As a student, I rely on Books for All for my academic resources.
+                    The availability of educational materials has been a game-changer for my studies.
+                </p>
+                <div class="d-block">
+                    <h4 style="color: #004080;">Kennedy</h4>
+                    <p style="color: #333333;">University Student</p>
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #F5F5F5;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial Item 3 -->
+            <div class="testimonial-item mx-auto" style="max-width: 900px; background-color: #FFFFFF; border-radius: 10px; padding: 20px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
+                <span class="fa fa-quote-left fa-3x" style="color: #FF8200;"></span>
+                <div class="testimonial-img mb-4" style="width: 200px; height: 200px; overflow: hidden; margin: 0 auto; border-radius: 50%; background-color: #F5F5F5;">
+                    <img src="{% static 'img/profile1.jpeg' %}" class="img-fluid" alt="Library Initiative" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p style="color: #333333; font-size: 1.15rem; margin-bottom: 20px;">
+                    I love the ease of access to so many amazing books.
+                    Whether it's fiction or self-improvement, I always find something that inspires me.
+                </p>
+                <div class="d-block">
+                    <h4 style="color: #004080;">Simon Otieno</h4>
+                    <p style="color: #333333;">Avid Reader</p>
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #FF8200;"></i>
+                        <i class="fas fa-star" style="color: #F5F5F5;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Testimonials slider (for mobile)
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    if (testimonialCards.length > 1) {
+        let currentTestimonial = 0;
+
+        // Show only the first testimonial on mobile
+        function updateTestimonialDisplay() {
+            if (window.innerWidth < 768) {
+                testimonialCards.forEach((card, index) => {
+                    if (index === currentTestimonial) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            } else {
+                testimonialCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+        }
+
+        // Initialize testimonial display
+        updateTestimonialDisplay();
+
+        // Listen for window resize
+        window.addEventListener('resize', updateTestimonialDisplay);
+
+        // Create navigation buttons for mobile
+        const testimonialSection = document.querySelector('.testimonials-slider');
+
+        if (testimonialSection && window.innerWidth < 768) {
+            const navContainer = document.createElement('div');
+            navContainer.className = 'testimonial-nav';
+            navContainer.style.textAlign = 'center';
+            navContainer.style.marginTop = '20px';
+
+            const prevBtn = document.createElement('button');
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevBtn.className = 'btn btn-sm';
+            prevBtn.style.marginRight = '10px';
+
+            const nextBtn = document.createElement('button');
+            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextBtn.className = 'btn btn-sm';
+
+            prevBtn.addEventListener('click', function() {
+                currentTestimonial = (currentTestimonial - 1 + testimonialCards.length) % testimonialCards.length;
+                updateTestimonialDisplay();
+            });
+
+            nextBtn.addEventListener('click', function() {
+                currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+                updateTestimonialDisplay();
+            });
+
+            navContainer.appendChild(prevBtn);
+            navContainer.appendChild(nextBtn);
+
+            testimonialSection.appendChild(navContainer);
+        }
+    }
+
+    // Animate impact numbers on scroll
+    const impactSection = document.querySelector('.impact-section');
+    const impactNumbers = document.querySelectorAll('.impact-number');
+    let animated = false;
+
+    function animateNumbers() {
+        if (animated) return;
+
+        const sectionTop = impactSection.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (sectionTop < windowHeight * 0.75) {
+            impactNumbers.forEach(number => {
+                const target = parseInt(number.textContent.replace(/[^0-9]/g, ''));
+                let current = 0;
+                const increment = Math.ceil(target / 100);
+                const duration = 1500; // in milliseconds
+                const stepTime = Math.floor(duration / (target / increment));
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    number.textContent = current.toLocaleString() + (number.textContent.includes('+') ? '+' : '');
+                }, stepTime);
+            });
+
+            animated = true;
+            window.removeEventListener('scroll', animateNumbers);
+        }
+    }
+
+    window.addEventListener('scroll', animateNumbers);
+    animateNumbers(); // Check on page load as well
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId !== '#') {
+                e.preventDefault();
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
